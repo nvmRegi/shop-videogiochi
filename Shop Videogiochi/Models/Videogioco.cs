@@ -6,7 +6,7 @@ using System.Linq;
 namespace Shop_Videogiochi.Models
 {
 
-    public class PacchettoViaggio
+    public class Videogioco
     {
         [Key]
         public int Id { get; set; }
@@ -23,14 +23,14 @@ namespace Shop_Videogiochi.Models
         public string Foto { get; set; }
 
         [Required(ErrorMessage = "La descrizione del videogioco è obbligatoria")]
+        [StringLength(4000, ErrorMessage = "La descrizione del Videogioco non può contenere più di 4000 caratteri")]
         public string Descrizione { get; set; }
 
-        [Required(ErrorMessage = "E' necessario inserire il costo del pacchetto")]
+        [Required(ErrorMessage = "E' necessario inserire il costo del prodotto")]
+        [Range(0, 500, ErrorMessage = "Il prezzo del prodotto dev'essere inferiore a 500€")]
         public double Prezzo   { get; set; }
-
         
-        public int Like { get; set; }
-
+        public int Like { get; set; } = 0;
 
         public int Disponibilità { get; set; }
 
@@ -49,18 +49,6 @@ namespace Shop_Videogiochi.Models
             this.Prezzo = Prezzo;
             this.Disponibilità = Disponibilità;
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
