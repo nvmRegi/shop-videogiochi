@@ -23,7 +23,7 @@ namespace Shop_Videogiochi.Controllers
             {
 
                 videogiocoDaModificare = db.Videogiochi
-                              .Where(PacchettoViaggio => PacchettoViaggio.Id == id)
+                              .Where(videogioco => videogioco.Id == id)
                               .First();
             }
 

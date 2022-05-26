@@ -9,7 +9,7 @@
         <h1 class="mt-3 mb-3">Nuovo videogioco</h1>
     </div>
 
-    <form action="@Url.Action("Crea", "Admin")" method="post">
+    <form asp-controller="Admin" asp-action="Aggiorna" asp-route-id="@Model.videogioco.Id" method="post">
         @Html.AntiForgeryToken()
 
         <!-- Titolo -->
