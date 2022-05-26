@@ -34,9 +34,12 @@ namespace Shop_Videogiochi.Models
 
         public int Disponibilità { get; set; }
 
-        //foreign key
+        //foreign key Categoria
         public int CategoriaId { get; set; }
-        public Videogioco Videogiochi { get; set; }
+        public Categoria Categoria { get; set; }
+
+        //collegamento 1 a molti con ordini
+        public List<Ordine> Ordini { get; set; }
 
         //costruttore
 

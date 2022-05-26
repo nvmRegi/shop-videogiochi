@@ -17,6 +17,7 @@ namespace Shop_Videogiochi.Models
         public List<Videogioco> Videogiochi { get; set; }
 
 
+
         public Categoria()
         {
 

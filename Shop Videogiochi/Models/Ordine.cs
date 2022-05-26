@@ -21,6 +21,11 @@ namespace Shop_Videogiochi.Models
         [StringLength(50, ErrorMessage = "Il nome del fornitore non può contenere più di 50 caratteri")]
         public string? NomeFornitore { get; set; }
 
+        //Foreign key videogioco
+        public int VideogiocoId { get; set; }
+        public Videogioco Videogioco { get; set; }
+
+
         //costruttore 
 
         public Ordine()
