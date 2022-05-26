@@ -99,9 +99,13 @@ namespace Shop_Videogiochi.Controllers
                         .Single();
                     return View("Details", videogiocoTrovato);
                 }
+                catch (ArgumentNullException ex)
+                {
+                    return NotFound("Prodotto inesistente");
+                }
                 catch (InvalidOperationException ex)
                 {
-                    return NotFound("Pacchetto inesistente");
+                    return NotFound("Operazione Errata");
                 }
             }
         }
