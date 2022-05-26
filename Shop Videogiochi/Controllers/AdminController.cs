@@ -14,7 +14,7 @@ namespace Shop_Videogiochi.Controllers
 
             using(VideogameShopContext db = new VideogameShopContext())
             {
-                videogiocoList = db.Videogiochi.ToList<Videogioco>();
+                videogiocoList = db.Videogiochi.ToList();
             }
             return View(videogiocoList);
         }
