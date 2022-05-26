@@ -25,7 +25,7 @@ namespace Shop_Videogiochi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Crea(Videogioco nuovoVideogioco)
+        public IActionResult Crea(Videogiochi nuovoVideogioco)
         {
             if (!ModelState.IsValid)
             {
@@ -34,9 +34,9 @@ namespace Shop_Videogiochi.Controllers
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                Videogioco videogiocoToCreate = new Videogioco(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
+                Videogiochi videogiocoToCreate = new Videogiochi(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
 
-                db.Videogioco.Add(videogiocoToCreate);
+                db.Videogiochi.Add(videogiocoToCreate);
                 db.SaveChanges();
             }
 
