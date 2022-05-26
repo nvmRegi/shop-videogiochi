@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace shop-videogiochi.Models
+namespace Shop_Videogiochi.Models
 {
 
-    [Index(IsUnique = true)]
     public class PacchettoViaggio
     {
         [Key]
@@ -35,23 +34,20 @@ namespace shop-videogiochi.Models
 
         public int Disponibilità { get; set; }
 
+        //costruttore
 
-
-
-  
-
-        [Required(ErrorMessage = "E' obbligatorio inserire un'immagine")]
-
-        public PacchettoViaggio()
+        public Videogioco()
         { }
 
-        public PacchettoViaggio(int Id, string NomePacchetto, string Descrizione, int Prezzo, string UrlImmagine)
+        public Videogioco(int Id, int Categoria_id, string Nome, string Foto, string Descrizione, double Prezzo, int Disponibilità)
         {
             this.Id = Id;
-            this.NomePacchetto = NomePacchetto;
+            this.Categoria_id = Categoria_id;
+            this.Nome = Nome;
+            this.Foto = Foto;
             this.Descrizione = Descrizione;
             this.Prezzo = Prezzo;
-            this.UrlImmagine = UrlImmagine;
+            this.Disponibilità = Disponibilità;
         }
 
 
