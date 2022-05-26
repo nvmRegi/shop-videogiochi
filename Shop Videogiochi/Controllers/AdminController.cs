@@ -103,8 +103,8 @@ namespace Shop_Videogiochi.Controllers
                 }
             }
         }
-    }
-}
+
+
 
         /*----------------------------------------------------read------------------------------------------------------------*/
 
@@ -116,7 +116,7 @@ namespace Shop_Videogiochi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Crea(Videogiochi nuovoVideogioco)
+        public IActionResult Crea(Videogioco nuovoVideogioco)
         {
             if (!ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace Shop_Videogiochi.Controllers
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                Videogiochi videogiocoToCreate = new Videogiochi(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
+                Videogioco videogiocoToCreate = new Videogioco(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
 
                 db.Videogiochi.Add(videogiocoToCreate);
                 db.SaveChanges();

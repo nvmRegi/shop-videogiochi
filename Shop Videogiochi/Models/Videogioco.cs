@@ -57,5 +57,13 @@ namespace Shop_Videogiochi.Models
             this.Prezzo = Prezzo;
             this.Disponibilità = Disponibilità;
         }
+
+        public Videogioco(string nome, string descrizione, string foto, double prezzo)
+        {
+            Nome = nome;
+            Descrizione = descrizione;
+            Foto = foto;
+            Prezzo = prezzo;
+        }
     }
 }
