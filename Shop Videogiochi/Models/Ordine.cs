@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop_Videogiochi.Models
 {
+    [Table("Ordini")]
+    [Index(nameof(Id), IsUnique = true)]
     public class Ordine
     {
         [Key]
