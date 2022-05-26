@@ -45,30 +45,30 @@ namespace Shop_Videogiochi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Aggiorna(int id, PacchettoViaggio modello)
+        public IActionResult Aggiorna(int id, Videogioco modello)
         {
             if (!ModelState.IsValid)
             {
                 return View("AggiornaPacchetto", modello);
             }
 
-            PacchettoViaggio pacchettoDaModificare = null;
+            Videogioco VideogiocoDaModificare = null;
 
-            using (TravelAgencyContext db = new TravelAgencyContext())
+            using (VideogameShopContext db = new VideogameShopContext())
             {
-                pacchettoDaModificare = db.PacchettiViaggio
+                VideogiocoDaModificare = db.Videogiochi
                       .Where(Pizza => Pizza.Id == id)
                       .First();
 
-                if (pacchettoDaModificare != null)
+                if (VideogiocoDaModificare != null)
                 {
                     //aggiorniamo i campi con i nuovi valori
-                    pacchettoDaModificare.Destinazione = modello.Destinazione;
-                    pacchettoDaModificare.TipoPensione = modello.TipoPensione;
-                    pacchettoDaModificare.StelleHotel = modello.StelleHotel;
-                    pacchettoDaModificare.NumerOspiti = modello.NumerOspiti;
-                    pacchettoDaModificare.Immagine = modello.Immagine;
-                    pacchettoDaModificare.Prezzo = modello.Prezzo;
+                    VideogiocoDaModificare.Nome = modello.Nome;
+                    VideogiocoDaModificare.Foto = modello.Foto;
+                    VideogiocoDaModificare.Descrizione = modello.Descrizione;
+                    VideogiocoDaModificare.Like = modello.Like;
+                    VideogiocoDaModificare.Disponibilità = modello.Disponibilità;
+                    VideogiocoDaModificare.Prezzo = modello.Prezzo;
 
                     db.SaveChanges();
 
