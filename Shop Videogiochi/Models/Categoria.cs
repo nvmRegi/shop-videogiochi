@@ -14,6 +14,9 @@ namespace Shop_Videogiochi.Models
         [StringLength(30, ErrorMessage = "Il tema non può avere più di ")]
         public string Tema { get; set; }
 
+        public List<Videogioco> Videogiochi { get; set; }
+
+
         public Categoria()
         {
 

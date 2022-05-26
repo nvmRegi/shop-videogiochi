@@ -35,6 +35,10 @@ namespace Shop_Videogiochi.Models
 
         public int Disponibilità { get; set; }
 
+        //foreign key
+        public int CategoriaId { get; set; }
+        public Videogioco Videogiochi { get; set; }
+
         //costruttore
 
         public Videogioco()
