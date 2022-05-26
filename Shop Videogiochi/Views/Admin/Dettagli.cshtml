@@ -1,0 +1,54 @@
+﻿@model VideogiocoCategoria
+
+@{
+    ViewData["Title"] = "Dettagli";
+}
+
+<h1>Dettagli</h1>
+
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Titolo: 
+        </dt>
+        <dd class = "col-sm-8 col-md-6">
+            @Html.DisplayFor(model => model.videogioco.Nome)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Descrizione: 
+        </dt>
+        <dd class = "col-sm-8 col-md-6">
+            @Html.DisplayFor(model => model.videogioco.Descrizione)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Genere: 
+        </dt>
+        <dd class = "col-sm-8 col-md-6">
+            @Html.DisplayFor(model => model.videogioco.Categoria)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Disponiblità:
+        </dt>
+        <dd class = "col-sm-8 col-md-6">
+            @Html.DisplayFor(model => model.videogioco.Disponibilità)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Prezzo al pubblico:
+        </dt>
+        <dd class = "col-sm-8 col-md-6">
+            @Html.DisplayFor(model => model.videogioco.Prezzo)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Modifica" asp-route-id="@Model.videogioco.Id">Edit</a> |
+    <a asp-action="Index">Ritorna alla Lista</a>
+</div>
