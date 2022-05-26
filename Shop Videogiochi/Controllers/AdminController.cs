@@ -16,111 +16,94 @@ namespace Shop_Videogiochi.Controllers
         {
             return View();
         }
-    }
 
-    // ------------------------------------------- Modifica Videogioco -------------------------------------------------
 
-    [HttpGet]
-    public IActionResult Aggiorna(int id)
-    {
-        Videogioco videogiocoDaModificare = null;
+        // ------------------------------------------- Modifica Videogioco -------------------------------------------------
 
-        using (VideogameShopContext db = new VideogameShopContext())
+        [HttpGet]
+        public IActionResult Aggiorna(int id)
         {
+            Videogioco videogiocoDaModificare = null;
 
-            videogiocoDaModificare = db.Videogiochi
-                          .Where(PacchettoViaggio => PacchettoViaggio.Id == id)
-                          .First();
-        }
-
-        if (videogiocoDaModificare == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            return View("Index", videogiocoDaModificare);
-        }
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Aggiorna(int id, PacchettoViaggio modello)
-    {
-        if (!ModelState.IsValid)
-        {
-            return View("AggiornaPacchetto", modello);
-        }
-
-        PacchettoViaggio pacchettoDaModificare = null;
-
-        using (TravelAgencyContext db = new TravelAgencyContext())
-        {
-            pacchettoDaModificare = db.PacchettiViaggio
-                  .Where(Pizza => Pizza.Id == id)
-                  .First();
-
-            if (pacchettoDaModificare != null)
+            using (VideogameShopContext db = new VideogameShopContext())
             {
-                //aggiorniamo i campi con i nuovi valori
-                pacchettoDaModificare.Destinazione = modello.Destinazione;
-                pacchettoDaModificare.TipoPensione = modello.TipoPensione;
-                pacchettoDaModificare.StelleHotel = modello.StelleHotel;
-                pacchettoDaModificare.NumerOspiti = modello.NumerOspiti;
-                pacchettoDaModificare.Immagine = modello.Immagine;
-                pacchettoDaModificare.Prezzo = modello.Prezzo;
 
-                db.SaveChanges();
-
-                return RedirectToAction("index");
+                videogiocoDaModificare = db.Videogiochi
+                              .Where(PacchettoViaggio => PacchettoViaggio.Id == id)
+                              .First();
             }
-            else
+
+            if (videogiocoDaModificare == null)
             {
                 return NotFound();
             }
+            else
+            {
+                return View("Index", videogiocoDaModificare);
+            }
         }
-    }
 
-
-
-
-
-
-
-    /*-------------------------------------read---------------------------------------------------------------------------------------*/
-
-    [HttpGet]
-    public IActionResult Dettagli(int id)
-    {
-
-        using VideogameShopContext db = new VideogameShopContext()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Aggiorna(int id, PacchettoViaggio modello)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                Videogioco videogiocoTrovato = db.Videogiochi
-                    .Where(x => x.Id == id)
-                    .Single();
-                return View("Details", videogiocoTrovato);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound("Pacchetto inesistente");
+                return View("AggiornaPacchetto", modello);
             }
 
+            PacchettoViaggio pacchettoDaModificare = null;
+
+            using (TravelAgencyContext db = new TravelAgencyContext())
+            {
+                pacchettoDaModificare = db.PacchettiViaggio
+                      .Where(Pizza => Pizza.Id == id)
+                      .First();
+
+                if (pacchettoDaModificare != null)
+                {
+                    //aggiorniamo i campi con i nuovi valori
+                    pacchettoDaModificare.Destinazione = modello.Destinazione;
+                    pacchettoDaModificare.TipoPensione = modello.TipoPensione;
+                    pacchettoDaModificare.StelleHotel = modello.StelleHotel;
+                    pacchettoDaModificare.NumerOspiti = modello.NumerOspiti;
+                    pacchettoDaModificare.Immagine = modello.Immagine;
+                    pacchettoDaModificare.Prezzo = modello.Prezzo;
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+        // -------------------------------------------Fine Modifica Videogioco -------------------------------------------------
+
+        /*----------------------------------------------------read------------------------------------------------------------*/
+
+        [HttpGet]
+        public IActionResult Dettagli(int id)
+        {
+
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                try
+                {
+                    Videogioco videogiocoTrovato = db.Videogiochi
+                        .Where(x => x.Id == id)
+                        .Single();
+                    return View("Details", videogiocoTrovato);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return NotFound("Pacchetto inesistente");
+                }
+            }
         }
     }
-    /*----------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+        /*----------------------------------------------------read------------------------------------------------------------*/
