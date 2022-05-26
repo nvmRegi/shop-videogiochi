@@ -80,5 +80,47 @@ namespace Shop_Videogiochi.Controllers
             }
         }
     }
-    // ------------------------------------------- Fine Modifica Videogioco -------------------------------------------
+
+
+
+
+
+
+
+    /*-------------------------------------read---------------------------------------------------------------------------------------*/
+
+    [HttpGet]
+    public IActionResult Dettagli(int id)
+    {
+
+        using VideogameShopContext db = new VideogameShopContext()
+        {
+            try
+            {
+                Videogioco videogiocoTrovato = db.Videogiochi
+                    .Where(x => x.Id == id)
+                    .Single();
+                return View("Details", videogiocoTrovato);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound("Pacchetto inesistente");
+            }
+
+        }
+    }
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
