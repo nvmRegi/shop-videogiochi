@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace Shop_Videogiochi.Models
 {
-    //[Table("Videogioco")]
-    [Index(nameof(Id), IsUnique = true)]
+    ////[Table("Videogioco")]
+    //[Index(nameof(Id), IsUnique = true)]
     public class Videogioco
     {
         [Key]
@@ -37,6 +37,7 @@ namespace Shop_Videogiochi.Models
 
         //foreign key Categoria
         public int CategoriaId { get; set; }
+        [Required(ErrorMessage = "La categoria del videogioco è obbligatoria")]
         public Categoria Categoria { get; set; }
 
         //collegamento 1 a molti con ordini
