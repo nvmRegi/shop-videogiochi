@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Shop_Videogiochi.Models
 {
-    [Table("Videogioco")]
+    //[Table("Videogioco")]
     [Index(nameof(Id), IsUnique = true)]
     public class Videogioco
     {
