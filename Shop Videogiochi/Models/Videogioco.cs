@@ -57,6 +57,5 @@ namespace Shop_Videogiochi.Models
             this.Prezzo = Prezzo;
             this.Disponibilità = Disponibilità;
         }
-
     }
 }
