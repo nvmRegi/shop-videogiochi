@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shop_Videogiochi.Data;
+using Shop_Videogiochi.Models;
 
 namespace Shop_Videogiochi.Controllers
 {
@@ -15,4 +17,68 @@ namespace Shop_Videogiochi.Controllers
             return View();
         }
     }
+
+    // ------------------------------------------- Modifica Videogioco -------------------------------------------------
+
+    [HttpGet]
+    public IActionResult Aggiorna(int id)
+    {
+        Videogioco videogiocoDaModificare = null;
+
+        using (VideogameShopContext db = new VideogameShopContext())
+        {
+
+            videogiocoDaModificare = db.Videogiochi
+                          .Where(PacchettoViaggio => PacchettoViaggio.Id == id)
+                          .First();
+        }
+
+        if (videogiocoDaModificare == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return View("Index", videogiocoDaModificare);
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Aggiorna(int id, PacchettoViaggio modello)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("AggiornaPacchetto", modello);
+        }
+
+        PacchettoViaggio pacchettoDaModificare = null;
+
+        using (TravelAgencyContext db = new TravelAgencyContext())
+        {
+            pacchettoDaModificare = db.PacchettiViaggio
+                  .Where(Pizza => Pizza.Id == id)
+                  .First();
+
+            if (pacchettoDaModificare != null)
+            {
+                //aggiorniamo i campi con i nuovi valori
+                pacchettoDaModificare.Destinazione = modello.Destinazione;
+                pacchettoDaModificare.TipoPensione = modello.TipoPensione;
+                pacchettoDaModificare.StelleHotel = modello.StelleHotel;
+                pacchettoDaModificare.NumerOspiti = modello.NumerOspiti;
+                pacchettoDaModificare.Immagine = modello.Immagine;
+                pacchettoDaModificare.Prezzo = modello.Prezzo;
+
+                db.SaveChanges();
+
+                return RedirectToAction("index");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+    }
+    // ------------------------------------------- Fine Modifica Videogioco -------------------------------------------
 }
