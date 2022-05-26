@@ -132,5 +132,34 @@ namespace Shop_Videogiochi.Controllers
 
             return RedirectToAction("Index");
         }
+         [HttpPost]
+         public IActionResult Cancella(int id)
+        {
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                Videogioco videogiocoDaCancellare = db.Videogiochi
+                    .Where(x => x.Id == id)
+                    .First();
+                   
+                if (videogiocoDaCancellare != null)
+                {
+                    db.Videogiochi.Remove(videogiocoDaCancellare);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+        }
+        
+
+
+
+
     }
+
+
 }
