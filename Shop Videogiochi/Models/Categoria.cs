@@ -19,6 +19,7 @@ namespace Shop_Videogiochi.Models
 
         }
 
+        //Non metto l'id nel costruttore perchè sarà presente nel database
         public Categoria(string Tema)
         {
             this.Tema = Tema;
