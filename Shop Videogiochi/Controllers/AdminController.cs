@@ -11,6 +11,7 @@ namespace Shop_Videogiochi.Controllers
             return View();
         }
 
+
         // ------------------------------------------- Modifica Videogioco -------------------------------------------------
 
         [HttpGet]
@@ -22,7 +23,7 @@ namespace Shop_Videogiochi.Controllers
             {
 
                 videogiocoDaModificare = db.Videogiochi
-                              .Where(videogioco => videogioco.Id == id)
+                              .Where(PacchettoViaggio => PacchettoViaggio.Id == id)
                               .First();
             }
 
@@ -38,30 +39,30 @@ namespace Shop_Videogiochi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Aggiorna(int id, PacchettoViaggio modello)
+        public IActionResult Aggiorna(int id, Videogioco modello)
         {
             if (!ModelState.IsValid)
             {
                 return View("AggiornaPacchetto", modello);
             }
 
-            PacchettoViaggio pacchettoDaModificare = null;
+            Videogioco VideogiocoDaModificare = null;
 
-            using (TravelAgencyContext db = new TravelAgencyContext())
+            using (VideogameShopContext db = new VideogameShopContext())
             {
-                pacchettoDaModificare = db.PacchettiViaggio
+                VideogiocoDaModificare = db.Videogiochi
                       .Where(Pizza => Pizza.Id == id)
                       .First();
 
-                if (pacchettoDaModificare != null)
+                if (VideogiocoDaModificare != null)
                 {
                     //aggiorniamo i campi con i nuovi valori
-                    pacchettoDaModificare.Destinazione = modello.Destinazione;
-                    pacchettoDaModificare.TipoPensione = modello.TipoPensione;
-                    pacchettoDaModificare.StelleHotel = modello.StelleHotel;
-                    pacchettoDaModificare.NumerOspiti = modello.NumerOspiti;
-                    pacchettoDaModificare.Immagine = modello.Immagine;
-                    pacchettoDaModificare.Prezzo = modello.Prezzo;
+                    VideogiocoDaModificare.Nome = modello.Nome;
+                    VideogiocoDaModificare.Foto = modello.Foto;
+                    VideogiocoDaModificare.Descrizione = modello.Descrizione;
+                    VideogiocoDaModificare.Like = modello.Like;
+                    VideogiocoDaModificare.Disponibilità = modello.Disponibilità;
+                    VideogiocoDaModificare.Prezzo = modello.Prezzo;
 
                     db.SaveChanges();
 
@@ -73,36 +74,63 @@ namespace Shop_Videogiochi.Controllers
                 }
             }
         }
+        // -------------------------------------------Fine Modifica Videogioco -------------------------------------------------
 
-
-
-
-
-
-
-        /*-------------------------------------read---------------------------------------------------------------------------------------*/
+        /*----------------------------------------------------read------------------------------------------------------------*/
 
         [HttpGet]
         public IActionResult Dettagli(int id)
         {
 
-            using VideogameShopContext db = new VideogameShopContext()
+            using (VideogameShopContext db = new VideogameShopContext())
             {
-            try
-            {
-                Videogioco videogiocoTrovato = db.Videogiochi
-                    .Where(x => x.Id == id)
-                    .Single();
-                return View("Details", videogiocoTrovato);
+                try
+                {
+                    Videogioco videogiocoTrovato = db.Videogiochi
+                        .Where(x => x.Id == id)
+                        .Single();
+                    return View("Details", videogiocoTrovato);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return NotFound("Pacchetto inesistente");
+                }
             }
-            catch (InvalidOperationException ex)
+        }
+
+
+
+        /*----------------------------------------------------read------------------------------------------------------------*/
+
+        [HttpGet]
+        public IActionResult Crea()
+        {
+            return View("FormCrea");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Crea(Videogioco nuovoVideogioco)
+        {
+            if (!ModelState.IsValid)
             {
-                return NotFound("Pacchetto inesistente");
+                return View("FormCrea", nuovoVideogioco);
             }
 
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                Videogioco videogiocoToCreate = new Videogioco(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
+
+                db.Videogiochi.Add(videogiocoToCreate);
+                db.SaveChanges();
+            }
+
+            //Pizza pizzaConId = new Pizza(PostData.GetPizze().Count, nuovaPizza.Name , nuovaPizza.Description , nuovaPizza.Image);
+
+            //Il mio modello è corretto
+            //PostData.GetPizze().Add(pizzaConId);
+
+            return RedirectToAction("Index");
         }
     }
-    /*----------------------------------------------------------------------------------------------------------------------------*/
-}
-
 }
