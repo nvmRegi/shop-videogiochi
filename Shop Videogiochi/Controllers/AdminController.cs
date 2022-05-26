@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shop_Videogiochi.Data;
+using Shop_Videogiochi.Models;
 
 namespace Shop_Videogiochi.Controllers
 {
@@ -13,6 +15,37 @@ namespace Shop_Videogiochi.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Crea()
+        {
+            return View("FormCrea");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Crea(Videogioco nuovoVideogioco)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("FormCrea", nuovoVideogioco);
+            }
+
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                Videogioco videogiocoToCreate = new Videogioco(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
+
+                db.Videogioco.Add(videogiocoToCreate);
+                db.SaveChanges();
+            }
+
+            //Pizza pizzaConId = new Pizza(PostData.GetPizze().Count, nuovaPizza.Name , nuovaPizza.Description , nuovaPizza.Image);
+
+            //Il mio modello è corretto
+            //PostData.GetPizze().Add(pizzaConId);
+
+            return RedirectToAction("Index");
         }
     }
 }
