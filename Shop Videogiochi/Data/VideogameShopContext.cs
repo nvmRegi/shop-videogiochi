@@ -5,9 +5,9 @@ namespace Shop_Videogiochi.Data
 {
     public class VideogameShopContext : DbContext
     { 
-        DbSet<Categoria> Categorie { get; set; }
-        DbSet<Videogioco> Videogiochi { get; set; }
-        DbSet<Ordine> Ordini { get; set; }
+        public DbSet<Categoria> Categorie { get; set; }
+        public DbSet<Videogioco> Videogiochi { get; set; }
+        public DbSet<Ordine> Ordini { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
