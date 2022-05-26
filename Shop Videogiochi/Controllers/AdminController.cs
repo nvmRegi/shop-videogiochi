@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop_Videogiochi.Data;
 using Shop_Videogiochi.Models;
 
@@ -6,9 +7,16 @@ namespace Shop_Videogiochi.Controllers
 {
     public class AdminController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<Videogioco> videogiocoList = new List<Videogioco>();
+
+            using(VideogameShopContext db = new VideogameShopContext())
+            {
+                videogiocoList = db.Videogiochi.ToList<Videogioco>();
+            }
+            return View(videogiocoList);
         }
 
 
