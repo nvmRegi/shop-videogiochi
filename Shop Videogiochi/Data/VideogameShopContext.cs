@@ -8,6 +8,7 @@ namespace Shop_Videogiochi.Data
         public DbSet<Categoria> Categorie { get; set; }
         public DbSet<Videogioco> Videogiochi { get; set; }
         public DbSet<Ordine> Ordini { get; set; }
+        public DbSet<OrdineFornitore> OrdiniFornitore { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop_Videogiochi.Data;
 
@@ -11,9 +12,10 @@ using Shop_Videogiochi.Data;
 namespace Shop_Videogiochi.Migrations
 {
     [DbContext(typeof(VideogameShopContext))]
-    partial class VideogameShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220527082833_ordineFornitore")]
+    partial class ordineFornitore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,38 +59,6 @@ namespace Shop_Videogiochi.Migrations
                     b.Property<int>("Quantità")
                         .HasColumnType("int");
 
-                    b.Property<int>("VideogiocoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.HasIndex("VideogiocoId");
-
-                    b.ToTable("Ordini");
-                });
-
-            modelBuilder.Entity("Shop_Videogiochi.Models.OrdineFornitore", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NomeFornitore")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Quantità")
-                        .HasColumnType("int");
-
                     b.Property<int>("Videogame_id")
                         .HasColumnType("int");
 
@@ -102,7 +72,7 @@ namespace Shop_Videogiochi.Migrations
 
                     b.HasIndex("VideogiocoId");
 
-                    b.ToTable("OrdiniFornitore");
+                    b.ToTable("Ordini");
                 });
 
             modelBuilder.Entity("Shop_Videogiochi.Models.Videogioco", b =>
@@ -150,17 +120,6 @@ namespace Shop_Videogiochi.Migrations
                 {
                     b.HasOne("Shop_Videogiochi.Models.Videogioco", "Videogioco")
                         .WithMany("Ordini")
-                        .HasForeignKey("VideogiocoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Videogioco");
-                });
-
-            modelBuilder.Entity("Shop_Videogiochi.Models.OrdineFornitore", b =>
-                {
-                    b.HasOne("Shop_Videogiochi.Models.Videogioco", "Videogioco")
-                        .WithMany()
                         .HasForeignKey("VideogiocoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
