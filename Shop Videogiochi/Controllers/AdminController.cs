@@ -19,76 +19,11 @@ namespace Shop_Videogiochi.Controllers
             return View(videogiocoList);
         }
 
-
-        // ------------------------------------------- Modifica Videogioco -------------------------------------------------
-
-        [HttpGet]
-        public IActionResult Aggiorna(int id)
-        {
-            Videogioco videogiocoDaModificare = null;
-
-            using (VideogameShopContext db = new VideogameShopContext())
-            {
-
-                videogiocoDaModificare = db.Videogiochi
-                              .Where(videogioco => videogioco.Id == id)
-                              .First();
-            }
-
-            if (videogiocoDaModificare == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return View("Index", videogiocoDaModificare);
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Aggiorna(int id, Videogioco modello)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("AggiornaPacchetto", modello);
-            }
-
-            Videogioco VideogiocoDaModificare = null;
-
-            using (VideogameShopContext db = new VideogameShopContext())
-            {
-                VideogiocoDaModificare = db.Videogiochi
-                      .Where(Pizza => Pizza.Id == id)
-                      .First();
-
-                if (VideogiocoDaModificare != null)
-                {
-                    //aggiorniamo i campi con i nuovi valori
-                    VideogiocoDaModificare.Nome = modello.Nome;
-                    VideogiocoDaModificare.Foto = modello.Foto;
-                    VideogiocoDaModificare.Descrizione = modello.Descrizione;
-                    VideogiocoDaModificare.Disponibilità = modello.Disponibilità;
-                    VideogiocoDaModificare.Prezzo = modello.Prezzo;
-
-                    db.SaveChanges();
-
-                    return RedirectToAction("index");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-        }
-        // -------------------------------------------Fine Modifica Videogioco -------------------------------------------------
-
         /*----------------------------------------------------read------------------------------------------------------------*/
 
         [HttpGet]
         public IActionResult Dettagli(int id)
         {
-
             using (VideogameShopContext db = new VideogameShopContext())
             {
                 try
@@ -108,29 +43,47 @@ namespace Shop_Videogiochi.Controllers
                 }
             }
         }
-
-
-
         /*----------------------------------------------------read------------------------------------------------------------*/
 
         [HttpGet]
         public IActionResult Crea()
         {
-            return View("FormCrea");
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                List<Categoria> categoria = db.Categorie.ToList();
+
+                VideogiocoCategoria model = new VideogiocoCategoria();
+                model.videogioco = new Videogioco();
+                model.categoria = categoria;
+                return View("FormCrea", model);
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Crea(Videogioco nuovoVideogioco)
+        public IActionResult Crea(VideogiocoCategoria model)
         {
             if (!ModelState.IsValid)
             {
-                return View("FormCrea", nuovoVideogioco);
+                using (VideogameShopContext db = new VideogameShopContext())
+                {
+                    List<Categoria> categoria = db.Categorie.ToList();
+                    model.categoria = categoria;
+                }
+
+                return View("FormCrea", model);
             }
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                Videogioco videogiocoToCreate = new Videogioco(nuovoVideogioco.Nome, nuovoVideogioco.Descrizione, nuovoVideogioco.Foto, nuovoVideogioco.Prezzo);
+                Videogioco videogiocoToCreate = new Videogioco();
+                videogiocoToCreate.Nome = model.videogioco.Nome;
+                videogiocoToCreate.Foto = model.videogioco.Foto;
+                videogiocoToCreate.Descrizione = model.videogioco.Descrizione;
+                videogiocoToCreate.Prezzo = model.videogioco.Prezzo;
+
+                videogiocoToCreate.Categoria = model.videogioco.Categoria;
+
 
                 db.Videogiochi.Add(videogiocoToCreate);
                 db.SaveChanges();
@@ -143,6 +96,83 @@ namespace Shop_Videogiochi.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        // ------------------------------------------- Modifica Videogioco -------------------------------------------------
+
+        [HttpGet]
+        public IActionResult Aggiorna(int id)
+        {
+            Videogioco videogiocoDaModificare = null;
+            List<Categoria> categoria = new List<Categoria>();
+
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                videogiocoDaModificare = db.Videogiochi
+                              .Where(videogioco => videogioco.Id == id)
+                              .First();
+
+                categoria = db.Categorie.ToList<Categoria>();
+            }
+
+            if (videogiocoDaModificare == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                VideogiocoCategoria model = new VideogiocoCategoria();
+                model.videogioco = videogiocoDaModificare;
+                model.categoria = categoria;
+                return View("FormModifica", model);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Aggiorna(int id, VideogiocoCategoria modello)
+        {
+            if (!ModelState.IsValid)
+            {
+                using (VideogameShopContext db = new VideogameShopContext())
+                {
+                    List<Categoria> categoria = db.Categorie.ToList();
+                    modello.categoria = categoria;
+                }
+
+                return View("FormCrea", modello);
+            }
+
+            Videogioco VideogiocoDaModificare = null;
+
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                VideogiocoDaModificare = db.Videogiochi
+                      .Where(Pizza => Pizza.Id == id)
+                      .First();
+
+                if (VideogiocoDaModificare != null)
+                {
+                    //aggiorniamo i campi con i nuovi valori
+                    VideogiocoDaModificare.Nome = modello.videogioco.Nome;
+                    VideogiocoDaModificare.Foto = modello.videogioco.Foto;
+                    VideogiocoDaModificare.Descrizione = modello.videogioco.Descrizione;
+                    VideogiocoDaModificare.Disponibilità = modello.videogioco.Disponibilità;
+                    VideogiocoDaModificare.Prezzo = modello.videogioco.Prezzo;
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+        // -------------------------------------------Fine Modifica Videogioco -------------------------------------------------
+
+        
          [HttpPost]
          public IActionResult Cancella(int id)
          {
