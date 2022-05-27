@@ -13,9 +13,6 @@ namespace Shop_Videogiochi.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Il nome del videogioco è obbligatorio")]
-        public int Categoria_id { get; set; }
-
-        [Required(ErrorMessage = "Il nome del videogioco è obbligatorio")]
         [StringLength(50, ErrorMessage = "Il nome del pacchetto non può contenere più di 50 caratteri")]
         public string Nome { get; set; }
 
@@ -30,13 +27,12 @@ namespace Shop_Videogiochi.Models
         [Required(ErrorMessage = "E' necessario inserire il costo del prodotto")]
         [Range(0, 500, ErrorMessage = "Il prezzo del prodotto dev'essere inferiore a 500€")]
         public double Prezzo   { get; set; }
-        
-        public int Like { get; set; } = 0;
 
         public int Disponibilità { get; set; }
 
         //foreign key Categoria
         public int CategoriaId { get; set; }
+
         [Required(ErrorMessage = "La categoria del videogioco è obbligatoria")]
         public Categoria Categoria { get; set; }
 
@@ -46,25 +42,16 @@ namespace Shop_Videogiochi.Models
         //costruttore
 
         public Videogioco()
-        { }
-
-        public Videogioco(int Id, int Categoria_id, string Nome, string Foto, string Descrizione, double Prezzo, int Disponibilità)
         {
-            this.Id = Id;
-            this.Categoria_id = Categoria_id;
+
+        }
+
+        public Videogioco(string Nome, string Foto, string Descrizione, double Prezzo)
+        {
             this.Nome = Nome;
             this.Foto = Foto;
             this.Descrizione = Descrizione;
             this.Prezzo = Prezzo;
-            this.Disponibilità = Disponibilità;
-        }
-
-        public Videogioco(string nome, string descrizione, string foto, double prezzo)
-        {
-            Nome = nome;
-            Descrizione = descrizione;
-            Foto = foto;
-            Prezzo = prezzo;
         }
     }
 }
