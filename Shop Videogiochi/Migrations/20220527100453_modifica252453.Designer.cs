@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop_Videogiochi.Data;
 
@@ -11,9 +12,10 @@ using Shop_Videogiochi.Data;
 namespace Shop_Videogiochi.Migrations
 {
     [DbContext(typeof(VideogameShopContext))]
-    partial class VideogameShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220527100453_modifica252453")]
+    partial class modifica252453
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

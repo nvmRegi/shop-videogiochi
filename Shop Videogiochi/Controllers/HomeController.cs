@@ -52,8 +52,11 @@ namespace Shop_Videogiochi.Controllers
 
                 Ordine ordineCliente = new Ordine();
                 ordineCliente.VideogiocoId = id;
-                ordineCliente.Quantità = quantità;
+                ordineCliente.Quantità = -quantità;
                 ordineCliente.Data = DateTime.Now;
+
+                db.Ordini.Add(ordineCliente);
+                db.SaveChanges();
             }
 
             return RedirectToAction("Index");
