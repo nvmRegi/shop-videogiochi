@@ -13,6 +13,10 @@ html {
   min-height: 100%;
 }
 
-body {
+body { 
   margin-bottom: 60px;
+}
+
+.steam-verde {
+    color: #5c7e10;
 }
