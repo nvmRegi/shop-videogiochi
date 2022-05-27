@@ -1,4 +1,7 @@
-﻿
+﻿@*
+    Vista Homepage cliente
+*@
+
 @*<div class="col">
                 <div class="card  text-center " style="width: 18rem;">
                     <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
@@ -108,14 +111,15 @@
 
 
 
-</div>
 
     @section Scripts {
         <script type="text/javascript">
             
+            caricaVideogiochi();
+
             function caricaVideogiochi()
             {
-                document.getElementById("corpoVideogiochi").innerHTML="";
+                document.getElementById("corpoVideogiochi").innerHTML= "";
                 axios.get('api/Videogiochi/Get')
                 .then
                 (result =>
@@ -127,9 +131,9 @@
                                `
                                <div class="col">
                                 <div class="card  text-center " style="width: 18rem;">
-                                    <img src="${Videogiochi.Foto}" class="card-img-top" alt="${Videogiochi.Nome}" />
+                                    <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
                                     <div class="card-body">
-                                        <h5 class="card-title">${Videogiochi.Nome}</h5>
+                                        <h5 class="card-title">${videogioco.nome}</h5>
                                         <a href="#" class="btn btn-danger">Dettagli</a>
                                     </div>
                                </div>

@@ -31,10 +31,10 @@ namespace Shop_Videogiochi.Models
         public int Disponibilità { get; set; }
 
         //foreign key Categoria
-        public int CategoriaId { get; set; }
+        public int? CategoriaId { get; set; }
 
         [Required(ErrorMessage = "La categoria del videogioco è obbligatoria")]
-        public Categoria Categoria { get; set; }
+        public Categoria? Categoria { get; set; }
 
         //collegamento 1 a molti con ordini
         public List<Ordine> Ordini { get; set; }
