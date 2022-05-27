@@ -11,9 +11,6 @@ namespace Shop_Videogiochi.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Il nome del videogioco è obbligatorio")]
-        public int Videogame_id { get; set; }
-
         [Required(ErrorMessage = "E' obbligatorio inserire la data dell'ordine")]
         //[DataType(ErrorMessage = "Data non valida")]
         public DateTime Data { get; set; }
@@ -23,7 +20,7 @@ namespace Shop_Videogiochi.Models
 
         [Required(ErrorMessage = "Il nome del fornitore è obbligatorio")]
         [StringLength(50, ErrorMessage = "Il nome del fornitore non può contenere più di 50 caratteri")]
-        public string? NomeFornitore { get; set; }
+        public string NomeFornitore { get; set; }
 
         //Foreign key videogioco
         public int VideogiocoId { get; set; }
