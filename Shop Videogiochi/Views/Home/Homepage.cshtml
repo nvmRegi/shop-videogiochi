@@ -1,13 +1,18 @@
 ﻿
-    <nav class="navbar navbar-dark bg-danger">
-        <div class="container-fluid">
-            <a class="navbar-brand text-center" href="#">
-                Store Game's
-            </a>
-        </div>
-    </nav>
+@*<div class="col">
+                <div class="card  text-center " style="width: 18rem;">
+                    <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
+                    <div class="card-body">
+                        <h5 class="card-title">Just Cause 4</h5>
+                        <a href="#" class="btn btn-danger">Dettagli</a>
+                    </div>
+                </div>*@
 
-    <div class="container shadow p-3 mb-5 bg-body rounded py-5">
+
+    <div class="container shadow p-3 mb-5 bg-body rounded py-5" id="corpoVideogiochi">
+
+
+@*
 
         <div class="row">
             <div class="col">
@@ -91,8 +96,50 @@
                         <a href="#" class="btn btn-danger">Dettagli</a>
                     </div>
                 </div>
-            </div>
+
+
+
+
+
+
+
+            </div>*@
         </div>
+
+
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    @section Scripts {
+        <script type="text/javascript">
+            
+            function caricaVideogiochi()
+            {
+                document.getElementById("corpoVideogiochi").innerHTML="";
+                axios.get('api/Videogiochi/Get')
+                .then
+                (result =>
+                    {
+                        console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
+                        result.data.forEach (videogioco => 
+                            {                            
+                               document.getElementById("corpoVideogiochi").innerHTML +=
+                               `
+                               <div class="col">
+                                <div class="card  text-center " style="width: 18rem;">
+                                    <img src="${Videogiochi.Foto}" class="card-img-top" alt="${Videogiochi.Nome}" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">${Videogiochi.Nome}</h5>
+                                        <a href="#" class="btn btn-danger">Dettagli</a>
+                                    </div>
+                               </div>
+                               `
+                            }
+                        )
+
+                    }
+                )
+            }
+            
+        </script>
+    }
