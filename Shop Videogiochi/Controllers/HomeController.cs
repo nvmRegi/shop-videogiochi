@@ -11,7 +11,7 @@ namespace Shop_Videogiochi.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View("Homepage");
         }
 
         [HttpGet]
