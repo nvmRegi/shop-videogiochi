@@ -2,7 +2,20 @@
     Vista homepage Utente
 *@
 
-<div class="container shadow p-3 mb-5 bg-body rounded py-5">
+@*<div class="col">
+                <div class="card  text-center " style="width: 18rem;">
+                    <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
+                    <div class="card-body">
+                        <h5 class="card-title">Just Cause 4</h5>
+                        <a href="#" class="btn btn-danger">Dettagli</a>
+                    </div>
+                </div>*@
+
+
+    <div class="container shadow p-3 mb-5 bg-body rounded py-5" id="corpoVideogiochi">
+
+
+@*
 
     <div class="row">
         <div class="col">
@@ -93,10 +106,43 @@
 
 
 
+            </div>*@
         </div>
-    </div>
 
 
 
 </div>
 
+    @section Scripts {
+        <script type="text/javascript">
+            
+            function caricaVideogiochi()
+            {
+                document.getElementById("corpoVideogiochi").innerHTML="";
+                axios.get('api/Videogiochi/Get')
+                .then
+                (result =>
+                    {
+                        console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
+                        result.data.forEach (videogioco => 
+                            {                            
+                               document.getElementById("corpoVideogiochi").innerHTML +=
+                               `
+                               <div class="col">
+                                <div class="card  text-center " style="width: 18rem;">
+                                    <img src="${Videogiochi.Foto}" class="card-img-top" alt="${Videogiochi.Nome}" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">${Videogiochi.Nome}</h5>
+                                        <a href="#" class="btn btn-danger">Dettagli</a>
+                                    </div>
+                               </div>
+                               `
+                            }
+                        )
+
+                    }
+                )
+            }
+            
+        </script>
+    }
