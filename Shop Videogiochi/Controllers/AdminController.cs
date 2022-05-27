@@ -68,7 +68,6 @@ namespace Shop_Videogiochi.Controllers
                     VideogiocoDaModificare.Nome = modello.Nome;
                     VideogiocoDaModificare.Foto = modello.Foto;
                     VideogiocoDaModificare.Descrizione = modello.Descrizione;
-                    VideogiocoDaModificare.Like = modello.Like;
                     VideogiocoDaModificare.Disponibilità = modello.Disponibilità;
                     VideogiocoDaModificare.Prezzo = modello.Prezzo;
 

@@ -46,22 +46,12 @@ namespace Shop_Videogiochi.Models
 
         }
 
-        public Videogioco(int Id, string Nome, string Foto, string Descrizione, double Prezzo, int Disponibilità)
+        public Videogioco(string Nome, string Foto, string Descrizione, double Prezzo)
         {
-            this.Id = Id;
             this.Nome = Nome;
             this.Foto = Foto;
             this.Descrizione = Descrizione;
             this.Prezzo = Prezzo;
-            this.Disponibilità = Disponibilità;
-        }
-
-        public Videogioco(string nome, string descrizione, string foto, double prezzo)
-        {
-            Nome = nome;
-            Descrizione = descrizione;
-            Foto = foto;
-            Prezzo = prezzo;
         }
     }
 }
