@@ -1,54 +1,64 @@
-﻿ @model VideogiocoCategoria
+﻿@* 
+    Vista Form Crea
+*@
+ 
+@model VideogiocoCategoria
 
-    <div class="container">
-    <form class="form-horizontal" action="@Url.Action("Crea", "Videogioco")" method="post">
-                @Html.AntiForgeryToken()">
+<div class="container">
+    <form class="form-horizontal" action="@Url.Action("Crea", "Admin")" method="post"> 
+            @Html.AntiForgeryToken()">
         <div class="form-group py-3">
-          <label class="control-label col-sm-2" for="email">Nome Videogioco</label>
-          <div class="col-sm-8">
-            <input type="email" class="form-control" id="email" placeholder="Aggiungi nome videogioco">
-          </div>
+            <label class="control-label col-sm-2" for="Nome">Nome Videogioco</label>
+            <div class="col-sm-8">
+            <input asp-for="videogioco.Nome" type="text" class="form-control" placeholder="Aggiungi nome videogioco">
+            <span asp-validation-for="videogioco.Nome" class="text-danger"></span>
+            </div>
         </div>
         
         <div class="form-group py-3">
-          <label class="control-label col-sm-2" for="pwd">Foto videogioco</label>
-          <div class="col-sm-8">
-            <input type="password" class="form-control" id="pwd" placeholder="Aggiungi foto videogioco">
-          </div>
-        </div>
-        <div class="form-group py-3">
-            <label class="control-label col-sm-4" for="email">Descrizione Videogioco</label>
+            <label class="control-label col-sm-2" for="Foto">Foto videogioco</label>
             <div class="col-sm-8">
-              <input type="email" class="form-control" id="email" placeholder="Aggiungi descrizione videogioco">
+            <input type="url" class="form-control" placeholder="Aggiungi foto videogioco">
+            <span asp-validation-for="videogioco.Foto" class="text-danger"></span>
             </div>
-          </div>
-          <div class="form-group py-3">
+        </div>
+
+        <div class="form-group py-3">
+            <label class="control-label col-sm-4" for="Descrizione">Descrizione Videogioco</label>
+            <div class="col-sm-8">
+                <textarea asp-for="videogioco.Descrizione" rows="5" class="d-block w-100" placeholder="Aggiungi descrizione videogioco"></textarea>
+                <span asp-validation-for="videogioco.Descrizione" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group py-3">
             <label class="control-label col-sm-2" for="email">Prezzo Videogioco</label>
             <div class="col-sm-8">
-              <input type="email" class="form-control" id="email" placeholder="Aggiungi prezzo videogioco">
+                <input type="number" class="form-control" id="email" placeholder="Aggiungi prezzo videogioco">
             </div>
-          </div>
-          <div class="form-group py-3">
+        </div>
+
+        <div class="form-group py-3">
             <label class="control-label col-sm-2" for="email">Disponibilità</label>
             <div class="col-sm-8">
-              <input type="email" class="form-control" id="email" >
+                <input type="email" class="form-control" id="email" >
             </div>
-          </div>
-          <div class="input-group py-3 mb-3">
-            
+        </div>
+
+        <div class="input-group py-3 mb-3">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorie</button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">uno</a></li>
-              <li><a class="dropdown-item" href="#">due</a></li>
-              <li><a class="dropdown-item" href="#">tre</a></li>
-              <li><a class="dropdown-item" href="#">quattro</a></li>
+                <li><a class="dropdown-item" href="#">uno</a></li>
+                <li><a class="dropdown-item" href="#">due</a></li>
+                <li><a class="dropdown-item" href="#">tre</a></li>
+                <li><a class="dropdown-item" href="#">quattro</a></li>
             </ul>
         </div> 
         
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-      </form> 
+        </div>
+    </form> 
       
-    </div>
+</div>
     
