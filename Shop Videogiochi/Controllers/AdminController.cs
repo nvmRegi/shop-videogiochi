@@ -96,11 +96,15 @@ namespace Shop_Videogiochi.Controllers
                     Videogioco videogiocoTrovato = db.Videogiochi
                         .Where(x => x.Id == id)
                         .Single();
-                    return View("Details", videogiocoTrovato);
+                    return View("Dettagli", videogiocoTrovato);
+                }
+                catch (ArgumentNullException ex)
+                {
+                    return NotFound("Prodotto inesistente");
                 }
                 catch (InvalidOperationException ex)
                 {
-                    return NotFound("Pacchetto inesistente");
+                    return NotFound("Operazione Errata");
                 }
             }
         }
