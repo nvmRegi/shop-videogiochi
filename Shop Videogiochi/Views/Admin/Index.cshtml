@@ -7,13 +7,11 @@
 
 <div class="container" style="padding-top: 65px">
     <div class="container text-center my-3">
-        <a class="btn btn-outline-info rounded " href="@Url.Action("Crea", "Admin")"> 
-            Aggiungi Videogioco
-        </a>
+        <button class="steam-button glass" href="@Url.Action("Crea", "Admin")">Aggiungi Videogioco</button>
     </div>
 
 
-    <table class="table align-middle">
+    <table class="table align-middle" style="color: #d7f7fe">
         <thead>
             <tr>
                 <th scope="col">Titolo</th>
@@ -21,11 +19,12 @@
                 <th scope="col">Descrizione</th>
                 <th scope="col">Prezzo</th>
                 <th scope="col">Disponibilità</th>
+                <th scope="col"><button class="steam-button glass" href="@Url.Action("Crea", "Admin")">Aggiungi Videogioco</button></th>
             </tr>
         </thead>
         <tbody>
 
-            <!--------------------------------------------------MOCKUP------------------------------------------->
+           @* <!--------------------------------------------------MOCKUP------------------------------------------->
             <tr>
                 <td class="align-middle">Nome</td>
                 <th class="align-middle">Categoria</th>
@@ -47,11 +46,12 @@
                     </form>
                 </td>
             </tr>
-            <!--------------------------------------------FINE-MOCKUP------------------------------------------->
+            <!--------------------------------------------FINE-MOCKUP------------------------------------------->*@
 
 
         @foreach(Videogioco videogioco in Model)
         {
+            <div class="righe-admin">
             <tr>
                 <td class="align-middle">@videogioco.Nome</td>
                 <th class="align-middle">@videogioco.Categoria</th>
@@ -73,6 +73,7 @@
                     </form>
                 </td>
             </tr>
+            </div>
         }
         </tbody>
     </table>
