@@ -1,54 +1,21 @@
-﻿@model VideogiocoCategoria
-
-@{
-    ViewData["Title"] = "Dettagli";
-}
-
-<h1>Dettagli</h1>
-
-<div>
-    <!----------------------------------------------Codice probabilmente errato nella parte Razor! albi------------------>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Titolo: 
-        </dt>
-        <dd class = "col-sm-8 col-md-6">
-            @Html.DisplayFor(model => model.videogioco.Nome)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Descrizione: 
-        </dt>
-        <dd class = "col-sm-8 col-md-6">
-            @Html.DisplayFor(model => model.videogioco.Descrizione)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Genere: 
-        </dt>
-        <dd class = "col-sm-8 col-md-6">
-            @Html.DisplayFor(model => model.videogioco.Categoria)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Disponiblità:
-        </dt>
-        <dd class = "col-sm-8 col-md-6">
-            @Html.DisplayFor(model => model.videogioco.Disponibilità)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Prezzo al pubblico:
-        </dt>
-        <dd class = "col-sm-8 col-md-6">
-            @Html.DisplayFor(model => model.videogioco.Prezzo)
-        </dd>
+﻿@model Videogioco
 
 
-    </dl>
-</div>
-<div>
-    <a asp-action="Modifica" asp-route-id="@Model.videogioco.Id">Edit</a> |
-    <a asp-action="Index">Ritorna alla Lista</a>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-4 mx-auto">
+            <div class="card box-shadow bg-body mt-5">
+                <img src="@Model.Foto" class="card-img-top h-100" alt="@Model.Nome" class="card-img-top">
+                <div class="card-body fs-6 p-0">
+                    <h4 class="text-center my-3">@Model.Nome</h4>
+                        <p class="mx-1"><strong>Descrizione:</strong></p>
+                        <p class="mx-1">@Model.Descrizione</p>
+                        <p class="mx-1">Key Disponibili: @Model.Disponibilità</p>
+                <div class="card-footer">
+                    <p class="text-center">€ @Model.Prezzo</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

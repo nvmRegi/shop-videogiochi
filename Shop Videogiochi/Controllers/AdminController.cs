@@ -96,7 +96,7 @@ namespace Shop_Videogiochi.Controllers
                     Videogioco videogiocoTrovato = db.Videogiochi
                         .Where(x => x.Id == id)
                         .Single();
-                    return View("Details", videogiocoTrovato);
+                    return View("Dettagli", videogiocoTrovato);
                 }
                 catch (ArgumentNullException ex)
                 {
