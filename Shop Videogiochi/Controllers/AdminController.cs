@@ -98,9 +98,13 @@ namespace Shop_Videogiochi.Controllers
                         .Single();
                     return View("Dettagli", videogiocoTrovato);
                 }
+                catch (ArgumentNullException ex)
+                {
+                    return NotFound("Prodotto inesistente");
+                }
                 catch (InvalidOperationException ex)
                 {
-                    return NotFound("Pacchetto inesistente");
+                    return NotFound("Operazione Errata");
                 }
             }
         }
@@ -141,7 +145,7 @@ namespace Shop_Videogiochi.Controllers
         }
          [HttpPost]
          public IActionResult Cancella(int id)
-        {
+         {
             using (VideogameShopContext db = new VideogameShopContext())
             {
                 Videogioco videogiocoDaCancellare = db.Videogiochi
@@ -160,13 +164,29 @@ namespace Shop_Videogiochi.Controllers
                 }
 
             }
+         }
+
+        [HttpPost] //Nella vista Dettagli puoi comprare un videogioco
+        public IActionResult CompraVideogioco(int id, OrdineFornitore model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Dettagli", model);
+            }
+
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                Videogioco videogiocoDaComprare = db.Videogiochi
+                    .Where(videogioco => videogioco.Id == id)
+                    .First();
+
+                OrdineFornitore ordineFornitore = new OrdineFornitore();
+                ordineFornitore.VideogiocoId = id;
+                ordineFornitore.Quantità = model.Quantità;
+                ordineFornitore.Data = DateTime.Now;
+
+            }
+            return RedirectToAction("Index");
         }
-        
-
-
-
-
     }
-
-
 }
