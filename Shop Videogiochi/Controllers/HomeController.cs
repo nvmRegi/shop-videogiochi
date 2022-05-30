@@ -24,7 +24,7 @@ namespace Shop_Videogiochi.Controllers
                     Videogioco videogiocoDaCercare = db.Videogiochi
                         .Where(videogioco => videogioco.Id == id).Include(videogioco => videogioco.Categoria)
                         .First();
-                    return View("Dettagli", videogiocoDaCercare);
+                    return View("Dettaglio", videogiocoDaCercare);
                 }
                 catch (InvalidOperationException ex)
                 {

@@ -109,7 +109,7 @@
         <script type="text/javascript">
             
             caricaVideogiochi();
-            MiPiaceAiVideogiochi();
+            //MiPiaceAiVideogiochi();
 
             function caricaVideogiochi()
             {
@@ -138,19 +138,20 @@
                 )
             }
 
-            function MiPiaceAiVideogiochi()
-            {
-                axios.get('api/VideogiochiMiPiace/Get')
-                .then(result => {
+            
+            //function MiPiaceAiVideogiochi()
+            //{
+            //    axios.get('api/VideogiochiMiPiace/Get')
+            //    .then(result => {
 
-                    console.log("Ho ricevuto i videogiochi_Mi_piace che pure io non ho capito bene come va");
+            //        console.log("Ho ricevuto i videogiochi_Mi_piace che pure io non ho capito bene come va");
 
-                    result.data.forEach(videogioco => {
-                        document.getElementById("corpoVideogiochi").innerHTML +=
-                               `
-                               `
-                    })
-                })
+            //        result.data.forEach(videogioco => {
+            //            document.getElementById("corpoVideogiochi").innerHTML +=
+            //                   `
+            //                   `
+            //        })
+            //    })
         </script>
 
     }
