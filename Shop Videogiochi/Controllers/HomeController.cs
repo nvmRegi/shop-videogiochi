@@ -24,7 +24,9 @@ namespace Shop_Videogiochi.Controllers
                     Videogioco videogiocoDaCercare = db.Videogiochi
                         .Where(videogioco => videogioco.Id == id).Include(videogioco => videogioco.Categoria)
                         .First();
-                    return View("Dettaglio", videogiocoDaCercare);
+                    OrdineVideogioco model = new OrdineVideogioco();
+                    model.videogioco = videogiocoDaCercare;
+                    return View("Dettaglio", model);
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -37,22 +39,19 @@ namespace Shop_Videogiochi.Controllers
         }
        
         [HttpPost]
-        public IActionResult CompraVideogioco(int id, Videogioco model, int quantità)
+        public IActionResult CompraVideogioco(int id, OrdineVideogioco model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Dettagli", model);
+                return View("Dettaglio", model);
             }
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                Videogioco videogiocoDaComprare = db.Videogiochi
-                    .Where(videogioco => videogioco.Id == id)
-                    .First();
-
+               
                 Ordine ordineCliente = new Ordine();
                 ordineCliente.VideogiocoId = id;
-                ordineCliente.Quantità = -quantità;
+                ordineCliente.Quantità = model.ordine.Quantità;
                 ordineCliente.Data = DateTime.Now;
 
                 db.Ordini.Add(ordineCliente);

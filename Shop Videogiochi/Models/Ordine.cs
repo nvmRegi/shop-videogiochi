@@ -12,7 +12,6 @@ namespace Shop_Videogiochi.Models
         [Key]
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "E' obbligatorio inserire la data dell'ordine")]
         //[DataType(ErrorMessage = "Data non valida")]
         public DateTime Data { get; set; }
 
@@ -22,7 +21,7 @@ namespace Shop_Videogiochi.Models
         //Foreign key videogioco
         
         public int VideogiocoId { get; set; }
-        public Videogioco Videogioco { get; set; }
+        public Videogioco? Videogioco { get; set; }
 
         //costruttore 
 

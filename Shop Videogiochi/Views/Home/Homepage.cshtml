@@ -58,6 +58,7 @@
             (result =>
                 {
                     console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
+
                     result.data.forEach (videogioco => 
                         {   
                             if(result.data.length == 0){
@@ -67,6 +68,9 @@
                                 document.getElementById("wait_videogioco").classList.add("d-none");
                                 document.getElementById("videogiochi_div").classList.remove("d-none");
 
+                                var idVideogame = videogioco.id;
+                                var url = "/Home/Dettagli/" + videogioco.id;
+
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `
                                     <div class="col">
@@ -74,7 +78,7 @@
                                             <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
                                             <div class="card-body">
                                                 <h5 class="card-title">${videogioco.nome}</h5>
-                                                <a href="#" class="btn btn-danger">Dettagli</a>
+                                                <a href="${url}" class="btn btn-danger">Dettagli</a>
                                             </div>
                                         </div>
                                     </div>
