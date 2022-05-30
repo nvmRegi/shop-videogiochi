@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-6 mx-auto">
-            <div class="card box-shadow bg-body mt-5 border-0">
+            <div class="card box-shadow bg-body my-5 border-0">
                 <img src="@Model.Foto" class="card-img-top h-100" alt="@Model.Nome" class="card-img-top">
             </div>
         </div>
@@ -19,7 +19,7 @@
             <form method="post" action="@Url.Action("Acquista","Home")">
                 <div class="form-group text-white my-1">
                     <label for="Quantità">Quantità: </label>
-                    <input asp-form="Quantità" class="d-block w-100" type="number" id="Quantità">
+                    <input asp-form="Quantità" class="d-block w-100" type="number" min="0" id="Quantità">
                 </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success my-3">Acquista</button>
