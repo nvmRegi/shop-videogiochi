@@ -30,13 +30,12 @@ namespace Shop_Videogiochi.Models
 
         [Required(ErrorMessage = "E' necessario inserire il costo del prodotto")]
         [Range(0, 500, ErrorMessage = "Il prezzo del prodotto dev'essere inferiore a 500€")]
-        public double Prezzo   { get; set; }
+        public double Prezzo{ get; set; }
 
         //foreign key Categoria
         public int? CategoriaId { get; set; }
 
 
-        [Required(ErrorMessage = "La categoria del videogioco è obbligatoria")]
         public Categoria? Categoria { get; set; }
 
 
