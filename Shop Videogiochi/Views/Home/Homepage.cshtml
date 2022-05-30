@@ -2,93 +2,105 @@
     Vista Homepage cliente
 *@
 
-    @*<div class="col">
-                <div class="card  text-center " style="width: 18rem;">
-                    <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
-                    <div class="card-body">
-                        <h5 class="card-title">Just Cause 4</h5>
-                        <a href="#" class="btn btn-danger">Dettagli</a>
-                    </div>
-                </div>*@
+@*<div class="col">
+    <div class="card  text-center " style="width: 18rem;">
+        <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
+        <div class="card-body">
+            <h5 class="card-title">Just Cause 4</h5>
+            <a href="#" class="btn btn-danger">Dettagli</a>
+        </div>
+    </div>
+</div>*@
 
 <div class="container my-5 text-center">
-    <h1 class = "text-light">Negozio Videogiochi</h1>
+    <h1 class="text-light">Negozio Videogiochi</h1>
 </div>
 
 
-<div class="container shadow p-3 mb-5 rounded py-5" id="corpoVideogiochi">
-
-
-
-    <div class="container">
-    <div id="videogiochi-wait" class="row  text-center">
-        <div class="col-12">
-            <h3>Sto aspettando i POST ...</h3>
+<div class="container shadow p-3 mb-3 rounded py-5 text-light">
+    <div id="wait_videogioco" class="row justify-content-center my-5">
+        <div class="col-2">
+            <div class="loader">
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <span>Loading...</span>
+            </div>
         </div>
     </div>
-    <div id="no-NoVideogiochi" class="row  text-center d-none">
+
+    <div id="no-videogiochi" class="row text-center d-none">
         <div class="col-12">
-            <h3>Non hai inserito alcun post</h3>
+            <h3>Non è disponibile nessun videogioco</h3>
         </div>
     </div>
-    <div id="videogiochi-div" class="row d-none">
+
+    <div id="videogiochi_div" class="row d-none">
         <!-- qui verranno mostrati gli elementi -->
     </div>
 </div>
     
-
-        </div>
-    
     
 
 
 
-    @section Scripts {
-        <script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
             
-            caricaVideogiochi();
-            //MiPiaceAiVideogiochi();
+        caricaVideogiochi();
+        //MiPiaceAiVideogiochi();
 
-            function caricaVideogiochi()
-            {
-                document.getElementById("videogiochi-div").innerHTML= "";
-                axios.get('api/Videogiochi/Get')
-                .then
-                (result =>
-                    {
-                        console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
-                        result.data.forEach (videogioco => 
-                            {                            
-                               document.getElementById("videogiochi-div").innerHTML +=
-                               `
-                               <div class="col">
-                                <div class="card  text-center " style="width: 18rem;">
-                                    <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">${videogioco.nome}</h5>
-                                        <a href="#" class="btn btn-danger">Dettagli</a>
+        function caricaVideogiochi()
+        {
+            document.getElementById("videogiochi_div").innerHTML= "";
+            axios.get('api/Videogiochi/Get')
+            .then
+            (result =>
+                {
+                    console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
+                    result.data.forEach (videogioco => 
+                        {   
+                            if(result.data.length == 0){
+                                document.getElementById("wait_videogioco").classList.add("d-none");
+                                document.getElementById("no-videogiochi").classList.remove("d-none");
+                            } else{
+                                document.getElementById("wait_videogioco").classList.add("d-none");
+                                document.getElementById("videogiochi_div").classList.remove("d-none");
+
+                                document.getElementById("videogiochi_div").innerHTML +=
+                                    `
+                                    <div class="col">
+                                        <div class="card  text-center " style="width: 18rem;">
+                                            <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
+                                            <div class="card-body">
+                                                <h5 class="card-title">${videogioco.nome}</h5>
+                                                <a href="#" class="btn btn-danger">Dettagli</a>
+                                            </div>
+                                        </div>
                                     </div>
-                               </div>
-                               `
+                                    `
                             }
-                        )
-                    }
-                )
-            }
+                        }
+                    )
+                }
+            ).catch((error) =>{
+                console.log("C'è stato un errore: " + error);
+            })
+        }
 
-            //function MiPiaceAiVideogiochi()
-            //{
-            //    axios.get('api/VideogiochiMiPiace/Get')
-            //    .then(result => {
+        //function MiPiaceAiVideogiochi()
+        //{
+        //    axios.get('api/VideogiochiMiPiace/Get')
+        //    .then(result => {
 
-            //        console.log("Ho ricevuto i videogiochi_Mi_piace che pure io non ho capito bene come va");
+        //        console.log("Ho ricevuto i videogiochi_Mi_piace che pure io non ho capito bene come va");
 
-            //        result.data.forEach(videogioco => {
-            //            document.getElementById("corpoVideogiochi").innerHTML +=
-            //                   `
-            //                   `
-            //        })
-            //    })
-        </script>
+        //        result.data.forEach(videogioco => {
+        //            document.getElementById("corpoVideogiochi").innerHTML +=
+        //                   `
+        //                   `
+        //        })
+        //    })
+    </script>
 
-    }
+}

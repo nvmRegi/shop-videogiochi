@@ -2,9 +2,9 @@
     Vista Form Crea
 *@
  
- @model VideogiocoCategoria
+@model VideogiocoCategoria
 
-<div class="container">
+@*<div class="container">
     <form class="form-horizontal" action="@Url.Action("Crea", "Admin")" method="post"> 
             @Html.AntiForgeryToken()">
         <div class="form-group py-3">
@@ -46,64 +46,63 @@
                 <li><a class="dropdown-item" href="#">tre</a></li>
                 <li><a class="dropdown-item" href="#">quattro</a></li>
             </ul>
-        </div>*@ 
+        </div>
         
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form> 
       
-</div>
-
-@* <link href="Style_Form.css" rel="stylesheet" type="text/css">
+</div>*@
     
-    <div class="form-body">
+<div class="form-body body_form" id="formCrea">
         <div class="row">
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
                     <h3>Aggiungi un gioco</h3>
                     
-                    <form class="requires-validation" novalidate>
+                    <form action="@Url.Action("Crea", "Admin")" method="post">
+                        @Html.AntiForgeryToken()
 
                         <div class="col-md-12">
-                           <input class="form-control" type="text" name="name" placeholder="Nome Gioco" required>
-                           <div class="valid-feedback">Username field is valid!</div>
-                           <div class="invalid-feedback">Username field cannot be blank!</div>
+                           <input asp-for="videogioco.Nome" placeholder="Nome del gioco">
+                           <span asp-validation-for="videogioco.Nome" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-12">
-                            <input class="form-control" type="text" name="image" placeholder="Immagine Gioco" required>
-                             <div class="valid-feedback">Image field is valid!</div>
-                             <div class="invalid-feedback">Image field cannot be blank!</div>
+                            <input asp-for="videogioco.Foto" placeholder="Immagine del gioco">
+                            <span asp-validation-for="videogioco.Foto" class="text-danger"></span>
                         </div>
 
                        <div class="col-md-12">
-                            <select class="form-select mt-3" required>
-                                  <option selected disabled value="">Categoria Videogioco</option>
-                                  <option>Azione</option>
-                                  <option>Sport</option>
-                                  <option>Combattimento</option>
+                            <select asp-for="videogioco.CategoriaId" class="form-select mt-3">
+                                  <option selected disabled value="">Categoria videogioco</option>
+                                @foreach(Categoria categoria in Model.categoria)
+                                {
+                                    <option value="@categoria.Id">@categoria.Tema</option>
+                                }
                            </select>
-                            <div class="valid-feedback">You selected a position!</div>
-                            <div class="invalid-feedback">Please select a position!</div>
+                           <span asp-validation-for="videogioco.Categoria" class="text-danger"></span>
                        </div>
 
+                       <div class="col-md-12">
+                          <textarea asp-for="videogioco.Descrizione" placeholder="Descrizione"></textarea>
+                          <span asp-validation-for="videogioco.Descrizione" class="text-danger"></span>
+                       </div>
 
                        <div class="col-md-12">
-                          <input class="form-control" type="text" name="price" placeholder="Prezzo" required>
-                           <div class="valid-feedback">Price field is valid!</div>
-                           <div class="invalid-feedback">Price field cannot be blank!</div>
+                          <input asp-for="videogioco.Prezzo" placeholder="Prezzo">
+                          <span asp-validation-for="videogioco.Prezzo" class="text-danger"></span>
                        </div>
               
-
-                        <div class="form-button mt-3">
-                            <button id="submit" type="submit" class="btn btn-primary">Invia</button>
-                        </div>
+                       <div class="mt-3">
+                           <input type="submit" class="btn btn-primary" value="Invia">
+                       </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    *@
+    
