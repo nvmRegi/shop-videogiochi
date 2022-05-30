@@ -35,11 +35,13 @@
                     <td class="align-middle resizable-description">
                         <details>
                           <summary>Descrizione estesa del prodotto:</summary>
-                          <p>@videogioco.Descrizione</p>
+                          <div class="backgroundDetail">
+                              <span>@videogioco.Descrizione</span>
+                          </div>
                         </details>
                     </td>
                     <td class="align-middle">&euro;@videogioco.Prezzo</td>
-                    <td class="align-middle text-center">@videogioco.Disponibilità</td>
+                    <td class="align-middle text-center"></td>
                     <td class="align-middle text-center">
                             <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
                             <img src="~/img/opzioni.png" width="24" height="24" alt="Dettagli">

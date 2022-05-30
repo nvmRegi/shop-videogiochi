@@ -158,7 +158,6 @@ namespace Shop_Videogiochi.Controllers
                     VideogiocoDaModificare.Nome = modello.videogioco.Nome;
                     VideogiocoDaModificare.Foto = modello.videogioco.Foto;
                     VideogiocoDaModificare.Descrizione = modello.videogioco.Descrizione;
-                    VideogiocoDaModificare.Disponibilità = modello.videogioco.Disponibilità;
                     VideogiocoDaModificare.Prezzo = modello.videogioco.Prezzo;
 
                     db.SaveChanges();

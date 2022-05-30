@@ -2,7 +2,7 @@
     Vista Homepage cliente
 *@
 
-@*<div class="col">
+    @*<div class="col">
                 <div class="card  text-center " style="width: 18rem;">
                     <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
                     <div class="card-body">
@@ -11,96 +11,34 @@
                     </div>
                 </div>*@
 
-     
-    <div class = "container shadow p-3 mb-5 bg-body rounded py-5" id="corpoVideogiochi" id="corpo"> 
+<div class="container my-5 text-center">
+    <h1 class = "text-light">Negozio Videogiochi</h1>
+</div>
+
+
+<div class="container shadow p-3 mb-5 rounded py-5" id="corpoVideogiochi">
+
+
+
+    <div class="container">
+    <div id="videogiochi-wait" class="row  text-center">
+        <div class="col-12">
+            <h3>Sto aspettando i POST ...</h3>
+        </div>
+    </div>
+    <div id="no-NoVideogiochi" class="row  text-center d-none">
+        <div class="col-12">
+            <h3>Non hai inserito alcun post</h3>
+        </div>
+    </div>
+    <div id="videogiochi-div" class="row d-none">
+        <!-- qui verranno mostrati gli elementi -->
+    </div>
+</div>
     
 
-@*
-
-    <div class="row">
-        <div class="col">
-            <div class="card  text-center " style="width: 18rem;">
-                <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
-                <div class="card-body">
-                    <h5 class="card-title">Just Cause 4</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-
         </div>
-        <div class="col">
-            <div class="card  text-center" style="width: 18rem;">
-                <img src="https://www.pcgamesarchive.com/wp-content/uploads/2020/11/Anthem-Cover.jpg" class="card-img-top" alt="Anthem" />
-                <div class="card-body">
-                    <h5 class="card-title">Anthem</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="col">
-            <div class="card  text-center" style="width: 18rem;">
-                <img src="https://www.mobygames.com/images/covers/l/107052-gears-of-war-windows-front-cover.png" class="card-img-top" alt="Gears Of War" />
-                <div class="card-body">
-                    <h5 class="card-title">Gears Of War</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="col">
-            <div class="card  text-center" style="width: 18rem;">
-                <img src="https://th.bing.com/th/id/R.4fd0c7b3c7186676c8445786645dfd60?rik=Lo3RhCNJM36Ceg&pid=ImgRaw&r=0" class="card-img-top" alt="Dirti 3" />
-                <div class="card-body">
-                    <h5 class="card-title">Dirti 3</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col py-5">
-            <div class="card  text-center" style="width: 18rem;">
-                <img src="https://th.bing.com/th/id/OIP.Vghhdt9AMSxTg1PrzGVvpgHaKL?pid=ImgDet&rs=1" class="card-img-top" alt="Brutal Legend" />
-                <div class="card-body">
-                    <h5 class="card-title">Brutal Legend</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col py-5">
-            <div class="card  text-center" style="width: 18rem;">
-                <img src="https://th.bing.com/th/id/R.55f77208f7df1b1c341a2e911f69395d?rik=FmAKsEliqL8qaQ&pid=ImgRaw&r=0" class="card-img-top" alt="Call Of Duty" />
-                <div class="card-body">
-                    <h5 class="card-title">Call Of Duty</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col py-5">
-            <div class="card  text-center" style="width: 18rem ;">
-                <img src="https://th.bing.com/th/id/OIP.rTKitZZji7vPCYpLVutZggHaJy?pid=ImgDet&rs=1" class="card-img-top" alt="Farcry New Dawn" />
-                <div class="card-body">
-                    <h5 class="card-title">Farcry New Dawn</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col py-5">
-            <div class="card  text-center" style="width: 18rem ;">
-                <img src="https://th.bing.com/th/id/R.d13d67219e73af245b7318dd994e6340?rik=epusq9gLrn%2bOuQ&pid=ImgRaw&r=0" class="card-img-top" alt="Stae Trek" />
-                <div class="card-body">
-                    <h5 class="card-title">Stae Trek</h5>
-                    <a href="#" class="btn btn-danger">Dettagli</a>
-                </div>
-            </div>
-            </div>*@
-        </div>
+    
     
 
 
@@ -113,7 +51,7 @@
 
             function caricaVideogiochi()
             {
-                document.getElementById("corpoVideogiochi").innerHTML= "";
+                document.getElementById("videogiochi-div").innerHTML= "";
                 axios.get('api/Videogiochi/Get')
                 .then
                 (result =>
@@ -121,7 +59,7 @@
                         console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
                         result.data.forEach (videogioco => 
                             {                            
-                               document.getElementById("corpoVideogiochi").innerHTML +=
+                               document.getElementById("videogiochi-div").innerHTML +=
                                `
                                <div class="col">
                                 <div class="card  text-center " style="width: 18rem;">
@@ -138,7 +76,6 @@
                 )
             }
 
-            
             //function MiPiaceAiVideogiochi()
             //{
             //    axios.get('api/VideogiochiMiPiace/Get')
