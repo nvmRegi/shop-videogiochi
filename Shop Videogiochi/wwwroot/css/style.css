@@ -24,17 +24,3 @@
     border-width: 1px;
     border-style: solid;
 }
-
-.righe-admin {
-    border-color: #e9fafe;
-    border-radius: 10px;
-    border-width: 1px;
-    border-style: solid;
-}
-
-.icone-admin {
-    background-image: url('~/img/opzioni.png');
-    background-size: cover;
-    width: 25px;
-    height: 25px;
-}
