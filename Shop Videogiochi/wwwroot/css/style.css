@@ -26,6 +26,7 @@
 
 .backgroundDetail {
     background-color: rgba(255, 255, 255, 0.1);
+    margin-right: 3px;
     border: 0.01em solid rgba(112,141,4, 0.3);
     padding: 6px 5px 10px 5px;
     /*   //toomuch
@@ -39,6 +40,8 @@
     border-radius: 12px;
     display: block;
     max-width: 600px;
-    max-height: 200px;
+/*    max-height: 200px;*/
+    min-height: 50px;
     overflow: auto;
+    resize: vertical;
 }
