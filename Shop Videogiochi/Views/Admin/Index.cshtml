@@ -5,7 +5,7 @@
 
 @model List<Videogioco>
 
-<div class="container" style="padding-top: 65px">
+<div class="container">
 
     <table class="table align-middle mt-5" style="color: #ecf9fc">
         <thead>
@@ -38,7 +38,7 @@
                         </details>
                     </td>
                     <td class="align-middle">&euro;@videogioco.Prezzo</td>
-                    <td class="align-middle text-center" ></td>
+                    <td class="align-middle text-center">@videogioco.GetDisponibilità()</td>
                     <td class="align-middle text-center">
                             <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
                             <img src="~/img/opzioni.png" width="20" height="20" alt="Dettagli">
@@ -58,3 +58,23 @@
         </tbody>
     </table>
 </div>
+
+@*@section Scripts{
+    <script type="text/javascript">
+
+        loadDisponibilità();
+
+        function loadDisponibilità(){
+            
+            axios.get('api/Disponibilità/Get').then((result) =>{
+                
+                result.data.forEach(videogioco =>{
+
+                    document.querySelector("")
+                })
+            })
+
+        }
+
+    </script>
+}*@
