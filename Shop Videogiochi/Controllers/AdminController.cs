@@ -31,8 +31,10 @@ namespace Shop_Videogiochi.Controllers
                 {
                     Videogioco videogiocoTrovato = db.Videogiochi
                         .Where(x => x.Id == id)
-                        .Single();
-                    return View("Dettagli", videogiocoTrovato);
+                        .First();
+                    OrdineFornitoreVideogioco model = new OrdineFornitoreVideogioco();
+                    model.videogioco = videogiocoTrovato;
+                    return View("Dettagli", model);
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -40,7 +42,7 @@ namespace Shop_Videogiochi.Controllers
                 }
                 catch (InvalidOperationException ex)
                 {
-                    return NotFound("Operazione Errata");
+                    return BadRequest("Operazione Errata");
                 }
             }
         }
@@ -197,7 +199,7 @@ namespace Shop_Videogiochi.Controllers
          }
 
         [HttpPost] //Nella vista Dettagli puoi comprare un videogioco
-        public IActionResult CompraVideogioco(int id, OrdineFornitore model)
+        public IActionResult CompraVideogioco(int id, OrdineFornitoreVideogioco model)
         {
             if (!ModelState.IsValid)
             {
@@ -206,15 +208,14 @@ namespace Shop_Videogiochi.Controllers
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                Videogioco videogiocoDaComprare = db.Videogiochi
-                    .Where(videogioco => videogioco.Id == id)
-                    .First();
-
                 OrdineFornitore ordineFornitore = new OrdineFornitore();
                 ordineFornitore.VideogiocoId = id;
-                ordineFornitore.Quantità = model.Quantità;
+                ordineFornitore.NomeFornitore = model.ordineFornitore.NomeFornitore;
+                ordineFornitore.Quantità = model.ordineFornitore.Quantità;
                 ordineFornitore.Data = DateTime.Now;
-
+                
+                db.OrdiniFornitore.Add(ordineFornitore);
+                db.SaveChanges();
             }
             return RedirectToAction("Index");
         }

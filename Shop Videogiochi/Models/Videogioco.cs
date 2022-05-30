@@ -40,7 +40,7 @@ namespace Shop_Videogiochi.Models
 
 
         //collegamento 1 a molti con ordini
-        public List<Ordine> Ordini { get; set; }
+        public List<Ordine>? Ordini { get; set; }
 
         //costruttore
 
