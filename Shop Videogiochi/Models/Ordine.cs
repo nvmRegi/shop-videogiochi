@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Shop_Videogiochi.Models
 {
@@ -19,6 +20,7 @@ namespace Shop_Videogiochi.Models
         public int Quantità { get; set; }
 
         //Foreign key videogioco
+        
         public int VideogiocoId { get; set; }
         public Videogioco Videogioco { get; set; }
 

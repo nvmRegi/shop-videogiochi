@@ -11,5 +11,30 @@
 }
 
 
+.steam-button {
+    background-color: #708d04;
+    border-color: #3d501f;
+    color: white;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 13px;
+    border-width: 1px;
+    border-style: solid;
+}
 
- 
+.righe-admin {
+    border-color: #e9fafe;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.icone-admin {
+    background-image: url('~/img/opzioni.png');
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+}

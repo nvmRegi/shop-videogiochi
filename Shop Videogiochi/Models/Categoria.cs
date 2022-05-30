@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Shop_Videogiochi.Models
 {
@@ -14,6 +15,7 @@ namespace Shop_Videogiochi.Models
         [StringLength(30, ErrorMessage = "Il tema non può avere più di ")]
         public string Tema { get; set; }
 
+        [JsonIgnore]
         public List<Videogioco> Videogiochi { get; set; }
 
 

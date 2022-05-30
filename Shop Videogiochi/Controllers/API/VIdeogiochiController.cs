@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop_Videogiochi.Data;
 using Shop_Videogiochi.Models;
 
@@ -16,21 +17,17 @@ namespace Shop_Videogiochi.Controllers.API
     public class VideogiochiController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(int? id)
+        public IActionResult Get()
         {
             List<Videogioco> giochiInHomePage = new List<Videogioco>();
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
 
-                if (id != null)
-                {
-                    giochiInHomePage = db.Videogiochi.ToList();
-                    return Ok(giochiInHomePage);
-                }           
-                return BadRequest();
+                giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList<Videogioco>();
+                return Ok(giochiInHomePage);
+                         
             }
-
         }
     }
 }
