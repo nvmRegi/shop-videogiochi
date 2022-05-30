@@ -14,55 +14,88 @@
     <body>
 
         <div class="d-flex flex-column min-vh-100" id="sfondo">
+            <div class="container">
+                <header>
+                    <nav class="container navbar navbar-expand-lg navbar-dark shadow-5-strong fixed-top" id="sfondo">
+                        <div class="container-fluid">
 
-            <header>
+                            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steamdeck/images/steamdeck_steamlogo.png" alt="Logo Steam" width="60px">
+                            </a>
 
-                <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong fixed-top" id="sfondo">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                            <img src="~/img/Steam_icon_logo.svg.png" alt="Logo Steam" width="60px">
-                        </a>
-                        <a class="navbar-brand text-light" href="@Url.Action("Index", "Home")">Steam</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0 text-center">
-                            <li class="nav-item">
-                              <a class="nav-link active text-light" aria-current="page" href="@Url.Action("Index", "Home")">Giochi del momento</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link text-light" href="@Url.Action("PiùVenduti", "Home")">Più venduti</a>
-                           </li>
-                        </ul>
-                        <form class="d-flex me-auto">
-                            <input id="search_input" class="form-control me-2" type="text" placeholder="Cerca..." aria-label="Cerca">
-                        </form>
+                            <a class="navbar-brand text-light" href="@Url.Action("Index", "Home")"><h2>STEAM</h2></a>
 
-                        <ul class="navbar-nav mx-3 mb-2 mb-lg-0 text-center">
-                            <li class="nav-item">
-                               <a href="@Url.Action("Index", "Admin")" class="nav-link text-light">Admin</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                                <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0 text-center">
+                                    <li class="nav-item">
+                                      <a class="nav-link active text-light" aria-current="page" href="@Url.Action("Index", "Home")">Giochi del momento</a>
+                                   </li>
+                                   <li class="nav-item">
+                                      <a class="nav-link text-light" href="@Url.Action("PiùVenduti", "Home")">Più venduti</a>
+                                   </li>
+                                </ul>
+
+                                <form class="d-flex me-auto">
+                                    <input id="search_input" class="form-control me-2" type="text" placeholder="Cerca..." aria-label="Cerca">
+                                </form>
+
+                                <ul class="navbar-nav mx-3 mb-2 mb-lg-0 text-center">
+                                    <li class="nav-item">
+                                       <a href="@Url.Action("Index", "Admin")" class="nav-link text-light">Admin</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+
+                <main role="main" class="pb-3" style="padding-top: 87px">
+                    @RenderBody()
+                </main>
+
+            </div>
+                <footer class="container-fluid d-flex py-3 bg-dark justify-content-between mt-auto">
+                    <div class="container d-flex align-items-center">
+                        <div class="col-md-4">
+                            <a href="@Url.Action("Index", "Home")" class="me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steamdeck/images/steamdeck_steamlogo.png" alt="Logo Steam" width="60px"> 
+                            </a>
+                            <span class="text-light align-middle">© 2022 Steam, Inc</span>
+                        </div>
+
+                        <p class="text-light m-auto">
+                            Project work by 
+                            <ul class="text-light m-auto list-unstyled">
+                                <li><a href="https://github.com/nvmRegi" class="text-light">Regine Cabael</a></li>
+                                <li><a href="https://github.com/AlexFruitPunch" class="text-light">Alessandro Pagani</a></li>
+                                <li><a href="https://github.com/TheCodingPine" class="text-light">Alberto Rosa</a></li>
+                                <li><a href="https://github.com/Daddix98" class="text-light">Davide Scriboni</a></li>
+                                <li><a href="https://github.com/LucaVanossi" class="text-light">Luca Vanossi</a></li>
+                            </ul>
+                        </p>
+                        
+                        <ul class="nav col-md-4 d-flex justify-content-end list-unstyled ms-auto">
+                            <li class="text-light ">
+                                <p>
+                                    More:
+                                </p>
+                            </li>
+                            <li>
+                                <a href="https://github.com/nvmRegi/shop-videogiochi">
+                                    <img src="https://1000marche.net/wp-content/uploads/2020/03/GitHub-logo.png" alt="Logo GitHub" width="60px" />
+                                </a>
                             </li>
                         </ul>
-                        </div>
+                        
                     </div>
-                </nav>
-            </header>
-
-            <main role="main" class="pb-3" style="padding-top: 87px">
-                @RenderBody()
-            </main>
-
-
-            <footer class="container-fluid d-flex justify-content-between py-3 bg-dark mt-auto">
-                <div class="col-md-4 d-flex align-items-center">
-                    <a href="@Url.Action("Index", "Home")" class="me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                        <img src="~/img/Steam_icon_logo.svg.png" alt="Logo Steam" width="60px"> 
-                    </a>                   
-                        <span class="text-light align-middle">© 2022 Steam, Inc</span>
-                </div>
-            </footer>
+                </footer>
+            
+            
 
         </div>
 
