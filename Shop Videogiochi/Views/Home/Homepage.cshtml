@@ -12,6 +12,7 @@
     </div>
 </div>*@
 
+@model List<Categoria>
 
 <div class="container my-5 text-center">
     <h1 class="text-light">Negozio Videogiochi</h1>
@@ -36,6 +37,20 @@
         <div class="col-12">
             <h3>Non è disponibile nessun videogioco</h3>
         </div>
+    </div>
+
+    <div class="dropdown mb-4">
+        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorie
+        </a>
+                                
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Home")">Tutte</a></li>
+            @foreach(Categoria categoria in Model)
+            {
+                <li><a class="dropdown-item" href="#">@categoria.Tema</a></li>
+            }
+        </ul>
     </div>
 
     <container class="justify-content-center d-flex container-fluid">   
@@ -66,7 +81,7 @@
 
         function caricaVideogiochi(parametroSearch)
         {
-            document.getElementById("videogiochi_div").innerHTML= "";
+            document.getElementById("videogiochi_div").innerHTML = "";
 
             axios.get('api/Videogiochi/Get', {
                 params: {

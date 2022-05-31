@@ -11,7 +11,11 @@ namespace Shop_Videogiochi.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View("Homepage");
+            using(VideogameShopContext db = new VideogameShopContext())
+            {
+                List<Categoria> listaCategoria = db.Categorie.ToList();
+                return View("Homepage", listaCategoria);
+            }
         }
 
         [HttpGet]
