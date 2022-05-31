@@ -63,11 +63,8 @@
 
                                 document.getElementById("Immagine_videogioco").innerHTML +=
                                     `
-                                    <img src="${result.data.videogioco.foto}" class="card-img-top" alt="${result.data.videogioco.nome}" />
+                                    <img src="${url}" class="card-img-top" alt="${result.data.videogioco.nome}" />
                                     `
-
-                                var idVideogame = videogioco.id;
-                                var url = "/Home/Dettagli/" + videogioco.id;
 
                                 document.getElementById("Descrizione_Videogioco").innerHTML +=
                                     `
