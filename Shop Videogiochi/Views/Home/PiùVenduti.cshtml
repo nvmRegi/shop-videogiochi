@@ -1,33 +1,21 @@
-﻿
+﻿@*
+    Vista Classifica dei videogiochi più venduti dell'ultimo mese
+*@
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            <h1 class="text-white">I Più Venduti</h1>
-            <p class="text-white">Tutti i giochi</p>
+        <div class="col text-light text-center">
+            <h1>I Più Venduti dell'ultimo mese</h1>
+            <p>Tutti i giochi</p>
         </div>
     </div>
     <div class="row">
         <div class="col d-none" id="no-videogiochi">
             <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
         </div>
-        <div class="col">
-            <!--Inizio Card-->
-            <div class="card">
-              <div class="card-header" id="Immagine_videogioco">
-                <!--qui andrà l'immagine della card se la mettiamo-->
-              </div>
-              <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <div id="Descrizione_Videogioco">
 
-                    </div>
-                  <!--qui andrà il testo della card-->
-                  <footer class="blockquote-footer">Someone famous in <cite title="Source Title"><!--qui mettereno il prezzo del videogioco--></cite></footer>
-                </blockquote>
-              </div>
-            </div>
-            <!--Fine Card-->
+        <div class="col-12" id="videogiochi_venduti_div">
+            
         </div>
     </div>
 </div>
@@ -36,57 +24,47 @@
 
 @section Scripts {
     <script type="text/javascript">
-            
-        caricaPiùVenduti();
+
+        caricaPiuVenduti();
         //MiPiaceAiVideogiochi();
 
-        function caricaPiùVenduti()
+        function caricaPiuVenduti()
         {
             //document.getElementById("videogiochi_div").innerHTML= "";
-            axios.get('api/PiùVenduti/Get')
-            .then
-            (result =>
-                {
+            axios.get('/api/PiuVenduti/Get')
+            .then(result => {
                     console.log("Ha ricevuto i videogiochi non ho capito bene come ma va... di nuovo!");
 
-                    result.data.forEach (videogioco => 
-                        {   
+                    result.data.forEach(videogioco => { 
+                        
                             if(result.data.length == 0){
-                                //document.getElementById("wait_videogioco").classList.add("d-none");
+                                
                                 document.getElementById("no-videogiochi").classList.remove("d-none");
                             } else{
-                                //document.getElementById("wait_videogioco").classList.add("d-none");
-                                //document.getElementById("videogiochi_div").classList.remove("d-none");
-
+                                
                                 var idVideogame = videogioco.id;
-                                var url = "/Home/Dettagli/" + videogioco.id;
+                                
 
-                                document.getElementById("Immagine_videogioco").innerHTML +=
-                                    `
-                                    <img src="${url}" class="card-img-top" alt="${result.data.videogioco.nome}" />
-                                    `
-
-                                document.getElementById("Descrizione_Videogioco").innerHTML +=
-                                    `
-                                    <span class="text-white">${result.data.videogiochi.descrizione}</span>
-                                    <span > </span>
-                                    <span class="text-white">€ ${result.data.videogiochi.prezzo}</span>
-                                    `
-                            }
-                    }
-                }
-            )
-        }
-    
-            ).catch
-            (
-                (error) =>
-                {
+                                document.getElementById("videogiochi_venduti_div").innerHTML +=
+                                 `
+                                    <div class="col-12 col-lg-4 col-md-6">
+                                        <div class="card p-3 mb-5 pt-0 px-0 text-center">
+                                            <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                            <div class="card-body pt-2 mt-0">
+                                                <h5 class="card-title text-dark">${videogioco.nome}</h5>
+                                                
+                                            </div>
+                                        </div>                                                  
+                                    </div>
+                                `
+                            }})    
+                    }).catch((error) => {
                 console.log("C'è stato un errore: " + error);
-                }
-            )
-    </script>
-}
+                })
+
+        }
+            </script>
+        }
 
 
 
