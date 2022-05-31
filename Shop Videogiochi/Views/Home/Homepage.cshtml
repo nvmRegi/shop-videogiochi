@@ -47,13 +47,25 @@
 @section Scripts {
     <script type="text/javascript">
             
-        caricaVideogiochi();
+        document.getElementById('search_input').addEventListener('keyup', searchItems);
+
+        searchItems();
+
+        function searchItems(){
+            var inputTesto = document.getElementById('search_input').value;
+            caricaVideogiochi(inputTesto);
+        }
         //MiPiaceAiVideogiochi();
 
-        function caricaVideogiochi()
+        function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML= "";
-            axios.get('api/Videogiochi/Get')
+
+            axios.get('api/Videogiochi/Get', {
+                params: {
+                    search: parametroSearch
+                }
+            })
             .then
             (result =>
                 {
