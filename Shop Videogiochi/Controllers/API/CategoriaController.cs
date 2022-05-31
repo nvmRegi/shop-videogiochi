@@ -16,7 +16,6 @@ namespace Shop_Videogiochi.Controllers.API
             using (VideogameShopContext db= new VideogameShopContext())
             {
                 
-
                 if(id != null)
                 {
                     videoGiochiPerCategoria = db.Videogiochi.Where(videogioco => videogioco.CategoriaId == id).ToList();
@@ -24,8 +23,6 @@ namespace Shop_Videogiochi.Controllers.API
                 }
                 return BadRequest();
 
-                
-                
             }
         }
     }
