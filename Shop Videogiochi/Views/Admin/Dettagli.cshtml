@@ -1,35 +1,41 @@
-﻿@model Videogioco
+﻿@model OrdineFornitoreVideogioco
 
 <div class="container">
     <div class="row mt-5">
         <div class="col-6 mx-auto">
             <div class="card box-shadow bg-body mt-5 border-0">
-                <img src="@Model.Foto" class="card-img-top h-100" alt="@Model.Nome" class="card-img-top">
+                <img src="@Model.videogioco.Foto" class="card-img-top h-100" alt="@Model.videogioco.Nome" class="card-img-top">
             </div>
         </div>
         <div class="col-6 mx-auto my-auto">
-            <h1 class="text-white text-center my-3 py-2">@Model.Nome</h1>
-            <p class="text-white border rounded text-center my-3 py-2">Prezzo: @Model.Prezzo €</p>
+            <h1 class="text-white text-center my-3 py-2">@Model.videogioco.Nome</h1>
+            <p class="text-white border rounded text-center my-3 py-2">Prezzo: @Model.videogioco.Prezzo €</p>
             <h4 class="text-white text-center mt-5">Form Fornitore</h4>
-            <form method="post" action="@Url.Action("Acquista","Admin")">
+            
+            <form action="@Url.Action("CompraVideogioco","Admin", new{id = Model.videogioco.Id})" method="post">
+                @Html.AntiForgeryToken()
                 <div class="form-group text-white my-1">
                     <label for="NomeFornitore">Nome del Fornitore:</label>
-                    <input asp-form="NomeFornitore" class="d-block w-100" type="text" id="NomeFornitore">
+                    <input asp-for="ordineFornitore.NomeFornitore" class="d-block w-100">
+                    <span asp-validation-for="ordineFornitore.NomeFornitore" class="text-danger"></span>
                 </div>
                 <div class="form-group text-white my-1">
                     <label for="Quantità">Quantità: </label>
-                    <input asp-form="Quantità" class="d-block w-100" type="number" id="Quantità">
+                    <input asp-for="ordineFornitore.Quantità" class="d-block w-100">
+                    <span asp-validation-for="ordineFornitore.Quantità" class="text-danger"></span>
                 </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success my-3">Rifornisci</button>
-            </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-success my-3" value="Rifornisci">
+                </div>
             </form>
+
          </div>
     </div>
     <div class="row mt-3">
         <div class="col-12 mx-auto my-5">
             <h3 class="text-white">Descrizione:</h3>
-            <p class="text-white my-2 py-3">@Model.Descrizione</p>
+            <p class="text-white my-2 py-3">@Model.videogioco.Descrizione</p>
         </div>
     </div>
 </div>

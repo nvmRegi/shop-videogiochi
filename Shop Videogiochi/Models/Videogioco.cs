@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Shop_Videogiochi.Data;
 
 namespace Shop_Videogiochi.Models
 {
@@ -30,18 +31,19 @@ namespace Shop_Videogiochi.Models
 
         [Required(ErrorMessage = "E' necessario inserire il costo del prodotto")]
         [Range(0, 500, ErrorMessage = "Il prezzo del prodotto dev'essere inferiore a 500€")]
-        public double Prezzo   { get; set; }
+        public double Prezzo{ get; set; }
 
         //foreign key Categoria
         public int? CategoriaId { get; set; }
 
-
-        [Required(ErrorMessage = "La categoria del videogioco è obbligatoria")]
         public Categoria? Categoria { get; set; }
 
-
         //collegamento 1 a molti con ordini
-        public List<Ordine> Ordini { get; set; }
+        public List<Ordine>? Ordini { get; set; }
+
+        public List<OrdineFornitore>? OrdiniFornitore { get; set; }
+
+        private int Disponibilità;
 
         //costruttore
 
@@ -56,6 +58,26 @@ namespace Shop_Videogiochi.Models
             this.Foto = Foto;
             this.Descrizione = Descrizione;
             this.Prezzo = Prezzo;
+        }
+
+        public int GetDisponibilità()
+        {
+            Disponibilità = 0;
+            using(VideogameShopContext db = new VideogameShopContext())
+            {
+                List<OrdineFornitore> listaOrdiniFornitore = db.OrdiniFornitore.Where(ordine => ordine.VideogiocoId == Id).ToList();
+                List<Ordine> listaOrdini = db.Ordini.Where(ordine => ordine.VideogiocoId == Id).ToList();
+                
+                foreach(OrdineFornitore ordine in listaOrdiniFornitore)
+                {
+                    Disponibilità += ordine.Quantità;
+                }
+                foreach(Ordine ordine in listaOrdini)
+                {
+                    Disponibilità -= ordine.Quantità;
+                }
+            }
+            return Disponibilità;
         }
     }
 }

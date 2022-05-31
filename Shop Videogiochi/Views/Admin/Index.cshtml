@@ -5,9 +5,7 @@
 
 @model List<Videogioco>
 
-<div class="container" style="padding-top: 65px">
-
-
+<div class="container">
 
     <table class="table align-middle mt-5" style="color: #ecf9fc">
         <thead>
@@ -15,7 +13,7 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Descrizione</th>
-                <th scope="col class="text-center"">Prezzo</th>
+                <th scope="col">Prezzo</th>
                 <th scope="col" class="text-center">Disponibilità</th>
                 <th scope="col" class="text-center">
                     <a class="btn steam-button" href="@Url.Action("Crea", "Admin")">
@@ -27,8 +25,7 @@
         <tbody>
             
             @foreach(Videogioco videogioco in Model)
-            {
-           
+            {          
                 <tr>
                     <th class="align-middle">@videogioco.Nome</th> <!--th embolded-->
                     <td class="align-middle">@videogioco.Categoria.Tema</td>
@@ -41,18 +38,18 @@
                         </details>
                     </td>
                     <td class="align-middle">&euro;@videogioco.Prezzo</td>
-                    <td class="align-middle text-center"></td>
+                    <td class="align-middle text-center">@videogioco.GetDisponibilità()</td>
                     <td class="align-middle text-center">
                             <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
-                            <img src="~/img/opzioni.png" width="24" height="24" alt="Dettagli">
+                            <img src="~/img/opzioni.png" width="20" height="20" alt="Dettagli">
                             </a>
                         <a class="btn btn-sm" href="@Url.Action("Aggiorna", "Admin", new{id = videogioco.Id})">
-                        <img src="~/img/modifica.png" width="24" height="24" alt="Dettagli">
+                        <img src="~/img/modifica.png" width="20" height="20" alt="Dettagli">
                         </a>
                         <form action="@Url.Action("Cancella", "Admin", new{id = videogioco.Id})" method="post" style="display: inline">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-sm">
-                                <img src="~/img/delete.png" width="24" height="24" alt="Elimina">
+                                <img src="~/img/delete.png" width="20" height="20" alt="Elimina">
                             </button>
                         </form>
                     </td>
@@ -61,3 +58,23 @@
         </tbody>
     </table>
 </div>
+
+@*@section Scripts{
+    <script type="text/javascript">
+
+        loadDisponibilità();
+
+        function loadDisponibilità(){
+            
+            axios.get('api/Disponibilità/Get').then((result) =>{
+                
+                result.data.forEach(videogioco =>{
+
+                    document.querySelector("")
+                })
+            })
+
+        }
+
+    </script>
+}*@
