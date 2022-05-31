@@ -85,8 +85,7 @@ namespace Shop_Videogiochi.Controllers
                 videogiocoToCreate.Descrizione = model.videogioco.Descrizione;
                 videogiocoToCreate.Prezzo = model.videogioco.Prezzo;
 
-                videogiocoToCreate.Categoria = model.videogioco.Categoria;
-
+                videogiocoToCreate.CategoriaId = model.videogioco.CategoriaId;
 
                 db.Videogiochi.Add(videogiocoToCreate);
                 db.SaveChanges();
