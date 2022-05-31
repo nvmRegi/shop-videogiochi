@@ -45,3 +45,44 @@
     overflow: auto;
     resize: vertical;
 }
+
+
+/* From uiverse.io by @nikk7007 --- grazie nikk sette zero zero sette*/
+.buttonLike {
+    border-radius: 5px;
+    padding: 0.2em 1.6em 0.5em 1.6em;
+    border: 2px solid #708d04;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    text-align: center;
+    font-size: 16px;
+    transition: .3s;
+    z-index: 1;
+    font-family: inherit;
+    color: #598529;
+    font-weight: 600;
+}
+
+    .buttonLike::before {
+        content: '';
+        width: 0px;
+        height: 300%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        background: #75af22;
+        transition: .6s ease;
+        display: block;
+        z-index: -1;
+
+    }
+
+    .buttonLike:hover::before {
+        width: 105%;
+    }
+
+    .buttonLike:hover {
+        color: white;
+    }
