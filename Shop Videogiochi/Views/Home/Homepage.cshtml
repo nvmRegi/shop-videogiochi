@@ -17,13 +17,13 @@
 </div>
 
 
-<div class="container shadow p-3 mb-3 rounded py-5 text-light">
+<div class="container-fluid shadow p-3 mb-3 rounded py-5 text-light">
+
     <div id="wait_videogioco" class="row justify-content-center my-5">
-        <div class="col-2">
+        <div class="col-2 justify-content-center">
             <div class="loader">
-                <div class="ball"></div>
-                <div class="ball"></div>
-                <div class="ball"></div>
+                <div class="ball d-inline-block"></div> <div class="ball d-inline-block"></div> <div class="ball d-inline-block"></div>
+                <br />
                 <span>Loading...</span>
             </div>
         </div>
@@ -57,7 +57,6 @@
             .then
             (result =>
                 {
-                    console.log("Ha ricevuto i videogiochi non ho capito bene come ma va");
 
                     result.data.forEach (videogioco => 
                         {   
@@ -73,7 +72,7 @@
 
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `
-                                    <div class="card border-0 text-center " style="width: 18rem;">
+                                    <div class="card border-0 text-center mx-2 my-3" style="width: 18rem;">
                                         <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
                                         <div class="card-body">
                                             <h5 class="card-title text-dark">${videogioco.nome}</h5>
