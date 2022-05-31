@@ -12,6 +12,7 @@
     </div>
 </div>*@
 
+
 <div class="container my-5 text-center">
     <h1 class="text-light">Negozio Videogiochi</h1>
 </div>
@@ -20,13 +21,20 @@
 <div class="container-fluid shadow p-3 mb-3 rounded py-5 text-light">
 
     <div id="wait_videogioco" class="row justify-content-center my-5">
+        
+        <div class="col-2">
         <div class="col-2 justify-content-center">
+            <div class="loader" >
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
             <div class="loader">
                 <div class="ball d-inline-block"></div> <div class="ball d-inline-block"></div> <div class="ball d-inline-block"></div>
                 <br />
                 <span>Loading...</span>
             </div>
         </div>
+        
     </div>
 
     <div id="no-videogiochi" class="row text-center d-none">
@@ -47,13 +55,25 @@
 @section Scripts {
     <script type="text/javascript">
             
-        caricaVideogiochi();
+        document.getElementById('search_input').addEventListener('keyup', searchItems);
+
+        searchItems();
+
+        function searchItems(){
+            var inputTesto = document.getElementById('search_input').value;
+            caricaVideogiochi(inputTesto);
+        }
         //MiPiaceAiVideogiochi();
 
-        function caricaVideogiochi()
+        function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML= "";
-            axios.get('api/Videogiochi/Get')
+
+            axios.get('api/Videogiochi/Get', {
+                params: {
+                    search: parametroSearch
+                }
+            })
             .then
             (result =>
                 {

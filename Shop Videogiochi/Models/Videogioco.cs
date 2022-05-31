@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Shop_Videogiochi.Data;
+using System.Text.Json.Serialization;
 
 namespace Shop_Videogiochi.Models
 {
@@ -39,8 +40,10 @@ namespace Shop_Videogiochi.Models
         public Categoria? Categoria { get; set; }
 
         //collegamento 1 a molti con ordini
+        [JsonIgnore]
         public List<Ordine>? Ordini { get; set; }
 
+        [JsonIgnore]
         public List<OrdineFornitore>? OrdiniFornitore { get; set; }
 
         private int Disponibilità;
