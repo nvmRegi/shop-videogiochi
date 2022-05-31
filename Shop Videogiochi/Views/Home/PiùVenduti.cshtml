@@ -11,19 +11,17 @@
         <div class="col d-none" id="no-videogiochi">
             <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
         </div>
-        <div class="col">
+        <div class="col-12">
             <!--Inizio Card-->
             <div class="card">
-              <div class="card-header" id="Immagine_videogioco">
+              <div class="card-header">
+                  <div id="Immagine_videogioco"></div>
                 <!--qui andrà l'immagine della card se la mettiamo-->
               </div>
               <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <div id="Descrizione_Videogioco">
-
-                    </div>
                   <!--qui andrà il testo della card-->
-                  <footer class="blockquote-footer">Someone famous in <cite title="Source Title"><!--qui mettereno il prezzo del videogioco--></cite></footer>
+                  <footer class="blockquote-footer"><div id="Descrizione_Videogioco"></div><cite title="Source Title"><!--qui mettereno il prezzo del videogioco--></cite></footer>
                 </blockquote>
               </div>
             </div>
@@ -63,14 +61,14 @@
 
                                 document.getElementById("Immagine_videogioco").innerHTML +=
                                     `
-                                    <img src="${url}" class="card-img-top" alt="${result.data.videogioco.nome}" />
+                                    <img src="${url}" class="card-img-top" alt="${videogioco.nome}" />
                                     `
 
                                 document.getElementById("Descrizione_Videogioco").innerHTML +=
                                     `
-                                    <span class="text-white">${result.data.videogiochi.descrizione}</span>
+                                    <span class="text-white">${videogioco.descrizione}</span>
                                     <span > </span>
-                                    <span class="text-white">€ ${result.data.videogiochi.prezzo}</span>
+                                    <span class="text-white">€ ${videogioco.prezzo}</span>
                                     `
                             }
                         }
@@ -79,8 +77,8 @@
             ).catch((error) =>{
                 console.log("C'è stato un errore: " + error);
             })
+            </script>
         }
-    }
 
 
 
