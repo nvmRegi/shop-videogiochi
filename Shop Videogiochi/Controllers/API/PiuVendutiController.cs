@@ -8,7 +8,7 @@ namespace Shop_Videogiochi.Controllers.API
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PiùVendutiController : ControllerBase
+    public class PiuVendutiController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
