@@ -7,21 +7,32 @@
 
 <div class="container">
 
-    <div class="dropdown mb-4">
+    @*<div class="dropdown mt-5">
         <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             Categorie
         </a>
                                 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" >Tutte</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Admin", new{id = 0})">Tutte</a></li>
+            
             @foreach(Videogioco videogioco in Model)
             {
-                <li class="dropdown-item" value="@videogioco.CategoriaId">@videogioco.Categoria.Tema</li>
+                <li class="dropdown-item"><a href="@Url.Action("Index", "Admin", new{id = @videogioco.Categoria.Id})" style="color: inherit; text-decoration: inherit">@videogioco.Categoria.Tema</a></li>
             }
+        </ul>
+    </div>*@
+
+    <div class="dropdown mb-4">
+        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorie
+        </a>
+                                
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="categoria">
+            <!-- qui verranno mostrate le categoria nel dropdown-->
         </ul>
     </div>
 
-    <table class="table align-middle mt-5" style="color: #ecf9fc">
+    <table class="table align-middle " style="color: #ecf9fc">
         <thead>
             <tr>
                 <th scope="col">Titolo</th>
@@ -76,5 +87,39 @@
 @section Scripts{
     <script type="text/javascript">
         document.getElementById('search_input').classList.add('d-none');
+
+        caricaDropdown();
+
+        function caricaDropdown(){
+
+            var urlAdmin = "/Admin";
+            document.getElementById('categoria').innerHTML = `<li class="dropdown-item"><a href="${urlAdmin}" style="color: inherit; text-decoration: inherit">Tutte</a></li>`;
+
+            
+            
+            axios.get('/api/Categoria/Get')
+            .then((result) =>{
+
+                
+                result.data.forEach(categoria =>{
+
+                    var idCategoria = categoria.id;
+                    var url = "/Admin/Index/" + idCategoria;
+
+                    document.getElementById('categoria').innerHTML +=
+                    `
+                    <li class="dropdown-item"><a href="${url}" style="color: inherit; text-decoration: inherit">${categoria.tema}</a></li>
+                    `
+                })
+            }).catch(error =>{
+                console.log("C'è stato un errore: " + error);
+            })
+        }
+
+        function cercaPerCategoria(id){
+            
+            axios.get('api/Videogiochi/Get', )
+        }
+
     </script>
 }
