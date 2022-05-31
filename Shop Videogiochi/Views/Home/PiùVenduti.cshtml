@@ -34,7 +34,7 @@
 
 
 
-@*@section Scripts {
+@section Scripts {
     <script type="text/javascript">
             
         caricaPiùVenduti();
@@ -58,27 +58,35 @@
                                 //document.getElementById("wait_videogioco").classList.add("d-none");
                                 //document.getElementById("videogiochi_div").classList.remove("d-none");
 
-                                document.getElementById("Immagine_videogioco").innerHTML +=
-                                    `
-                                    <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
-                                    `
-
                                 var idVideogame = videogioco.id;
                                 var url = "/Home/Dettagli/" + videogioco.id;
 
+                                document.getElementById("Immagine_videogioco").innerHTML +=
+                                    `
+                                    <img src="${url}" class="card-img-top" alt="${result.data.videogioco.nome}" />
+                                    `
+
                                 document.getElementById("Descrizione_Videogioco").innerHTML +=
                                     `
-                                    <p class="text-white">${videogioco.descrizione}</p>
+                                    <span class="text-white">${result.data.videogiochi.descrizione}</span>
+                                    <span > </span>
+                                    <span class="text-white">€ ${result.data.videogiochi.prezzo}</span>
                                     `
                             }
-                        }
-                    )
+                    }
                 }
-            ).catch((error) =>{
-                console.log("C'è stato un errore: " + error);
-            })
+            )
         }
-    }*@
+    
+            ).catch
+            (
+                (error) =>
+                {
+                console.log("C'è stato un errore: " + error);
+                }
+            )
+    </script>
+}
 
 
 
@@ -86,6 +94,7 @@
 
 
 @*
+    //versione con i carroselli
     <div class="row">
         <div class="col">
 

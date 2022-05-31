@@ -34,6 +34,8 @@ namespace Shop_Videogiochi.Models
         [Range(0, 500, ErrorMessage = "Il prezzo del prodotto dev'essere inferiore a 500€")]
         public double Prezzo{ get; set; }
 
+        public int? MiPiace { get; set; }
+
         //foreign key Categoria
         public int? CategoriaId { get; set; }
 
