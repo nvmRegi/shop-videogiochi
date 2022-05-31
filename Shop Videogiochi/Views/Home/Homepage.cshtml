@@ -73,8 +73,10 @@
 
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `
-                                    <div class="card  text-center " style="width: 18rem;">
-                                        <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
+                                    <div class="card text-center " style="width:18rem; height: 18rem">
+                                        <div class="card-img overflow-hidden">
+                                            <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}"/>
+                                        </div>
                                         <div class="card-body">
                                             <h5 class="card-title text-dark">${videogioco.nome}</h5>
                                             <a href="${url}" class="btn btn-danger">Dettagli</a>
