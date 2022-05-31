@@ -59,22 +59,8 @@
     </table>
 </div>
 
-@*@section Scripts{
+@section Scripts{
     <script type="text/javascript">
-
-        loadDisponibilità();
-
-        function loadDisponibilità(){
-            
-            axios.get('api/Disponibilità/Get').then((result) =>{
-                
-                result.data.forEach(videogioco =>{
-
-                    document.querySelector("")
-                })
-            })
-
-        }
-
+        document.getElementById('search_input').classList.add('d-none');
     </script>
-}*@
+}

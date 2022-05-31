@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group text-white my-1">
                     <label for="Quantità">Quantità: </label>
-                    <input asp-for="ordineFornitore.Quantità" class="d-block w-100">
+                    <input asp-for="ordineFornitore.Quantità" min="0" class="d-block w-100">
                     <span asp-validation-for="ordineFornitore.Quantità" class="text-danger"></span>
                 </div>
 
@@ -39,3 +39,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+        document.getElementById('search_input').classList.add('d-none');
+    </script>
+}

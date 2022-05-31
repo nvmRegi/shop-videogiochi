@@ -50,13 +50,25 @@
 @section Scripts {
     <script type="text/javascript">
             
-        caricaVideogiochi();
+        document.getElementById('search_input').addEventListener('keyup', searchItems);
+
+        searchItems();
+
+        function searchItems(){
+            var inputTesto = document.getElementById('search_input').value;
+            caricaVideogiochi(inputTesto);
+        }
         //MiPiaceAiVideogiochi();
 
-        function caricaVideogiochi()
+        function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML= "";
-            axios.get('api/Videogiochi/Get')
+
+            axios.get('api/Videogiochi/Get', {
+                params: {
+                    search: parametroSearch
+                }
+            })
             .then
             (result =>
                 {
@@ -76,7 +88,7 @@
 
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `
-                                    <div class="card  text-center " style="width: 18rem;">
+                                    <div class="card border-0 text-center " style="width: 18rem;">
                                         <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
                                         <div class="card-body">
                                             <h5 class="card-title text-dark">${videogioco.nome}</h5>

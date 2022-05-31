@@ -17,16 +17,22 @@ namespace Shop_Videogiochi.Controllers.API
     public class VideogiochiController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? search)
         {
             List<Videogioco> giochiInHomePage = new List<Videogioco>();
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
-
-                giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList<Videogioco>();
+                if(search != null && search != "")
+                {
+                    giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
+                        .Where(videogioco => videogioco.Nome.Contains(search) || videogioco.Descrizione.Contains(search)).ToList();
+                }
+                else
+                {
+                    giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList();
+                }
                 return Ok(giochiInHomePage);
-                         
             }
         }
     }
