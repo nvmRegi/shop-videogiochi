@@ -20,7 +20,6 @@ namespace Shop_Videogiochi.Controllers.API
 
                 return Ok(listaPiuVenduti);
             }
-            
         }
     }
 }
