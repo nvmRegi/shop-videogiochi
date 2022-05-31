@@ -8,14 +8,21 @@ namespace Shop_Videogiochi.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
             List<Videogioco> videogiocoList = new List<Videogioco>();
 
             using(VideogameShopContext db = new VideogameShopContext())
             {
-                videogiocoList = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList();
+                if(id != null)
+                {
+                    videogiocoList = db.Videogiochi.Include(videogioco => videogioco.Categoria).Where(videogioco => videogioco.CategoriaId == id).ToList();
+                }
+                else
+                {
+                    videogiocoList = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList();
 
+                }
             }
             return View(videogiocoList);
         }
