@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop_Videogiochi.Data;
 
@@ -11,9 +12,10 @@ using Shop_Videogiochi.Data;
 namespace Shop_Videogiochi.Migrations
 {
     [DbContext(typeof(VideogameShopContext))]
-    partial class VideogameShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220531125851_AggiuntoLike")]
+    partial class AggiuntoLike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +124,7 @@ namespace Shop_Videogiochi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MiPiace")
+                    b.Property<int?>("Like")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
