@@ -45,10 +45,10 @@
         </a>
                                 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="@Url.Action("Index", "Home")">Tutte</a></li>
+            <li><a class="dropdown-item" href="">Tutte</a></li>
             @foreach(Categoria categoria in Model)
             {
-                <li><a class="dropdown-item" href="#">@categoria.Tema</a></li>
+                <li class="dropdown-item" href="">@categoria.Tema</li>
             }
         </ul>
     </div>
