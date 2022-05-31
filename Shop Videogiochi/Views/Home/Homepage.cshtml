@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div id="videogiochi_div" class="row d-none">
+    <div id="videogiochi_div" class="d-flex justify-content-around d-none">
         <!-- qui verranno mostrati gli elementi -->
     </div>
 </div>
@@ -73,13 +73,11 @@
 
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `
-                                    <div class="col">
-                                        <div class="card  text-center " style="width: 18rem;">
-                                            <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
-                                            <div class="card-body">
-                                                <h5 class="card-title">${videogioco.nome}</h5>
-                                                <a href="${url}" class="btn btn-danger">Dettagli</a>
-                                            </div>
+                                    <div class="card  text-center " style="width: 18rem;">
+                                        <img src="${videogioco.foto}" class="card-img-top" alt="${videogioco.nome}" />
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">${videogioco.nome}</h5>
+                                            <a href="${url}" class="btn btn-danger">Dettagli</a>
                                         </div>
                                     </div>
                                     `

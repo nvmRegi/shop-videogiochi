@@ -6,21 +6,21 @@ using Shop_Videogiochi.Models;
 
 namespace Shop_Videogiochi.Controllers.API
 {
-    //[Route("api/[controller]/[action]")]
-    //[ApiController]
-    //public class PiùVendutiController : ControllerBase
-    //{
-    //    [HttpGet]
-    //    public IActionResult Get()
-    //    {
-    //        List<Ordine> listaPiuVenduti = new List<Ordine>();
-    //        using (VideogameShopContext db = new VideogameShopContext())
-    //        {
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class PiùVendutiController : ControllerBase
+    {
+        [HttpGet]
+        public IActionResult Get()
+        {
+            
+            using (VideogameShopContext db = new VideogameShopContext())
+            {
+                List<Videogioco> listaPiuVenduti = db.Videogiochi.FromSqlRaw("SELECT Videogiochi.* FROM Videogiochi INNER JOIN Ordini ON Videogiochi.Id = Ordini.VideogiocoId WHERE MONTH(data) = MONTH(DATEADD(month, -1, GETDATE())) GROUP BY Videogiochi.Id, Videogiochi.Nome, Videogiochi.Descrizione, Videogiochi.Prezzo, Videogiochi.Foto, Videogiochi.CategoriaId ORDER BY SUM(Quantità) DESC").ToList();
 
-    //            listaPiuVenduti = (from Ordini in db.Ordini group Ordini.VideogiocoId select *).ToList();
-    //            //listaPiuVenduti = db.Ordini.FromSqlRaw("SELECT VideogiocoId, SUM(Quantità) as Vendite FROM Ordini GROUP BY VideogiocoId ORDER BY Vendite desc");
-    //        }
-    //        return Ok(listaPiuVenduti);
-    //    }
-    //}
+                return Ok(listaPiuVenduti);
+            }
+            
+        }
+    }
 }
