@@ -10,19 +10,13 @@ namespace Shop_Videogiochi.Controllers.API
     public class CategoriaController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(int id)
+        public IActionResult Get()
         {
-            List<Videogioco> videoGiochiPerCategoria = new List<Videogioco>();
-            using (VideogameShopContext db= new VideogameShopContext())
+            List<Categoria> categorie = new List<Categoria>();
+            using(VideogameShopContext db = new VideogameShopContext())
             {
-                
-                if(id != null)
-                {
-                    videoGiochiPerCategoria = db.Videogiochi.Where(videogioco => videogioco.CategoriaId == id).ToList();
-                    return Ok(videoGiochiPerCategoria);
-                }
-                return BadRequest();
-
+                categorie = db.Categorie.ToList();
+                return Ok(categorie);
             }
         }
     }

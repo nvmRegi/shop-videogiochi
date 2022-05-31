@@ -17,7 +17,7 @@ namespace Shop_Videogiochi.Controllers.API
     public class VideogiochiController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(string? search)
+        public IActionResult Get(string? search, int? idCategoria)
         {
             List<Videogioco> giochiInHomePage = new List<Videogioco>();
 
@@ -28,6 +28,11 @@ namespace Shop_Videogiochi.Controllers.API
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
                         .Where(videogioco => videogioco.Nome.Contains(search) || videogioco.Descrizione.Contains(search)).ToList();
                 }
+                else if(idCategoria != null)
+                {
+                    giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
+                        .Where(videogioco => videogioco.CategoriaId == idCategoria).ToList();
+                } 
                 else
                 {
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList();
