@@ -97,7 +97,7 @@
                                                 <div class="card-body pt-2 mt-0">
                                                     <h5 class="card-title text-dark">${videogioco.nome}</h5>
                                                     <a href="${url}" class="btn btn-danger">Acquista</a>
-                                                    <button onclick="eseguiPostLike(${videogioco.id})" class="buttonLike">Mi piace</button>
+                                                    <button onclick="prendiUnVideogioco(${videogioco.id})" class="buttonLike">Mi piace</button>
                                                     <span>${videogioco.miPiace}</span>
                                                 </div>
                                             </div>                                                  
@@ -113,18 +113,6 @@
         }
         
         caricaDropdown();
-
-
-
-        function eseguiPostLike(idVideogioco) {
-
-            axios.post('api/VideogiochiMiPiace/Post', {
-                Id: idVideogioco;
-            })
-                .then(result).catch(error => {
-                    console.log("Errore nell'invio del Like");
-                })
-        }
 
         function caricaDropdown(){
             document.getElementById('categoria').innerHTML = `<li class="dropdown-item" onclick="caricaVideogiochi()">Tutte</li>`;
@@ -143,7 +131,6 @@
             })
         }
 
-        
 
         function cercaPerCategoria(id){
 
@@ -183,27 +170,40 @@
                         `
                     })}
 
-                
-                
             }).catch(error =>{
                 console.log("C'è stato un errore: " + error);
             })
         }
 
+        function prendiUnVideogioco(idDaPrendere){
+
+            axios.get('/api/Videogiochi/Get',{
+                params: {
+                    idVideogioco: idDaPrendere
+                }
+            }).then((result) =>{
+
+                console.log("Entrato Get Un videogioco");
+
+                eseguiPostLike(result.data[0].id);
+
+            }).catch((error) =>{
+                console.log("C'è stato un errore: " + error);
+            })
+        }
+
+        function eseguiPostLike(videogiocoCheCiPiace) {
+
+            axios.post('/api/VideogiochiMiPiace/Post', {
+                Id : videogiocoCheCiPiace
+            }).then(result =>{
+                console.log("Entrato nel post");
+
+            }).catch(error => {
+                    console.log("C'è stato un errore: " + error);
+                })
+        }
 
 
-        //function MiPiaceAiVideogiochi()
-        //{
-        //    axios.get('api/VideogiochiMiPiace/Get')
-        //    .then(result => {
-
-        //        console.log("Ho ricevuto i videogiochi_Mi_piace che pure io non ho capito bene come va");
-
-        //        result.data.forEach(videogioco => {
-        //            document.getElementById("corpoVideogiochi").innerHTML +=
-        //                   `
-        //                   `
-        //        })
-        //    })
     </script>
 }

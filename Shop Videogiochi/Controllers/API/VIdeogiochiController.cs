@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop_Videogiochi.Data;
 using Shop_Videogiochi.Models;
+using Shop_Videogiochi.Models.Models_Ponte;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +18,7 @@ namespace Shop_Videogiochi.Controllers.API
     public class VideogiochiController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(string? search, int? idCategoria)
+        public IActionResult Get(string? search, int? idCategoria, int? idVideogioco)
         {
             List<Videogioco> giochiInHomePage = new List<Videogioco>();
 
@@ -33,6 +34,10 @@ namespace Shop_Videogiochi.Controllers.API
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
                         .Where(videogioco => videogioco.CategoriaId == idCategoria).ToList();
                 } 
+                else if (idVideogioco != null)
+                {
+                    giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).Where(videogioco => videogioco.Id == idVideogioco).ToList();
+                }
                 else
                 {
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria).ToList();
@@ -40,5 +45,11 @@ namespace Shop_Videogiochi.Controllers.API
                 return Ok(giochiInHomePage);
             }
         }
+
+        //[HttpPut("{id}")]
+        //public IActionResult Put(int id, [FromBody] dataInputId data)
+        //{
+
+        //}
     }
 }

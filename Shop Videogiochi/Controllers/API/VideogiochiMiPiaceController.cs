@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop_Videogiochi.Data;
 using Shop_Videogiochi.Models;
+using Shop_Videogiochi.Models.Models_Ponte;
 
 namespace Shop_Videogiochi.Controllers.API
 {
@@ -9,42 +11,60 @@ namespace Shop_Videogiochi.Controllers.API
     [ApiController]
     public class VideogiochiMiPiaceController : ControllerBase
     {
+
+        //Prende i videogiochi preferiti dell'utente
         [HttpGet]
         public IActionResult Get(int? id)
         {
-            List<Videogioco> giochiInHomePage = new List<Videogioco>();
-
-            using (VideogameShopContext db = new VideogameShopContext())
+            List<Videogioco> listaVideogiochiPreferiti = new List<Videogioco>();
+            List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
+            
+            if(idVideogiochiPreferiti.Count == 0)
             {
-
-                if (id != null)
-                {
-                    giochiInHomePage = db.Videogiochi.ToList();
-                    return Ok(giochiInHomePage);
-                }
-                return BadRequest();
+                return Ok(listaVideogiochiPreferiti);
             }
+
+            using(VideogameShopContext db = new VideogameShopContext())
+            {
+                for(int i = 0; i < idVideogiochiPreferiti.Count; i++)
+                {
+                    Videogioco daCercare = db.Videogiochi.Include(Videogioco => Videogioco.Categoria).Where(videogioco => videogioco.Id == idVideogiochiPreferiti[i].Id).First();
+                    listaVideogiochiPreferiti.Add(daCercare);
+                }
+            }
+
+            if (id != null)
+            {
+                Videogioco videogiocoTrovato = listaVideogiochiPreferiti.Find(videogioco => videogioco.Id == id);
+                return Ok();
+            }
+            return Ok(listaVideogiochiPreferiti);
         }
 
+        //Aggiunge un videogioco ai preferiti dell'utente
         [HttpPost]
-        public IActionResult Post([FromBody] Videogioco model)
+        public IActionResult Post([FromBody]dataInputId data)
         {
             if (!ModelState.IsValid)
             {
                 return UnprocessableEntity(ModelState);
             }
-            using (VideogameShopContext db = new VideogameShopContext())
+
+            List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
+            idVideogiochiPreferiti.Add(data);
+
+            using(VideogameShopContext db = new VideogameShopContext())
             {
-                Videogioco giocoDaMipiacciare = db.Videogiochi.Where(x => 
-                    x.Id == model.Id
-                        ).Single();
+                Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == data.Id).First();
 
-                model.MiPiace = giocoDaMipiacciare.MiPiace++;
-
-                giocoDaMipiacciare.MiPiace = model.MiPiace++;
-                db.SaveChanges();
-                return Ok();
+                if(videogiocoDaCambiare != null)
+                {
+                    videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace + 1;
+                    db.SaveChanges();
+                }
             }
+
+            return Ok(idVideogiochiPreferiti);
         }
     }
 }
