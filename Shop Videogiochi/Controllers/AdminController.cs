@@ -91,6 +91,7 @@ namespace Shop_Videogiochi.Controllers
                 videogiocoToCreate.Foto = model.videogioco.Foto;
                 videogiocoToCreate.Descrizione = model.videogioco.Descrizione;
                 videogiocoToCreate.Prezzo = model.videogioco.Prezzo;
+                videogiocoToCreate.MiPiace = 0;
 
                 videogiocoToCreate.CategoriaId = model.videogioco.CategoriaId;
 

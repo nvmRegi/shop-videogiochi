@@ -59,6 +59,11 @@ namespace Shop_Videogiochi.Controllers.API
 
                 if(videogiocoDaCambiare != null)
                 {
+                    if(videogiocoDaCambiare.MiPiace == null)
+                    {
+                        videogiocoDaCambiare.MiPiace = 0;
+                    }
+
                     videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace + 1;
                     db.SaveChanges();
                 }
