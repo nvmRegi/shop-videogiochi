@@ -30,6 +30,7 @@ namespace Shop_Videogiochi.Controllers
                         .First();
                     OrdineVideogioco model = new OrdineVideogioco();
                     model.videogioco = videogiocoDaCercare;
+                    
                     return View("Dettaglio", model);
                 }
                 catch (InvalidOperationException ex)
@@ -45,8 +46,7 @@ namespace Shop_Videogiochi.Controllers
         [HttpPost]
         public IActionResult CompraVideogioco(int id, OrdineVideogioco model)
         {
-            
-            
+                        
             using (VideogameShopContext db = new VideogameShopContext())
             {
                 model.videogioco = db.Videogiochi.Where(videogioco => videogioco.Id == id).First();

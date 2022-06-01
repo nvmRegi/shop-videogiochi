@@ -1,80 +1,33 @@
 ﻿@* 
-    Vista Form Crea
+    Vista Form per aggiungere un videogioco all'interno del database
 *@
  
 @model VideogiocoCategoria
-
-@*<div class="container">
-    <form class="form-horizontal" action="@Url.Action("Crea", "Admin")" method="post"> 
-            @Html.AntiForgeryToken()">
-        <div class="form-group py-3">
-            <label class="control-label col-sm-2" for="Nome">Nome Videogioco</label>
-            <div class="col-sm-8">
-            <input asp-for="videogioco.Nome" type="text" class="form-control" placeholder="Aggiungi nome videogioco">
-            <span asp-validation-for="videogioco.Nome" class="text-danger"></span>
-            </div>
-        </div>
-        
-        <div class="form-group py-3">
-            <label class="control-label col-sm-2" for="Foto">Foto videogioco</label>
-            <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="Aggiungi foto videogioco">
-            <span asp-validation-for="videogioco.Foto" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group py-3">
-            <label class="control-label col-sm-4" for="Descrizione">Descrizione Videogioco</label>
-            <div class="col-sm-8">
-                <textarea asp-for="videogioco.Descrizione" rows="5" class="d-block w-100" placeholder="Aggiungi descrizione videogioco"></textarea>
-                <span asp-validation-for="videogioco.Descrizione" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group py-3">
-            <label class="control-label col-sm-2" for="email">Prezzo Videogioco</label>
-            <div class="col-sm-8">
-                <input type="number" class="form-control" id="email" placeholder="Aggiungi prezzo videogioco">
-            </div>
-        </div>
-
-        @*<div class="input-group py-3 mb-3">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorie</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">uno</a></li>
-                <li><a class="dropdown-item" href="#">due</a></li>
-                <li><a class="dropdown-item" href="#">tre</a></li>
-                <li><a class="dropdown-item" href="#">quattro</a></li>
-            </ul>
-        </div>
-        
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form> 
-      
-</div>*@
     
 <div class="form-body body_form" id="formCrea">
-        <div class="row">
+    <div class="row">
         <div class="form-holder">
             <div class="form-content">
                 <div class="form-items">
-                    <h3>Aggiungi un gioco</h3>
+                    <h3 class="text-center">Aggiungi un gioco</h3>
                     
+                    <!-- Form -->
                     <form action="@Url.Action("Crea", "Admin")" method="post">
                         @Html.AntiForgeryToken()
 
+                        <!-- Titolo -->
                         <div class="col-md-12">
-                           <input asp-for="videogioco.Nome" placeholder="Nome del gioco">
+                           <input asp-for="videogioco.Nome" placeholder="Titolo del gioco">
                            <span asp-validation-for="videogioco.Nome" class="text-danger"></span>
                         </div>
 
+                        <!-- Immagine -->
                         <div class="col-md-12">
                             <input asp-for="videogioco.Foto" placeholder="Immagine del gioco">
                             <span asp-validation-for="videogioco.Foto" class="text-danger"></span>
                         </div>
 
+                        <!-- Categoria -->
                        <div class="col-md-12">
                             <select asp-for="videogioco.CategoriaId" class="form-select mt-3">
                                   <option selected disabled value="">Categoria videogioco</option>
@@ -86,17 +39,20 @@
                            <span asp-validation-for="videogioco.Categoria" class="text-danger"></span>
                        </div>
 
+                       <!-- Descrizione -->
                        <div class="col-md-12">
                           <textarea asp-for="videogioco.Descrizione" placeholder="Descrizione"></textarea>
                           <span asp-validation-for="videogioco.Descrizione" class="text-danger"></span>
                        </div>
 
+                       <!-- Prezzo -->
                        <div class="col-md-12">
                           <input asp-for="videogioco.Prezzo" placeholder="Prezzo">
                           <span asp-validation-for="videogioco.Prezzo" class="text-danger"></span>
                        </div>
-              
-                       <div class="mt-3">
+                        
+                       <!-- Invia -->
+                       <div class="mt-3 text-center">
                            <input type="submit" class="btn btn-primary" value="Invia">
                        </div>
                     </form>
@@ -108,6 +64,8 @@
 
 @section Scripts{
     <script type="text/javascript">
+
+        // ------ tolto search bar dalla navbar ------
         document.getElementById('search_input').classList.add('d-none');
     </script>
 }
