@@ -98,12 +98,14 @@
                                                     <h5 class="card-title text-dark">${videogioco.nome}</h5>
                                                     <a href="${url}" class="btn btn-danger">Acquista</a>
                                                     <button onclick="prendiUnVideogioco(${videogioco.id})" class="buttonLike">Mi piace</button>
-                                                    <span>${videogioco.miPiace}</span>
                                                 </div>
                                             </div>                                                  
                                         </div>                                       
                                     `
                             }
+                                                    //roba sperimentale per i bottoni belli
+                                                    //<span id="Piace${videogioco.Id}">Mi piace</span>
+                                                    //<span id="NumeroPiace${videogioco.Id}">${videogioco.miPiace}</span>
                         }
                     )
                 }
