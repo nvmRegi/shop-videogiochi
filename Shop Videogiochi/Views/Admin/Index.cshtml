@@ -63,7 +63,21 @@
                         </details>
                     </td>
                     <td class="align-middle">&euro;@videogioco.Prezzo</td>
-                    <td class="align-middle text-center">@videogioco.GetDisponibilità()</td>
+                    <td class="align-middle text-center">
+                        @if (@videogioco.GetDisponibilità() > 5) 
+                        {
+                            @videogioco.GetDisponibilità()
+                        }
+                        else if(@videogioco.GetDisponibilità() > 0 && @videogioco.GetDisponibilità() <= 5)
+                        {
+                            
+                            <p class="text-danger">@videogioco.GetDisponibilità() In esaurimento</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">Esaurito</p>
+                        }
+                    </td>
                     <td class="align-middle text-center">
                             <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
                             <img src="~/img/opzioni.png" width="20" height="20" alt="Dettagli">
@@ -114,11 +128,6 @@
             }).catch(error =>{
                 console.log("C'è stato un errore: " + error);
             })
-        }
-
-        function cercaPerCategoria(id){
-            
-            axios.get('api/Videogiochi/Get', )
         }
 
     </script>
