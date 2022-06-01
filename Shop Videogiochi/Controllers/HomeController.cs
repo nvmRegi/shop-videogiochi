@@ -62,10 +62,12 @@ namespace Shop_Videogiochi.Controllers
 
                 db.Ordini.Add(ordineCliente);
                 db.SaveChanges();
-            }
 
-            return RedirectToAction("Index");
+                return View("GrazieAcquisto", model);
+            }
         }
+
+        
 
         [HttpGet]
         public IActionResult PiùVenduti()

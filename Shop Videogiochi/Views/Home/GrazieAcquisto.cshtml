@@ -4,8 +4,9 @@
 
 @model OrdineVideogioco
 
-<div class="container">
-    <h3 class="text-center">
+<div class="container text-center">
+    <h3 class="text-light">
         Grazie per aver acquistato @Model.videogioco.Nome!
     </h3>
+    <p><a href="@Url.Action("Index", "Home")" class="text-light">Ritorna alla Home</a></p>
 </div>
