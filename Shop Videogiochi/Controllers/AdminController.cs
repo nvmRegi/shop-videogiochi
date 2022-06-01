@@ -207,13 +207,16 @@ namespace Shop_Videogiochi.Controllers
         [HttpPost] //Nella vista Dettagli puoi comprare un videogioco
         public IActionResult CompraVideogioco(int id, OrdineFornitoreVideogioco model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Dettagli", model);
-            }
+            
 
             using (VideogameShopContext db = new VideogameShopContext())
             {
+                model.videogioco = db.Videogiochi.Where(videogioco => videogioco.Id == id).First();
+
+                if (!ModelState.IsValid)
+                {
+                    return View("Dettagli", model);
+                }
                 OrdineFornitore ordineFornitore = new OrdineFornitore();
                 ordineFornitore.VideogiocoId = id;
                 ordineFornitore.NomeFornitore = model.ordineFornitore.NomeFornitore;
