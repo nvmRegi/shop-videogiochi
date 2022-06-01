@@ -92,16 +92,19 @@
                                 document.getElementById("videogiochi_div").classList.remove("d-none");
 
                                 var url = "/Home/Dettagli/" + videogioco.id;
+                                
+                                var urlMiPiace = "/api/VideogiochiMiPiace/Post" + videogioco.id;
 
                                 document.getElementById("videogiochi_div").innerHTML +=
                                     `                                       
                                         <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
-                                            <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #1c6484, #5cc4ec)">
+                                            <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
                                                 <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
                                                 <div class="card-body pt-2 mt-0">
                                                     <h5 class="card-title text-dark">${videogioco.nome}</h5>
                                                     <a href="${url}" class="btn btn-danger">Acquista</a>
-                                                    <button href="${url}" class="buttonLike">Mi piace</button>
+                                                    <button onclick="eseguiPostLike(${videogioco.id})" class="buttonLike">Mi piace</button>
+                                                    <span>${videogioco.miPiace}</span>
                                                 </div>
                                             </div>                                                  
                                         </div>                                       
@@ -116,6 +119,18 @@
         }
         
         caricaDropdown();
+
+
+
+        function eseguiPostLike(idVideogioco) {
+
+            axios.post('api/VideogiochiMiPiace/Post', {
+                Id: idVideogioco;
+            })
+                .then(result).catch(error => {
+                    console.log("Errore nell'invio del Like");
+                })
+        }
 
         function caricaDropdown(){
             document.getElementById('categoria').innerHTML = `<li class="dropdown-item" onclick="caricaVideogiochi()">Tutte</li>`;

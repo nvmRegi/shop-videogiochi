@@ -35,15 +35,16 @@ namespace Shop_Videogiochi.Controllers.API
             }
             using (VideogameShopContext db = new VideogameShopContext())
             {
+                Videogioco giocoDaMipiacciare = db.Videogiochi.Where(x => 
+                    x.Id == model.Id
+                        ).Single();
+
+                model.MiPiace = giocoDaMipiacciare.MiPiace++;
+
+                giocoDaMipiacciare.MiPiace = model.MiPiace++;
+                db.SaveChanges();
                 return Ok();
             }
-        }
-
-        [HttpPost]
-        public IActionResult UpdateLike(int like)
-        {
-            like = like + 1;
-            return Ok(like);
         }
     }
 }
