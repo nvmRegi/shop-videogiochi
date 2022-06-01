@@ -2,25 +2,9 @@
     Vista amministratore
 *@
 
-
 @model List<Videogioco>
 
 <div class="container">
-
-    @*<div class="dropdown mt-5">
-        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorie
-        </a>
-                                
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="@Url.Action("Index", "Admin", new{id = 0})">Tutte</a></li>
-            
-            @foreach(Videogioco videogioco in Model)
-            {
-                <li class="dropdown-item"><a href="@Url.Action("Index", "Admin", new{id = @videogioco.Categoria.Id})" style="color: inherit; text-decoration: inherit">@videogioco.Categoria.Tema</a></li>
-            }
-        </ul>
-    </div>*@
 
     <div class="dropdown mb-4">
         <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,11 +55,11 @@
                         else if(@videogioco.GetDisponibilità() > 0 && @videogioco.GetDisponibilità() <= 5)
                         {
                             
-                            <p class="text-danger">@videogioco.GetDisponibilità() In esaurimento</p>
+                            <p class="text-danger">In esaurimento (@videogioco.GetDisponibilità() rimanenti)</p>
                         }
                         else
                         {
-                            <p class="text-danger">Esaurito</p>
+                            <p class="text-danger">Esaurito (@videogioco.GetDisponibilità())</p>
                         }
                     </td>
                     <td class="align-middle text-center">

@@ -7,6 +7,7 @@
                 <img src="@Model.videogioco.Foto" class="card-img-top h-100" alt="@Model.videogioco.Nome" class="card-img-top">
             </div>
         </div>
+
         <div class="col-6 mx-auto my-auto">
             <h1 class="text-white text-center my-3 py-2">@Model.videogioco.Nome</h1>
             <div class="row mt-3">
@@ -15,7 +16,20 @@
                     <p class="text-white my-2 py-3">@Model.videogioco.Descrizione</p>
                 </div>
             </div>
+
             <p class="text-white border rounded text-center my-3 py-2">Prezzo: @Model.videogioco.Prezzo €</p>
+
+            @if (@Model.videogioco.GetDisponibilità() > 0 && @Model.videogioco.GetDisponibilità() <= 5)
+            {
+                <p class="text-danger text-center">Copie del videogioco in esaurimento: @Model.videogioco.GetDisponibilità() rimanenti</p>
+            } else if (@Model.videogioco.GetDisponibilità() <= 0)
+            {
+                <p class="text-danger text-center">Esaurito, riceverete il videogioco non appena sarà disponibile.</p>
+            } else
+            {
+                <p class="text-light text-center">Rimanenti: @Model.videogioco.GetDisponibilità()</p>
+            }
+            
             <form action="@Url.Action("CompraVideogioco", "Home", new{id = Model.videogioco.Id})" method="post">
                 @Html.AntiForgeryToken()
 

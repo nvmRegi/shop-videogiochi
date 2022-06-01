@@ -2,22 +2,14 @@
     Vista Homepage cliente
 *@
 
-@*<div class="col">
-    <div class="card  text-center " style="width: 18rem;">
-        <img src="https://th.bing.com/th/id/OIP.Xh7IBZxMQd2jCYgNhfWoxwHaKd?pid=ImgDet&rs=1" class="card-img-top" alt="Just Cause 4" />
-        <div class="card-body">
-            <h5 class="card-title">Just Cause 4</h5>
-            <a href="#" class="btn btn-danger">Dettagli</a>
-        </div>
-    </div>
-</div>*@
-
 <div class="container my-5 text-center">
     <h1 class="text-light">Negozio Videogiochi</h1>
 </div>
 
+<!-- container della pagina -->
 <div class="container-fluid shadow p-3 mb-3 rounded py-5 text-light">
 
+    <!-- Dropdown categorie -->
     <div class="dropdown mb-4">
         <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             Categorie
@@ -28,6 +20,7 @@
         </ul>
     </div>
 
+    <!-- Caricamento della pagina -->
     <div id="wait_videogioco" class="row justify-content-center my-5">
         <div class="col-2 justify-content-center">        
             <div class="loader">
@@ -38,19 +31,18 @@
         </div>
     </div>
 
+    <!-- Div nel caso non ci fossero videogiochi -->
     <div id="no-videogiochi" class="row text-center d-none">
         <div class="col-12">
             <h3>Non è disponibile nessun videogioco</h3>
         </div>
     </div>
 
-    
+    <!-- Homepage negozio -->
+    <div id="videogiochi_div" class="row mt-3 justify-content-center text-center mx-4 d-none">
+            <!-- qui verranno mostrati i videogiochi -->
+    </div>
 
-        <div id="videogiochi_div" class="row mt-3 justify-content-center text-center mx-4 d-none">
-          
-                <!-- qui verranno mostrati i videogiochi -->
-        </div>
-    
 </div>
     
     
@@ -59,17 +51,19 @@
 
 @section Scripts {
     <script type="text/javascript">
-            
-        document.getElementById('search_input').addEventListener('keyup', searchItems);
+        
+        // ------ barra di ricerca ------
+        document.getElementById('search_input').addEventListener('keyup', cercaVideogioco);
 
-        searchItems();
+        cercaVideogioco();
 
-        function searchItems(){
+        function cercaVideogioco(){
             var inputTesto = document.getElementById('search_input').value;
             caricaVideogiochi(inputTesto);
         }
-        //MiPiaceAiVideogiochi();
+        // ------ fine barra di ricerca ------
 
+        // ------ funzione carica i videogiochi ------
         function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML = "";
