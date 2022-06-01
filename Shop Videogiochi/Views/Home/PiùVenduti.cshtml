@@ -2,23 +2,27 @@
     Vista Classifica dei videogiochi più venduti dell'ultimo mese
 *@
 
-<div class="container">
-    <div class="row">
-        <div class="col text-light text-center">
-            <h1>I Più Venduti dell'ultimo mese</h1>
-            <p>Tutti i giochi</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col d-none" id="no-videogiochi">
-            <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
-        </div>
 
-        <div class="col-12" id="videogiochi_venduti_div">
+    <div class="container">
+        <div class="row">
+            <div class="col text-light text-center">
+                <h1>I Più Venduti dell'ultimo mese</h1>
+                <p>Tutti i giochi</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-none" id="classifica" >
+
+            </div>
+            <div class="col d-none" id="no-videogiochi">
+                <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
+            </div>
+
+            <div class="col-12" id="videogiochi_venduti_div">
             
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -35,26 +39,33 @@
             .then(result => {
                     console.log("Ha ricevuto i videogiochi non ho capito bene come ma va... di nuovo!");
 
+                    var contatoreVideogiochi = 0;
+
                     result.data.forEach(videogioco => { 
                         
                             if(result.data.length == 0){
-                                
                                 document.getElementById("no-videogiochi").classList.remove("d-none");
                             } else{
-                                
+                                document.getElementById("classifica").classList.remove("d-none")
+
+                                contatoreVideogiochi = contatoreVideogiochi + 1;
+
                                 var idVideogame = videogioco.id;
-                                
 
                                 document.getElementById("videogiochi_venduti_div").innerHTML +=
                                  `
                                     <div class="col-12 col-lg-4 col-md-6 m-auto mt-4">
-                                        <div class="card border-0 p-3 mb-5 pt-0 px-0 text-center ">
-                                            <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}"/>
+                                        <div class="col">
+                                            <h3 class="text-white"># ${contatoreVideogiochi}</h3>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card border-0 p-3 mb-5 pt-0 px-0 text-center ">
+                                                <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}"/>
                                             <div class="card-body pt-2 mt-0">
-                                                <h5 class="card-title text-dark">${videogioco.nome}</h5>
-                                                
+                                                <h5 class="card-title text-dark">${videogioco.nome}</h5> 
                                             </div>
-                                        </div>                                                  
+                                        </div> 
+                                        </div>                                                 
                                     </div>
                                 `
                             }})    
