@@ -10,7 +10,19 @@
         <div class="col-6 mx-auto my-auto">
             <h1 class="text-white text-center my-3 py-2">@Model.videogioco.Nome</h1>
             <p class="text-white border rounded text-center my-3 py-2">Prezzo: @Model.videogioco.Prezzo €</p>
-            <h4 class="text-white text-center mt-5">Form Fornitore</h4>
+
+            @if (@Model.videogioco.GetDisponibilità() > 0 && @Model.videogioco.GetDisponibilità() <= 5)
+            {
+                <p class="text-danger text-center">Copie del videogioco in esaurimento: @Model.videogioco.GetDisponibilità() rimanenti. Fare riferimento</p>
+            } else if (@Model.videogioco.GetDisponibilità() <= 0)
+            {
+                <p class="text-danger text-center">Esaurito (@Model.videogioco.GetDisponibilità()), fare rifornimento!</p>
+            } else
+            {
+                <p class="text-light text-center">Rimanenti: @Model.videogioco.GetDisponibilità()</p>
+            }
+
+            <h4 class="text-white text-center mt-2">Form Fornitore</h4>
             
             <form action="@Url.Action("CompraVideogioco","Admin", new{id = Model.videogioco.Id})" method="post">
                 @Html.AntiForgeryToken()
