@@ -37,6 +37,8 @@
 
 </div>
 
+
+
 @section Scripts {
     <script type="text/javascript">
         
@@ -56,7 +58,7 @@
         {
             document.getElementById("videogiochi_div").innerHTML = "";
 
-            axios.get('api/Videogiochi/Get', {
+            axios.get('api/VideogiochiMiPiace/Get', {
                 params: {
                     search: parametroSearch
                 }
