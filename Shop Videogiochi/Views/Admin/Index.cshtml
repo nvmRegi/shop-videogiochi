@@ -17,70 +17,72 @@
         </ul>
     </div>
 
-    <table class="table align-middle" style="color: #ecf9fc">
-        <thead>
-            <tr>
-                <th scope="col">Titolo</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Prezzo</th>
-                <th scope="col" class="text-center">Disponibilità</th>
-                <th scope="col" class="text-center">
-                    <a class="btn steam-button" href="@Url.Action("Crea", "Admin")">
-                        Aggiungi Videogioco
-                        </a>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            @foreach(Videogioco videogioco in Model)
-            {          
+    <div class="table-responsive-sm">
+        <table class="table align-middle " style="color: #ecf9fc">
+            <thead>
                 <tr>
-                    <th class="align-middle">@videogioco.Nome</th> <!--th embolded-->
-                    <td class="align-middle">@videogioco.Categoria.Tema</td>
-                    <td class="align-middle resizable-description">
-                        <details>
-                          <summary>Descrizione estesa del prodotto:</summary>
-                          <div class="backgroundDetail">
-                              <span>@videogioco.Descrizione</span>
-                          </div>
-                        </details>
-                    </td>
-                    <td class="align-middle">&euro;@videogioco.Prezzo</td>
-                    <td class="align-middle text-center">
-                        @if (@videogioco.GetDisponibilità() > 5) 
-                        {
-                            @videogioco.GetDisponibilità()
-                        }
-                        else if(@videogioco.GetDisponibilità() > 0 && @videogioco.GetDisponibilità() <= 5)
-                        {
-                            
-                            <p class="text-danger">In esaurimento (@videogioco.GetDisponibilità() rimanenti)</p>
-                        }
-                        else
-                        {
-                            <p class="text-danger">Esaurito (@videogioco.GetDisponibilità())</p>
-                        }
-                    </td>
-                    <td class="align-middle text-center">
-                            <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
-                            <img src="~/img/opzioni.png" width="20" height="20" alt="Dettagli">
+                    <th scope="col">Titolo</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Prezzo</th>
+                    <th scope="col" class="text-center">Disponibilità</th>
+                    <th scope="col" class="text-center">
+                        <a class="btn steam-button" href="@Url.Action("Crea", "Admin")">
+                            Aggiungi Videogioco
                             </a>
-                        <a class="btn btn-sm" href="@Url.Action("Aggiorna", "Admin", new{id = videogioco.Id})">
-                        <img src="~/img/modifica.png" width="20" height="20" alt="Dettagli">
-                        </a>
-                        <form action="@Url.Action("Cancella", "Admin", new{id = videogioco.Id})" method="post" style="display: inline">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-sm">
-                                <img src="~/img/delete.png" width="20" height="20" alt="Elimina">
-                            </button>
-                        </form>
-                    </td>
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            
+                @foreach(Videogioco videogioco in Model)
+                {          
+                    <tr>
+                        <th class="align-middle">@videogioco.Nome</th> <!--th embolded-->
+                        <td class="align-middle">@videogioco.Categoria.Tema</td>
+                        <td class="align-middle resizable-description">
+                            <details>
+                              <summary>Descrizione estesa del prodotto:</summary>
+                              <div class="backgroundDetail">
+                                  <span>@videogioco.Descrizione</span>
+                              </div>
+                            </details>
+                        </td>
+                        <td class="align-middle">&euro;@videogioco.Prezzo</td>
+                        <td class="align-middle text-center">
+                            @if (@videogioco.GetDisponibilità() > 5) 
+                            {
+                                @videogioco.GetDisponibilità()
+                            }
+                            else if(@videogioco.GetDisponibilità() > 0 && @videogioco.GetDisponibilità() <= 5)
+                            {
+                            
+                                <p class="text-danger">In esaurimento (@videogioco.GetDisponibilità() rimanenti)</p>
+                            }
+                            else
+                            {
+                                <p class="text-danger">Esaurito (@videogioco.GetDisponibilità())</p>
+                            }
+                        </td>
+                        <td class="align-middle text-center">
+                                <a class="btn btn-sm" href="@Url.Action("Dettagli", "Admin", new{id = videogioco.Id})">
+                                <img src="~/img/opzioni.png" width="20" height="20" alt="Dettagli">
+                                </a>
+                            <a class="btn btn-sm" href="@Url.Action("Aggiorna", "Admin", new{id = videogioco.Id})">
+                            <img src="~/img/modifica.png" width="20" height="20" alt="Dettagli">
+                            </a>
+                            <form action="@Url.Action("Cancella", "Admin", new{id = videogioco.Id})" method="post" style="display: inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm">
+                                    <img src="~/img/delete.png" width="20" height="20" alt="Elimina">
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section Scripts{

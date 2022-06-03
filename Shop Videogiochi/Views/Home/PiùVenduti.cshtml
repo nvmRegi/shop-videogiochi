@@ -3,27 +3,22 @@
 *@
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col text-light text-center">
-                <h1>I Più Venduti dell'ultimo mese</h1>
-                <p>Tutti i giochi</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col d-none" id="classifica" >
-
-            </div>
-            <div class="col d-none" id="no-videogiochi">
-                <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
-            </div>
-
-            <div class="col-12" id="videogiochi_venduti_div">
-            
-            </div>
+ <div class="container">
+    <div class="row">
+        <div class="col text-light text-center">
+            <h1>I Più Venduti dell'ultimo mese</h1>
+            <p>Tutti i giochi</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col d-none" id="no-videogiochi">
+            <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
+        </div>
+        <div class="col-12 shadow py-3 my-2" id="videogiochi_venduti_div">
 
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
@@ -46,28 +41,28 @@
                             if(result.data.length == 0){
                                 document.getElementById("no-videogiochi").classList.remove("d-none");
                             } else{
-                                document.getElementById("classifica").classList.remove("d-none")
 
                                 contatoreVideogiochi = contatoreVideogiochi + 1;
 
                                 var idVideogame = videogioco.id;
 
                                 document.getElementById("videogiochi_venduti_div").innerHTML +=
-                                 `
-                                    <div class="col-12 col-lg-4 col-md-6 m-auto mt-4">
-                                        <div class="col">
-                                            <h3 class="text-white"># ${contatoreVideogiochi}</h3>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card border-0 p-3 mb-5 pt-0 px-0 text-center ">
-                                                <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}"/>
-                                            <div class="card-body pt-2 mt-0">
-                                                <h5 class="card-title text-dark">${videogioco.nome}</h5> 
-                                            </div>
-                                        </div> 
-                                        </div>                                                 
-                                    </div>
+                               
                                 `
+                                <div class="col-12 col-lg-4 col-md-6 m-auto mt-4">
+                                    <div class="col">
+                                        <h3 class="text-white"># ${contatoreVideogiochi}</h3>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card p-3 mb-5 pt-0 px-0 text-center ">
+                                            <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}"/>
+                                        <div class="card-body pt-2 mt-0">
+                                            <h5 class="card-title text-dark">${videogioco.nome}</h5> 
+                                        </div>
+                                    </div> 
+                                    </div>                                                 
+                                </div>
+`
                             }})    
                     }).catch((error) => {
                 console.log("C'è stato un errore: " + error);
@@ -77,43 +72,53 @@
         }
 
 
-
-
-
-
 @*
     //versione con i carroselli
-    <div class="row">
-        <div class="col">
 
-            <!--Inizio Carosello dei giochi più Venduti-->
 
-            <div id="carroselloPiùVenduti" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <!--Qui andranno le immagini delle slide-->
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="..." alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="..." alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="..." alt="Third slide">
-                </div>
-            </div>
-            <!--Tasto indietro-->
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only text-white">Previous</span>
-            </a>
-            <!--Tasto avanti-->
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only text-white">Next</span>
-            </a>
+*@
+
+@*  html per carosello
+    <div class="container">
+        <div class="row">
+            <div class="col text-light text-center">
+                <h1>I Più Venduti dell'ultimo mese</h1>
+                <p>Tutti i giochi</p>
             </div>
         </div>
-    </div>
-</div>*@
+        <div class="row">
+            <div class="col d-none" id="classifica" >
+
+            </div>
+            <div class="col d-none" id="no-videogiochi">
+                <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
+            </div>
+
+            <!--Inizio Carosello-->
+            <div class="col-12 my-5" style="background-color: #0b151e">
+                <div id="carroselloPiùVenduti" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="videogiochi_venduti_div">
+                        <!--Tasto indietro-->
+                    <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon my-auto ml-5" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    <!--Tasto avanti-->
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon my-auto mr-5" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    </div>
+                </div>
+                     
+            </div>
+        </div>
+    </div>*@
 
 
+@*  javascript per carosello
+    `
+        <div class="carousel-item active">
+            <img class="d-block m-auto" src="${videogioco.foto}" alt="${videogioco.nome}">
+        </div>
+    `*@
