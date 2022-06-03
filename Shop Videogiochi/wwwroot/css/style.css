@@ -10,6 +10,7 @@
     color: #5c7e10;
 }
 
+/*-----------bottone aggiungi verde in admin------*/
 .steam-button {
     background-color: #708d04;
     border-color: #3d501f;
@@ -24,6 +25,7 @@
     border-style: solid;
 }
 
+/*-----------classe per i dettagli nella tabella admin------*/
 .backgroundDetail {
     background-color: rgba(255, 255, 255, 0.1);
     margin-right: 3px;
@@ -46,7 +48,7 @@
     resize: vertical;
 }
 
-
+/*-----------bottone like card------*/
 .buttonLike {
     border-radius: 5px;
     width: 5.5em;
@@ -89,7 +91,7 @@
     }
 
 
-
+/*-----------bottone dislike card------*/
 .buttonDislike {
     border-radius: 5px;
     width: 5.5em;
