@@ -11,11 +11,11 @@
 
     <!-- Dropdown categorie -->
     <div class="dropdown mb-4">
-        <a class="btn dropdown-toggle text-light" style="background-color: #2c4c5c" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <strong style="color : #4fafe2">Categorie</strong>
+        <a class="btn dropdown-toggle text-light Steam-dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <strong class="text_dropdown">Categorie</strong>
         </a>
                                 
-        <ul class="dropdown-menu" style="background-color: #2c4c5c" aria-labelledby="dropdownMenuLink" id="categoria">
+        <ul class="dropdown-menu Steam-dropdown" aria-labelledby="dropdownMenuLink" id="categoria">
             <!-- qui verranno mostrate le categoria nel dropdown-->
         </ul>
     </div>
@@ -121,7 +121,7 @@
         caricaDropdown();
 
         function caricaDropdown(){
-            document.getElementById('categoria').innerHTML = `<li class="dropdown-item text-white" style="background-color: #2c4c5c" onclick="caricaVideogiochi()">Tutte</li>`;
+            document.getElementById('categoria').innerHTML = `<li class="dropdown-item Steam-dropdown text-white" onclick="caricaVideogiochi()">Tutte</li>`;
 
             axios.get('api/Categoria/Get')
             .then((result) =>{
@@ -129,7 +129,7 @@
                 result.data.forEach(categoria =>{
                     document.getElementById('categoria').innerHTML +=
                     `
-                    <li class="dropdown-item text-white" style="background-color: #2c4c5c" onclick="cercaPerCategoria(${categoria.id})">${categoria.tema}</li>
+                    <li class="dropdown-item Steam-dropdown text-white" onclick="cercaPerCategoria(${categoria.id})">${categoria.tema}</li>
                     `
                 })
             }).catch(error =>{
