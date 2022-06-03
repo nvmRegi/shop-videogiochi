@@ -1,6 +1,6 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
-#formCrea{
+#formCrea, #formFornitore {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -64,7 +64,7 @@
     margin-bottom: 30px;
 }
 
-.form-content input[type=text], .form-content input[type=url], .form-content textarea, .form-content select {
+.form-content input[type=text], .form-content input[type=url], .form-content textarea, .form-content select, .form-content input[trype=number] {
     width: 100%;
     padding: 9px 20px;
     text-align: left;
