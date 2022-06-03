@@ -25,7 +25,7 @@
 
             @if (@Model.videogioco.GetDisponibilità() > 0 && @Model.videogioco.GetDisponibilità() <= 5)
             {
-                <p class="text-danger text-center">Copie del videogioco in esaurimento: @Model.videogioco.GetDisponibilità() rimanenti</p>
+                <p class="text-warning text-center">Copie del videogioco in esaurimento: @Model.videogioco.GetDisponibilità() rimanenti</p>
             } else if (@Model.videogioco.GetDisponibilità() <= 0)
             {
                 <p class="text-danger text-center">Esaurito, riceverete il videogioco non appena sarà disponibile.</p>

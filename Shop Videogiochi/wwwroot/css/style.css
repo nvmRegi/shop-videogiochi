@@ -116,7 +116,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(45deg);
-        background: white;
+        background: #75af22;
         transition: .6s ease;
         display: block;
         z-index: -1;
