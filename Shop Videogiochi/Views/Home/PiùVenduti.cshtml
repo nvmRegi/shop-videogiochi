@@ -11,17 +11,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col d-none" id="classifica" >
-        <div class="col-12 shadow py-3 my-2" id="videogiochi_venduti_div">
-
-        </div>
         <div class="col d-none" id="no-videogiochi">
             <h1 class="text-white text-center">Non Ci sono Videogiochi disponibili</h1>
         </div>
+        <div class="col-12 shadow py-3 my-2" id="videogiochi_venduti_div">
 
-        <div class="col-12" id="videogiochi_venduti_div">
-
-        </div>
         </div>
     </div>
 </div>
@@ -47,7 +41,6 @@
                             if(result.data.length == 0){
                                 document.getElementById("no-videogiochi").classList.remove("d-none");
                             } else{
-                                document.getElementById("classifica").classList.remove("d-none")
 
                                 contatoreVideogiochi = contatoreVideogiochi + 1;
 
