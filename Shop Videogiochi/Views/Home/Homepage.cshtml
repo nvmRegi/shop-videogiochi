@@ -202,15 +202,32 @@
         function aggiungiVideogiocoFav(idDaPrendere) {
 
             axios.post('/api/VideogiochiMiPiace/Post', {
-                Id : idDaPrendere
-            }).then(result =>{
+                Id: idDaPrendere
+            }).then(result => {
                 console.log("Entrato nel post");
 
-                
+
                 document.getElementById("Piace" + idDaPrendere).classList.add("d-none");
 
 
                 document.getElementById("NonPiace" + idDaPrendere).classList.remove("d-none");
+
+            }).catch(error => {
+                console.log("C'è stato un errore: " + error);
+            })
+        }
+
+
+         function togliVideogiocoFav(idDaPrendere) {
+
+            axios.delete('/api/VideogiochiMiPiace/Delete, {
+                Id : idDaPrendere
+            }).then(result =>{
+                console.log("Entrato nel post");
+                
+                document.getElementById("NonPiace" + idDaPrendere).classList.add("d-none");
+
+                document.getElementById("Piace" + idDaPrendere).classList.remove("d-none");
 
             }).catch(error => {
                     console.log("C'è stato un errore: " + error);
