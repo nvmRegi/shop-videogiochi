@@ -39,8 +39,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-group text-white my-1">
-                    <label for="Quantità">Quantità: </label>
-                    <input asp-for="ordine.Quantità" min="0" class="d-block w-100">
+                    <input asp-for="ordine.Quantità" min="0" class="d-block w-100 rounded" placeholder="Quantità">
                     <span asp-validation-for="ordine.Quantità" class="text-danger"></span>
                 </div>
 
