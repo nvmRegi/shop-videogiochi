@@ -5,8 +5,17 @@
 @model OrdineVideogioco
 
 <div class="container text-center">
+
     <h3 class="text-light">
         Grazie per aver acquistato @Model.videogioco.Nome!
     </h3>
+    
+    @if(@Model.videogioco.GetDisponibilità() < 0)
+    {
+        <p class="text-light">
+            Il videogioco non è presente in magazzino, lo riceverai non appena sarà di nuovo disponibile.
+        </p>
+    }
+
     <p><a href="@Url.Action("Index", "Home")" class="text-light">Ritorna alla Home</a></p>
 </div>

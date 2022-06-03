@@ -74,5 +74,11 @@ namespace Shop_Videogiochi.Controllers
         {
             return View("PiùVenduti");
         }
+
+        [HttpGet]
+        public IActionResult IMieiMiPiace()
+        {
+            return View("IMieiMiPiace");
+        }
     }
 }
