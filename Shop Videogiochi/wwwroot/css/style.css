@@ -116,7 +116,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(45deg);
-        background: white;
+        background: #75af22;
         transition: .6s ease;
         display: block;
         z-index: -1;
@@ -127,8 +127,13 @@
     }
 
     .buttonDislike:hover {
-        color: #75af22;
+        color: white;
     }
 
+    .Steam-dropdown{
+        background-color: #2c4c5c;
+    }
 
-
+    .text_dropdown {
+        color: #4fafe2;
+    }
