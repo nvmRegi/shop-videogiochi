@@ -14,7 +14,7 @@ namespace Shop_Videogiochi.Controllers.API
 
         //Prende i videogiochi preferiti dell'utente
         [HttpGet]
-        public IActionResult Get(int? id)
+        public IActionResult Get(string? cerca, int? id, int? idCategoria)
         {
             List<Videogioco> listaVideogiochiPreferiti = new List<Videogioco>();
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
@@ -31,14 +31,23 @@ namespace Shop_Videogiochi.Controllers.API
                     Videogioco daCercare = db.Videogiochi.Include(Videogioco => Videogioco.Categoria).Where(videogioco => videogioco.Id == idVideogiochiPreferiti[i].Id).First();
                     listaVideogiochiPreferiti.Add(daCercare);
                 }
-            }
 
-            if (id != null)
-            {
-                Videogioco videogiocoTrovato = listaVideogiochiPreferiti.Find(videogioco => videogioco.Id == id);
-                return Ok();
+                if (id != null)
+                {
+                    Videogioco videogiocoTrovato = listaVideogiochiPreferiti.Find(videogioco => videogioco.Id == id);
+                    return Ok(videogiocoTrovato);
+                }
+                else if (idCategoria != null)
+                {
+                    List<Videogioco> videogiochiPerCategoria = listaVideogiochiPreferiti.FindAll(videogioco => videogioco.CategoriaId == idCategoria);
+                    return Ok(videogiochiPerCategoria);
+                } else if(cerca != null && cerca != "")
+                {
+                    List<Videogioco> videogiochiRicerca = listaVideogiochiPreferiti.Where(videogioco => videogioco.Nome.Contains(cerca) || videogioco.Descrizione.Contains(cerca)).ToList();
+                    return Ok(videogiochiRicerca);
+                }
+                return Ok(listaVideogiochiPreferiti);
             }
-            return Ok(listaVideogiochiPreferiti);
         }
 
         //Aggiunge un videogioco ai preferiti dell'utente

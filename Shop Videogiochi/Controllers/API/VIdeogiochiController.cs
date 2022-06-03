@@ -44,12 +44,6 @@ namespace Shop_Videogiochi.Controllers.API
                 }
                 return Ok(giochiInHomePage);
             }
-        }
-
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, [FromBody] dataInputId data)
-        //{
-
-        //}
+        }  
     }
 }
