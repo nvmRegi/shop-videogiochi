@@ -166,6 +166,7 @@ namespace Shop_Videogiochi.Controllers
                     //aggiorniamo i campi con i nuovi valori
                     VideogiocoDaModificare.Nome = modello.videogioco.Nome;
                     VideogiocoDaModificare.Foto = modello.videogioco.Foto;
+                    VideogiocoDaModificare.CategoriaId = modello.videogioco.CategoriaId;
                     VideogiocoDaModificare.Descrizione = modello.videogioco.Descrizione;
                     VideogiocoDaModificare.Prezzo = modello.videogioco.Prezzo;
 

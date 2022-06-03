@@ -121,7 +121,7 @@
         caricaDropdown();
 
         function caricaDropdown(){
-            document.getElementById('categoria').innerHTML = `<li class="dropdown-item" onclick="caricaVideogiochi()">Tutte</li>`;
+            document.getElementById('categoria').innerHTML = `<li class="dropdown-item" onclick="cercaPerCategoria()">Tutte</li>`;
 
             axios.get('api/Categoria/Get')
             .then((result) =>{
