@@ -109,7 +109,7 @@
         function caricaDropdown(){
             document.getElementById('categoria').innerHTML = `<li class="dropdown-item" onclick="caricaVideogiochi()">Tutte</li>`;
 
-            axios.get('api/Categoria/Get')
+            axios.get('/api/Categoria/Get')
             .then((result) =>{
 
                 result.data.forEach(categoria =>{
@@ -128,7 +128,7 @@
 
             //document.getElementById("videogioco_div").innerHTML = "";
 
-            axios.get('api/Videogiochi/Get',{
+            axios.get('/api/Videogiochi/Get',{
                 params:{
                     idCategoria: id
                 }
