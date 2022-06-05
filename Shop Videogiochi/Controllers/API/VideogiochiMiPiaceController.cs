@@ -60,23 +60,32 @@ namespace Shop_Videogiochi.Controllers.API
             }
 
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
-            idVideogiochiPreferiti.Add(data);
 
-            using(VideogameShopContext db = new VideogameShopContext())
+            dataInputId forseGiàInLista = data;
+            bool inLista = idVideogiochiPreferiti.Any(item => item.Id == forseGiàInLista.Id);
+
+            if (inLista is false)
             {
-                Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == data.Id).First();
+                idVideogiochiPreferiti.Add(data);
 
-                if(videogiocoDaCambiare != null)
+                using (VideogameShopContext db = new VideogameShopContext())
                 {
-                    if(videogiocoDaCambiare.MiPiace == null)
-                    {
-                        videogiocoDaCambiare.MiPiace = 0;
-                    }
+                    Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == data.Id).First();
 
-                    videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace + 1;
-                    db.SaveChanges();
+                    if (videogiocoDaCambiare != null)
+                    {
+                        if (videogiocoDaCambiare.MiPiace == null)
+                        {
+                            videogiocoDaCambiare.MiPiace = 0;
+                        }
+
+                        videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace + 1;
+                        db.SaveChanges();
+                    }
                 }
             }
+
+            
 
             return Ok(idVideogiochiPreferiti);
         }

@@ -6,11 +6,14 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
+    
+ 
 }
 
-.body_form{
+.body_form {
     height: 100%;
-    overflow: clip;
+    overflow: hidden;
+   
 }
 
 
@@ -21,22 +24,24 @@
     align-items: center;
     text-align: center;
     min-height: 100vh;
+   
 }
 
-.form-holder .form-content {
-    position: relative;
-    text-align: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    align-items: center;
-    padding: 60px;
-}
+    .form-holder .form-content {
+        position: relative;
+        text-align: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        padding: 60px;
+        
+    }
 
 .form-content .form-items {
     border: 3px solid #fff;
