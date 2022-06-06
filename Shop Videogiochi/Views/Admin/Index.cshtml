@@ -18,18 +18,18 @@
     </div>
 
     <div class="table-responsive-sm">
-        <table class="table align-middle " style="color: #ecf9fc">
+        <table class="table align-middle" style="color: #ecf9fc">
             <thead>
                 <tr>
                     <th scope="col">Titolo</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Descrizione</th>
-                    <th scope="col">Prezzo</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Categoria</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Descrizione</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Prezzo</th>
                     <th scope="col" class="text-center">Disponibilità</th>
                     <th scope="col" class="text-center">
                         <a class="btn steam-button" href="@Url.Action("Crea", "Admin")">
                             Aggiungi Videogioco
-                            </a>
+                        </a>
                     </th>
                 </tr>
             </thead>
@@ -39,16 +39,16 @@
                 {          
                     <tr>
                         <th class="align-middle">@videogioco.Nome</th> <!--th embolded-->
-                        <td class="align-middle">@videogioco.Categoria.Tema</td>
-                        <td class="align-middle resizable-description">
+                        <td class="align-middle d-none d-sm-table-cell">@videogioco.Categoria.Tema</td>
+                        <td class="align-middle resizable-description d-none d-sm-table-cell">
                             <details>
-                              <summary>Descrizione estesa del prodotto:</summary>
+                              <summary>Descrizione:</summary>
                               <div class="backgroundDetail">
                                   <span>@videogioco.Descrizione</span>
                               </div>
                             </details>
                         </td>
-                        <td class="align-middle">&euro;@videogioco.Prezzo</td>
+                        <td class="align-middle d-none d-sm-table-cell">&euro;@videogioco.Prezzo</td>
                         <td class="align-middle text-center">
                             @if (@videogioco.GetDisponibilità() > 5) 
                             {
