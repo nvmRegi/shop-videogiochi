@@ -47,7 +47,8 @@
 
                        <!-- Prezzo -->
                        <div class="col-md-12">
-                          <input asp-for="videogioco.Prezzo" placeholder="Prezzo">
+                          <label for="Prezzo_Videogioco" class="text-white mt-2 inherit">Prezzo</label>
+                          <input asp-for="videogioco.Prezzo" id="Prezzo_Videogioco">
                           <span asp-validation-for="videogioco.Prezzo" class="text-danger"></span>
                        </div>
                         

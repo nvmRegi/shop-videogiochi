@@ -148,3 +148,7 @@
     }
 
     /* Fine Gestione del Dropdown */
+
+    .inherit {
+        font-family: inherit;
+    }
