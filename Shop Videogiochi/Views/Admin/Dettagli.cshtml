@@ -22,39 +22,38 @@
                 <p class="text-light text-center">Rimanenti: @Model.videogioco.GetDisponibilità()</p>
             }
 
-            <h4 class="text-white text-center mt-2">Form Fornitore</h4>
+            <h4 class="text-white text-center my-3">Form Fornitore</h4>
             
-                    <div class="form-content"  id="formFornitore">
-                        <div class="form-items">
-                    
+                <div class="form-content text-center mx-auto"  id="formFornitore">
+                    <div class="form-items">
                     
                         <!-- Form -->
                         <form action="@Url.Action("CompraVideogioco","Admin", new{id = Model.videogioco.Id})" method="post">
-                    @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
 
                             <!-- Nome Fornitore -->
-                    <div class="form-group text-white my-1">
-                        <label for="NomeFornitore">Nome del Fornitore:</label>
-                        <input asp-for="ordineFornitore.NomeFornitore" class="d-block w-100">
-                        <span asp-validation-for="ordineFornitore.NomeFornitore" class="text-danger"></span>
-                    </div>
+                            <div class="form-group text-white my-1">
+                                <label for="NomeFornitore">Nome del Fornitore:</label>
+                                <input asp-for="ordineFornitore.NomeFornitore" class="d-block w-100">
+                                <span asp-validation-for="ordineFornitore.NomeFornitore" class="text-danger"></span>
+                            </div>
                 
 
                             <!-- Quantità -->
-                    <div class="form-group text-white my-1">
-                        <label for="Quantità">Quantità: </label>
-                        <input asp-for="ordineFornitore.Quantità" min="0" class="d-block w-100 rounded">
-                        <span asp-validation-for="ordineFornitore.Quantità" class="text-danger"></span>
-                    </div>
+                            <div class="form-group text-white my-1">
+                                <label for="Quantità">Quantità: </label>
+                                <input asp-for="ordineFornitore.Quantità" min="0" class="d-block w-100 rounded">
+                                <span asp-validation-for="ordineFornitore.Quantità" class="text-danger"></span>
+                            </div>
                         
                             <!-- Invia -->
                             <div class="mt-3 text-center">
                                 <input type="submit" class="btn btn-primary" value="Invia">
                             </div>
+
                         </form>
-                
                     </div>
-                 </div>
+                </div>
          </div>
     </div>
     
