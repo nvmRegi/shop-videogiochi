@@ -11,8 +11,7 @@ namespace Shop_Videogiochi.Controllers.API
     [ApiController]
     public class VideogiochiMiPiaceController : ControllerBase
     {
-
-        //Prende i videogiochi preferiti dell'utente
+        // ------ Prende i videogiochi preferiti dell'utente ------
         [HttpGet]
         public IActionResult Get(string? cerca, int? id, int? idCategoria)
         {
@@ -50,7 +49,7 @@ namespace Shop_Videogiochi.Controllers.API
             }
         }
 
-        //Aggiunge un videogioco ai preferiti dell'utente
+        // ------ Aggiunge un videogioco ai preferiti dell'utente ------
         [HttpPost]
         public IActionResult Post([FromBody]dataInputId data)
         {
@@ -62,11 +61,12 @@ namespace Shop_Videogiochi.Controllers.API
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
 
             dataInputId forseGiàInLista = data;
+
             bool inLista = idVideogiochiPreferiti.Any(item => item.Id == forseGiàInLista.Id);
 
             if (inLista is false)
             {
-                idVideogiochiPreferiti.Add(data);
+                idVideogiochiPreferiti.Add(forseGiàInLista);
 
                 using (VideogameShopContext db = new VideogameShopContext())
                 {
@@ -90,39 +90,39 @@ namespace Shop_Videogiochi.Controllers.API
             return Ok(idVideogiochiPreferiti);
         }
 
-
-
-
-        //Rimuove un videogioco ai preferiti dell'utente
+        // ------ Rimuove un videogioco ai preferiti dell'utente ------
         [HttpDelete ("{id}")]
         public IActionResult Delete(int id)
         { 
-
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
 
-            dataInputId daTogliere = new dataInputId();
+            int posizioneDaTogliere = idVideogiochiPreferiti.IndexOf(idVideogiochiPreferiti.Where(miPiace => miPiace.Id == id).First());
 
-            daTogliere.Id = id;
-
-            idVideogiochiPreferiti.Remove(daTogliere);
-
-            using (VideogameShopContext db = new VideogameShopContext())
+            if(posizioneDaTogliere != null)
             {
-                Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == daTogliere.Id).First();
+                idVideogiochiPreferiti.RemoveAt(posizioneDaTogliere);
 
-                if (videogiocoDaCambiare != null)
+                using (VideogameShopContext db = new VideogameShopContext())
                 {
-                    if (videogiocoDaCambiare.MiPiace == null)
+                    Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == id).First();
+
+                    if (videogiocoDaCambiare != null)
                     {
-                        videogiocoDaCambiare.MiPiace = 0;
+                        if (videogiocoDaCambiare.MiPiace == null)
+                        {
+                            videogiocoDaCambiare.MiPiace = 0;
+                        }
+
+                        videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace - 1;
+                        db.SaveChanges();
                     }
-
-                    videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace -1;
-                    db.SaveChanges();
                 }
+                return Ok(idVideogiochiPreferiti);
             }
-
-            return Ok(idVideogiochiPreferiti);
+            else
+            {
+                return NotFound();
+            }
         }
 
 

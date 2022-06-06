@@ -131,6 +131,8 @@
     .buttonDislike:hover {
         color: white;
     }
+     
+    /* Gestione del Dropdown */
 
     .Steam-dropdown{
         background-color: #2c4c5c;
@@ -138,4 +140,15 @@
 
     .text_dropdown {
         color: #4fafe2;
+    }
+
+    .dropdown-item:hover {
+        background-color: #14242c !important;
+        color: #4fafe2 !important;
+    }
+
+    /* Fine Gestione del Dropdown */
+
+    .inherit {
+        font-family: inherit;
     }
