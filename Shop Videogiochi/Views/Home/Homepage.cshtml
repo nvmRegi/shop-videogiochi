@@ -2,8 +2,6 @@
     Vista Homepage cliente
 *@
 
-
-
 <div class="container my-5 text-center">
     <h1 class="text-light">Negozio Videogiochi</h1>
 </div>
@@ -46,26 +44,24 @@
     </div>
 
 </div>
-    
-    
-
-
 
 @section Scripts {
     <script type="text/javascript">
         
-        // ------ barra di ricerca ------
         document.getElementById('search_input').addEventListener('keyup', cercaVideogioco);
 
         cercaVideogioco();
 
+        caricaDropdown();
+
+// ------ barra di ricerca ------
         function cercaVideogioco(){
             var inputTesto = document.getElementById('search_input').value;
             caricaVideogiochi(inputTesto);
         }
-        // ------ fine barra di ricerca ------
+// ------ fine barra di ricerca ------
 
-        // ------ funzione carica i videogiochi ------
+// ------ funzione carica i videogiochi ------
         function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML = "";
@@ -90,7 +86,6 @@
 
                         axios.get('/api/VideogiochiMiPiace/Get').then(videogiochiPreferiti => {
 
-                            debugger;
                             if (videogiochiPreferiti.data.length == 0) {
 
                                 document.getElementById("videogiochi_div").innerHTML +=
@@ -115,9 +110,6 @@
                             else {
 
                                 for (var i = 0; i < videogiochiPreferiti.data.length; i++) {
-
-                                    console.log(videogiochiPreferiti.data[i]);
-                                    console.log(videogioco);
 
                                     if (JSON.stringify(videogiochiPreferiti.data[i]) == JSON.stringify(videogioco)) {
                                     
@@ -181,8 +173,6 @@
             })
         }
         
-        caricaDropdown();
-
         function caricaDropdown(){
             document.getElementById('categoria').innerHTML = `<li class="dropdown-item Steam-dropdown text-white" onclick="caricaVideogiochi()">Tutte</li>`;
 
