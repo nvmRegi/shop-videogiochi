@@ -44,8 +44,9 @@
     max-width: 600px;
 /*    max-height: 200px;*/
     min-height: 50px;
-    overflow: auto;
+  /*  overflow: auto;*/
     resize: vertical;
+    text-overflow: ellipsis;
 }
 
 /*-----------bottone like card------*/
@@ -148,3 +149,18 @@
     }
 
     /* Fine Gestione del Dropdown */
+
+    .caroselDark {
+        background-color: #ffffff10;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        border-radius: 20px;
+    }
+
+    .caroselLight {
+        background-color: #00000017;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        border-radius: 20px;
+        color: white;
+    }
