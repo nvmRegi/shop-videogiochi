@@ -62,11 +62,12 @@ namespace Shop_Videogiochi.Controllers.API
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
 
             dataInputId forseGiàInLista = data;
+
             bool inLista = idVideogiochiPreferiti.Any(item => item.Id == forseGiàInLista.Id);
 
             if (inLista is false)
             {
-                idVideogiochiPreferiti.Add(data);
+                idVideogiochiPreferiti.Add(forseGiàInLista);
 
                 using (VideogameShopContext db = new VideogameShopContext())
                 {
@@ -85,8 +86,6 @@ namespace Shop_Videogiochi.Controllers.API
                 }
             }
 
-            
-
             return Ok(idVideogiochiPreferiti);
         }
 
@@ -104,21 +103,27 @@ namespace Shop_Videogiochi.Controllers.API
 
             daTogliere.Id = id;
 
-            idVideogiochiPreferiti.Remove(daTogliere);
+            bool inLista = idVideogiochiPreferiti.Any(item => item.Id == daTogliere.Id);
 
-            using (VideogameShopContext db = new VideogameShopContext())
+            if (inLista is true)
             {
-                Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == daTogliere.Id).First();
 
-                if (videogiocoDaCambiare != null)
+                idVideogiochiPreferiti.Remove(daTogliere);
+
+                using (VideogameShopContext db = new VideogameShopContext())
                 {
-                    if (videogiocoDaCambiare.MiPiace == null)
-                    {
-                        videogiocoDaCambiare.MiPiace = 0;
-                    }
+                    Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == daTogliere.Id).First();
 
-                    videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace -1;
-                    db.SaveChanges();
+                    if (videogiocoDaCambiare != null)
+                    {
+                        if (videogiocoDaCambiare.MiPiace == null)
+                        {
+                            videogiocoDaCambiare.MiPiace = 0;
+                        }
+
+                        videogiocoDaCambiare.MiPiace = videogiocoDaCambiare.MiPiace - 1;
+                        db.SaveChanges();
+                    }
                 }
             }
 
