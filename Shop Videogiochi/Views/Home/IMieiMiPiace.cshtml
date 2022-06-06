@@ -79,8 +79,6 @@
 
                         var url = "/Home/Dettagli/" + videogioco.id;
                                 
-                        var urlMiPiace = "/api/VideogiochiMiPiace/Post" + videogioco.id;
-
                         document.getElementById("videogiochi_div").innerHTML +=
                             `                                       
                                 <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
@@ -123,7 +121,6 @@
                 console.log("C'è stato un errore: " + error);
             })
         }
-
 
         function cercaPerCategoria(id){
             
@@ -177,31 +174,13 @@
             })
         }
 
-        //----------extras--------
-
-        function prendiUnVideogioco(idDaPrendere){
-
-            axios.get('/api/Videogiochi/Get',{
-                params: {
-                    idVideogioco: idDaPrendere
-                }
-            }).then((result) =>{
-
-                console.log("Entrato Get Un videogioco" + result.data[0].miPiace);
-
-
-            }).catch((error) =>{
-                console.log("C'è stato un errore: " + error);
-            })
-        }
 
         function aggiungiVideogiocoFav(idDaPrendere) {
 
             axios.post('/api/VideogiochiMiPiace/Post', {
                 Id: idDaPrendere
             }).then(result => {
-                console.log("Entrato nel post");
-
+                console.log("Aggiunto videogioco ai preferiti");
 
                 document.getElementById("Piace" + idDaPrendere).classList.add("d-none");
 
@@ -219,7 +198,7 @@
             axios.delete('/api/VideogiochiMiPiace/Delete/' + idDaPrendere, {
                 id : idDaPrendere
             }).then(result =>{
-                console.log("Tolto mi piace");
+                console.log("Tolto videogioco dai preferiti");
                 
                 document.getElementById("NonPiace" + idDaPrendere).classList.add("d-none");
 
