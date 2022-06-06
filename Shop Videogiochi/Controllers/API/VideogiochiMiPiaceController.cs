@@ -11,8 +11,7 @@ namespace Shop_Videogiochi.Controllers.API
     [ApiController]
     public class VideogiochiMiPiaceController : ControllerBase
     {
-
-        //Prende i videogiochi preferiti dell'utente
+        // ------ Prende i videogiochi preferiti dell'utente ------
         [HttpGet]
         public IActionResult Get(string? cerca, int? id, int? idCategoria)
         {
@@ -50,7 +49,7 @@ namespace Shop_Videogiochi.Controllers.API
             }
         }
 
-        //Aggiunge un videogioco ai preferiti dell'utente
+        // ------ Aggiunge un videogioco ai preferiti dell'utente ------
         [HttpPost]
         public IActionResult Post([FromBody]dataInputId data)
         {
@@ -86,33 +85,26 @@ namespace Shop_Videogiochi.Controllers.API
                 }
             }
 
+            
+
             return Ok(idVideogiochiPreferiti);
         }
 
-
-
-
-        //Rimuove un videogioco ai preferiti dell'utente
+        // ------ Rimuove un videogioco ai preferiti dell'utente ------
         [HttpDelete ("{id}")]
         public IActionResult Delete(int id)
         { 
-
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
 
-            dataInputId daTogliere = new dataInputId();
+            int posizioneDaTogliere = idVideogiochiPreferiti.IndexOf(idVideogiochiPreferiti.Where(miPiace => miPiace.Id == id).First());
 
-            daTogliere.Id = id;
-
-            bool inLista = idVideogiochiPreferiti.Any(item => item.Id == daTogliere.Id);
-
-            if (inLista is true)
+            if(posizioneDaTogliere != null)
             {
-
-                idVideogiochiPreferiti.Remove(daTogliere);
+                idVideogiochiPreferiti.RemoveAt(posizioneDaTogliere);
 
                 using (VideogameShopContext db = new VideogameShopContext())
                 {
-                    Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == daTogliere.Id).First();
+                    Videogioco videogiocoDaCambiare = db.Videogiochi.Where(videogioco => videogioco.Id == id).First();
 
                     if (videogiocoDaCambiare != null)
                     {
@@ -125,9 +117,12 @@ namespace Shop_Videogiochi.Controllers.API
                         db.SaveChanges();
                     }
                 }
+                return Ok(idVideogiochiPreferiti);
             }
-
-            return Ok(idVideogiochiPreferiti);
+            else
+            {
+                return NotFound();
+            }
         }
 
 
