@@ -61,11 +61,12 @@ namespace Shop_Videogiochi.Controllers.API
             List<dataInputId> idVideogiochiPreferiti = VideogiochiPreferiti.listaVideogiochiPreferiti;
 
             dataInputId forseGiàInLista = data;
+
             bool inLista = idVideogiochiPreferiti.Any(item => item.Id == forseGiàInLista.Id);
 
             if (inLista is false)
             {
-                idVideogiochiPreferiti.Add(data);
+                idVideogiochiPreferiti.Add(forseGiàInLista);
 
                 using (VideogameShopContext db = new VideogameShopContext())
                 {
@@ -83,6 +84,9 @@ namespace Shop_Videogiochi.Controllers.API
                     }
                 }
             }
+
+            
+
             return Ok(idVideogiochiPreferiti);
         }
 
