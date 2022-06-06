@@ -29,7 +29,7 @@ namespace Shop_Videogiochi.Controllers.API
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
                         .Where(videogioco => videogioco.Nome.Contains(search) || videogioco.Descrizione.Contains(search)).ToList();
                 }
-                else if(idCategoria != null)
+                else if(idCategoria != null && idCategoria != -1)
                 {
                     giochiInHomePage = db.Videogiochi.Include(videogioco => videogioco.Categoria)
                         .Where(videogioco => videogioco.CategoriaId == idCategoria).ToList();
