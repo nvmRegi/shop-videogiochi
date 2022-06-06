@@ -36,7 +36,7 @@ namespace Shop_Videogiochi.Controllers.API
                     Videogioco videogiocoTrovato = listaVideogiochiPreferiti.Find(videogioco => videogioco.Id == id);
                     return Ok(videogiocoTrovato);
                 }
-                else if (idCategoria != null)
+                else if (idCategoria != null && idCategoria != -1)
                 {
                     List<Videogioco> videogiochiPerCategoria = listaVideogiochiPreferiti.FindAll(videogioco => videogioco.CategoriaId == idCategoria);
                     return Ok(videogiochiPerCategoria);

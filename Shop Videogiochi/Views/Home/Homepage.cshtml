@@ -68,7 +68,7 @@
     <!-- Dropdown categorie -->
     <div class="dropdown mb-4">
         <a class="btn dropdown-toggle text-light Steam-dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <strong class="text_dropdown">Categorie</strong>
+            <strong class="text_dropdown" id="categoriaAttuale">Categorie</strong>
         </a>
                                 
         <ul class="dropdown-menu Steam-dropdown" aria-labelledby="dropdownMenuLink" id="categoria">
@@ -100,26 +100,24 @@
     </div>
 
 </div>
-    
-    
-
-
 
 @section Scripts {
     <script type="text/javascript">
         
-        // ------ barra di ricerca ------
         document.getElementById('search_input').addEventListener('keyup', cercaVideogioco);
 
         cercaVideogioco();
 
+        caricaDropdown();
+
+// ------ barra di ricerca ------
         function cercaVideogioco(){
             var inputTesto = document.getElementById('search_input').value;
             caricaVideogiochi(inputTesto);
         }
-        // ------ fine barra di ricerca ------
+// ------ fine barra di ricerca ------
 
-        // ------ funzione carica i videogiochi ------
+// ------ funzione carica i videogiochi ------
         function caricaVideogiochi(parametroSearch)
         {
             document.getElementById("videogiochi_div").innerHTML = "";
@@ -128,32 +126,83 @@
                 params: {
                     search: parametroSearch
                 }
-            })
-            .then
-            (result =>
-                {
-                    result.data.forEach (videogioco => 
-                        {   
-                            if(result.data.length == 0){
-                                document.getElementById("wait_videogioco").classList.add("d-none");
-                                document.getElementById("no-videogiochi").classList.remove("d-none");
-                            } else{
-                                document.getElementById("wait_videogioco").classList.add("d-none");
-                                document.getElementById("videogiochi_div").classList.remove("d-none");
+            }).then(result => {
 
-                                var url = "/Home/Dettagli/" + videogioco.id;
-                                
-                                var urlMiPiace = "/api/VideogiochiMiPiace/Post" + videogioco.id;
-                                
+                if (result.data.length == 0) {
+                    document.getElementById("wait_videogioco").classList.add("d-none");
+                    document.getElementById("no-videogiochi").classList.remove("d-none");
+                }
+                else {
+                    document.getElementById("wait_videogioco").classList.add("d-none");
+                    document.getElementById("videogiochi_div").classList.remove("d-none");
 
+                    result.data.forEach(videogioco => {
+
+                        var url = "/Home/Dettagli/" + videogioco.id;
+
+                        axios.get('/api/VideogiochiMiPiace/Get').then(videogiochiPreferiti => {
+
+                            if (videogiochiPreferiti.data.length == 0) {
 
                                 document.getElementById("videogiochi_div").innerHTML +=
+                                    `                                       
+                                    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                        <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
+                                            <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                            <div class="card-body pt-2 mt-0">
+                                                <h5 class="card-title py-2 text-dark">${videogioco.nome} <br> ${videogioco.categoria.tema} <br> € ${videogioco.prezzo}</h5>
+                                                <a href="${url}" class="btn btn-danger">Acquista</a>
+                                                <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike">${videogioco.miPiace}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                </button>
+                                                <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike d-none">${videogioco.miPiace + 1}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>                                                  
+                                    </div>                                       
+                                `
+                            } 
+                            else {
+
+                                for (var i = 0; i < videogiochiPreferiti.data.length; i++) {
+
+                                    if (JSON.stringify(videogiochiPreferiti.data[i]) == JSON.stringify(videogioco)) {
+                                    
+                                        console.log("contenuto");
+
+                                        document.getElementById("videogiochi_div").innerHTML +=
+                                        `                                       
+                                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                                <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
+                                                    <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                                    <div class="card-body pt-2 mt-0">
+                                                        <h5 class="card-title py-2 text-dark">${videogioco.nome} <br> ${videogioco.categoria.tema} <br> € ${videogioco.prezzo}</h5>
+                                                        <a href="${url}" class="btn btn-danger">Acquista</a>
+                                                        <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike d-none">${videogioco.miPiace}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                        </button>
+                                                        <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike">${videogioco.miPiace + 1}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>                                                  
+                                            </div>                                       
+                                        `
+                                        break;
+                                    }
+                                }   
+                                
+                                if (JSON.stringify(videogiochiPreferiti.data[i]) != JSON.stringify(videogioco)) {
+                                    console.log("Non contenuto");
+
+                                    document.getElementById("videogiochi_div").innerHTML +=
                                     `                                       
                                         <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
                                             <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
                                                 <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
                                                 <div class="card-body pt-2 mt-0">
-                                                    <h5 class="card-title py-2 text-dark">${videogioco.nome} <br> ${videogioco.categoria.tema} <br> € ${videogioco.prezzo}</h5>
+                                                    <h5 class="card-title py-2 text-dark">${videogioco.nome}  <br> <font face="Verdana" size="3">${videogioco.categoria.tema}</font> <br> € ${videogioco.prezzo}</h5>
                                                     <a href="${url}" class="btn btn-danger">Acquista</a>
                                                     <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike">${videogioco.miPiace}
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
@@ -165,19 +214,23 @@
                                             </div>                                                  
                                         </div>                                       
                                     `
+                                }
+                            
                             }
-                        }
-                    )
+
+                           
+                        }).catch(error => {
+                            console.log("C'è stato un errore: " + error);
+                        })
+                    })         
                 }
-            ).catch((error) =>{
+            }).catch((error) =>{
                 console.log("C'è stato un errore: " + error);
             })
         }
         
-        caricaDropdown();
-
         function caricaDropdown(){
-            document.getElementById('categoria').innerHTML = `<li class="dropdown-item Steam-dropdown text-white" onclick="caricaVideogiochi()">Tutte</li>`;
+            document.getElementById('categoria').innerHTML = `<li class="dropdown-item Steam-dropdown text-white" onclick="cercaPerCategoria(-1)">Tutte</li>`;
 
             axios.get('api/Categoria/Get')
             .then((result) =>{
@@ -193,71 +246,125 @@
             })
         }
 
-        //function EvidenziaScelta(){
-        //document.getElementsByClass('StyleCategoria').style.backgroundcolor = "#14242c";
-        //}
-
-
         function cercaPerCategoria(id){
 
-            //document.getElementById("videogioco_div").innerHTML = "";
+            axios.get('/api/Categoria/Get', {
+                params: {
+                    idCategoria: id
+                }
+            }).then(result => {
+
+                if (result.data.length > 1) {
+                    document.getElementById("categoriaAttuale").innerHTML = `Categorie`;
+                } 
+                else {
+                    document.getElementById("categoriaAttuale").innerHTML = `${result.data.tema}`;
+                }
+            }).catch(error => {
+                console.log("C'é stato un errore: " + error);
+            })
 
             axios.get('api/Videogiochi/Get',{
                 params:{
                     idCategoria: id
                 }
-            }).then((result) =>{
+            }).then(result =>{
 
-                if(result.data.length == 0){
+                if (result.data.length == 0) {
                     document.getElementById("videogiochi_div").classList.add("d-none");
                     document.getElementById("no-videogiochi").classList.remove("d-none");
-                } else{
+                }
+                else {
                     document.getElementById("no-videogiochi").classList.add("d-none");
                     document.getElementById("videogiochi_div").classList.remove("d-none");
                     document.getElementById("videogiochi_div").innerHTML = "";
 
-                    result.data.forEach(videogioco =>{
+                    result.data.forEach(videogioco => {
 
-                    var idVideogame = videogioco.id;
-                    var url = "/Home/Dettagli/" + videogioco.id;
+                        var url = "/Home/Dettagli/" + videogioco.id;
 
-                    document.getElementById("videogiochi_div").innerHTML +=
-                        `                                       
-                            <div class="col-12 col-lg-4 col-md-6">
-                                <div class="card p-3 mb-5 pt-0 px-0 text-center">
-                                    <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
-                                    <div class="card-body pt-2 mt-0">
-                                        <h5 class="card-title text-dark">${videogioco.nome}</h5>
-                                        <a href="${url}" class="btn btn-danger">Dettagli</a>
-                                         <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike">${videogioco.miPiace}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
-                                         </button>
-                                         <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike d-none">${videogioco.miPiace + 1}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
-                                         </button>
-                                    </div>
-                                </div>                                                  
-                            </div>                                         
-                        `
-                    })}
+                        axios.get('/api/VideogiochiMiPiace/Get').then(videogiochiPreferiti => {
 
-            }).catch(error =>{
-                console.log("C'è stato un errore: " + error);
-            })
-        }
+                            if (videogiochiPreferiti.data.length == 0) {
 
-        function prendiUnVideogioco(idDaPrendere){
+                                document.getElementById("videogiochi_div").innerHTML +=
+                                    `                                       
+                                    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                        <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
+                                            <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                            <div class="card-body pt-2 mt-0">
+                                                <h5 class="card-title py-2 text-dark">${videogioco.nome} <br> ${videogioco.categoria.tema} <br> € ${videogioco.prezzo}</h5>
+                                                <a href="${url}" class="btn btn-danger">Acquista</a>
+                                                <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike">${videogioco.miPiace}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                </button>
+                                                <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike d-none">${videogioco.miPiace + 1}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>                                                  
+                                    </div>                                       
+                                `
+                            }
+                            else {
 
-            axios.get('/api/Videogiochi/Get',{
-                params: {
-                    idVideogioco: idDaPrendere
+                                for (var i = 0; i < videogiochiPreferiti.data.length; i++) {
+
+                                    if (JSON.stringify(videogiochiPreferiti.data[i]) == JSON.stringify(videogioco)) {
+
+                                        console.log("contenuto");
+
+                                        document.getElementById("videogiochi_div").innerHTML +=
+                                            `                                       
+                                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                                <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
+                                                    <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                                    <div class="card-body pt-2 mt-0">
+                                                        <h5 class="card-title py-2 text-dark">${videogioco.nome} <br> ${videogioco.categoria.tema} <br> € ${videogioco.prezzo}</h5>
+                                                        <a href="${url}" class="btn btn-danger">Acquista</a>
+                                                        <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike d-none">${videogioco.miPiace}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                        </button>
+                                                        <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike">${videogioco.miPiace + 1}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>                                                  
+                                            </div>                                       
+                                        `
+                                        break;
+                                    }
+                                }
+
+                                if (JSON.stringify(videogiochiPreferiti.data[i]) != JSON.stringify(videogioco)) {
+                                    console.log("Non contenuto");
+
+                                    document.getElementById("videogiochi_div").innerHTML +=
+                                        `                                       
+                                        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                            <div class="card p-3 mb-5 pt-0 px-0 text-center" style="width: 18rem; background-image: linear-gradient(to right, #d1edf7, white)">
+                                                <img src="${videogioco.foto}" class="card-img-top img-fluid" alt="${videogioco.nome}" />
+                                                <div class="card-body pt-2 mt-0">
+                                                    <h5 class="card-title py-2 text-dark">${videogioco.nome}  <br> <font face="Verdana" size="3">${videogioco.categoria.tema}</font> <br> € ${videogioco.prezzo}</h5>
+                                                    <a href="${url}" class="btn btn-danger">Acquista</a>
+                                                    <button id="Piace${videogioco.id}" onclick="aggiungiVideogiocoFav(${videogioco.id})" class="buttonLike">${videogioco.miPiace}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                    </button>
+                                                    <button id="NonPiace${videogioco.id}" onclick="togliVideogiocoFav(${videogioco.id})" class="buttonDislike d-none">${videogioco.miPiace + 1}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>
+                                                    </button>
+                                                </div>
+                                            </div>                                                  
+                                        </div>                                       
+                                    `
+                                }
+
+                            }
+                        })
+                        
+                    })
                 }
-            }).then((result) =>{
-
-                console.log("Entrato Get Un videogioco" + result.data[0].miPiace);
-
-
-            }).catch((error) =>{
+            }).catch(error =>{
                 console.log("C'è stato un errore: " + error);
             })
         }
