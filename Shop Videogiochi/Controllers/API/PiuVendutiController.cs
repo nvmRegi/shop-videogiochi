@@ -16,10 +16,13 @@ namespace Shop_Videogiochi.Controllers.API
             
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                List<Videogioco> listaPiuVenduti = db.Videogiochi.FromSqlRaw("SELECT Videogiochi.* FROM Videogiochi INNER JOIN Ordini ON Videogiochi.Id = Ordini.VideogiocoId WHERE MONTH(data) = MONTH(DATEADD(month, -1, GETDATE())) AND YEAR(data) = YEAR(GETDATE()) GROUP BY Videogiochi.Id, Videogiochi.Nome, Videogiochi.Descrizione, Videogiochi.Prezzo, Videogiochi.Foto, Videogiochi.CategoriaId, Videogiochi.MiPiace ORDER BY SUM(Quantità) DESC").ToList();
+                List<Videogioco> listaPiuVenduti = db.Videogiochi.FromSqlRaw("SELECT Videogiochi.* FROM Videogiochi INNER JOIN Ordini ON Videogiochi.Id = Ordini.VideogiocoId WHERE DAY(data) >= DAY(DATEADD(day, -30, GETDATE())) AND DAY(data) <= GETDATE() AND YEAR(data) = YEAR(GETDATE()) GROUP BY Videogiochi.Id, Videogiochi.Nome, Videogiochi.Descrizione, Videogiochi.Prezzo, Videogiochi.Foto, Videogiochi.CategoriaId, Videogiochi.MiPiace ORDER BY SUM(Quantità) DESC").ToList();
 
                 return Ok(listaPiuVenduti);
             }
         }
     }
 }
+
+//Condizione del Where prima della modifica -30
+//MONTH(data) = MONTH(DATEADD(month, -1, GETDATE())
