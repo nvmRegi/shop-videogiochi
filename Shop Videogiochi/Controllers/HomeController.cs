@@ -49,7 +49,8 @@ namespace Shop_Videogiochi.Controllers
                         
             using (VideogameShopContext db = new VideogameShopContext())
             {
-                model.videogioco = db.Videogiochi.Where(videogioco => videogioco.Id == id).First();
+                model.videogioco = db.Videogiochi.Include(Videogioco => Videogioco.Categoria).Where(videogioco => videogioco.Id == id).First();
+                
                 if (!ModelState.IsValid)
                 {
                     return View("Dettaglio", model);
