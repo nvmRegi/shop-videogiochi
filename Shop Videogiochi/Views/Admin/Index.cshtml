@@ -8,11 +8,11 @@
  
 
     <div class="dropdown mb-4">
-        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorie
+        <a class="btn dropdown-toggle text-light Steam-dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <strong class="text_dropdown" id="categoriaAttuale">Categorie</strong>
         </a>
                                 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="categoria">
+        <ul class="dropdown-menu Steam-dropdown" aria-labelledby="dropdownMenuLink" id="categoria">
             <!-- qui verranno mostrate le categoria nel dropdown-->
         </ul>
     </div>
@@ -94,7 +94,7 @@
         function caricaDropdown(){
 
             var urlAdmin = "/Admin";
-            document.getElementById('categoria').innerHTML = `<li class="dropdown-item"><a href="${urlAdmin}" style="color: inherit; text-decoration: inherit">Tutte</a></li>`;
+            document.getElementById('categoria').innerHTML = `<li class="dropdown-item text-white"><a href="${urlAdmin}" style="color: inherit; text-decoration: inherit">Tutte</a></li>`;
 
             
             
@@ -109,7 +109,7 @@
 
                     document.getElementById('categoria').innerHTML +=
                     `
-                    <a href="${url}" style="color: inherit; text-decoration: inherit"><li class="dropdown-item">${categoria.tema}</li></a>
+                    <a href="${url}" style="color: inherit; text-decoration: inherit"><li class="dropdown-item text-white">${categoria.tema}</li></a>
                     `
                 })
             }).catch(error =>{
