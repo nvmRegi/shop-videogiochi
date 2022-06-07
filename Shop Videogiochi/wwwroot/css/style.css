@@ -169,3 +169,20 @@
     .inherit {
         font-family: inherit;
     }
+
+.badgeCategoria {
+    display: inline-block;
+    z-index: 3;
+    display: block;
+    top: 18px;
+    right: 0px;
+    background-color: #dc3545;
+    color: black;
+    height: 23px;
+    width: auto;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 3px;
+    position: absolute;
+    border-radius: 10px 0px 0px 10px;
+}
